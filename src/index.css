@@ -1,0 +1,40 @@
+@font-face {
+  font-family: OkezoneChamoonRegular;
+  src: local("OkezoneChamoonRegular"),
+    url("./fonts/OkezoneChamoonRegular.ttf") format("truetype");
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+.logo {
+  font-family: OkezoneChamoonRegular;
+}
+
+body:not(.logo) {
+  font-family: "Gabarito", sans-serif;
+}
+
+/* blue: #5398bf */
+/* light-yellow:  #e6b833 */
+/* dark yellow: #e9b82f */
+/* red: #c83f21 */
+/* cream: #fcffea */
+/* green: #95bb5c */
+/* sorta black: #030304 */
