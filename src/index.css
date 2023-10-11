@@ -89,6 +89,13 @@ body:not(.logo) {
   font-family: "Gabarito", sans-serif;
 }
 
+body {
+  position: relative;
+  background-color: #fcffea;
+  color: #030304;
+  min-height: 100vh;
+}
+
 /* blue: #5398bf */
 /* light-yellow:  #e6b833 */
 /* dark yellow: #e9b82f */
@@ -96,3 +103,13 @@ body:not(.logo) {
 /* cream: #fcffea */
 /* green: #95bb5c */
 /* sorta black: #030304 */
+/* bubble gum: #ba9ffb */
+
+.tag-keycap {
+}
+
+.tag-keyboard {
+}
+
+.tag-switch {
+}
