@@ -64,7 +64,7 @@ export default {
       keyframes: {
         float: {
           "0%, 100%": { transform: "translate(0,0)" },
-          "50%": { transform: "translate(0,10px)" },
+          "50%": { transform: "translate(0,20px)" },
         },
         "accordion-down": {
           from: { height: 0 },

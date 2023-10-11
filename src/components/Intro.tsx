@@ -2,8 +2,8 @@ import { blob, keyboard } from "../assets";
 
 const Intro = () => {
   return (
-    <div className="flex flex-wrap items-center gap-5">
-      <div className="flex flex-col max-w-[60%]">
+    <div className="flex items-center gap-5 max-md:flex-wrap">
+      <div className="flex flex-col xl:max-w-[60%] lg:max-w-[50%] md:max-w-[40%] max-md:max-w-full">
         <p className="text-lg text-gray-400">Welcome to</p>
         <h3 className="text-4xl font-bold">Keyboard Things</h3>
         <p className="mt-5 text-lg">
@@ -19,7 +19,7 @@ const Intro = () => {
         <img
           src={keyboard}
           alt="keyboard"
-          className="w-[300px] animate-floating drop-shadow-2xl absolute top-10 left-[85px]"
+          className="w-[300px] animate-floating drop-shadow-2xl absolute top-12 left-[90px] max-sm:w-[70%] max-sm:left-[18%] max-[320px]:w-[60%] max-[320px]:left-[23%]"
         />
       </div>
     </div>
