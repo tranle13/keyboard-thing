@@ -1,11 +1,18 @@
-# React + TypeScript + Vite
+## Dependencies
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+(for the sake of my goldfish memory when I need to remove a package/library)
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Tailwind
+  - postcss
+  - autoprefixer
+- shadcn-ui
+  - @types/node
+  - class-variance-authority
+  - clsx
+  - lucide-react
+  - tailwind-merge
+  - tailwindcss-animate
+  - @tanstack/react-table
 
 ## Expanding the ESLint configuration
 
