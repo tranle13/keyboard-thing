@@ -89,6 +89,13 @@ body:not(.logo) {
   font-family: "Gabarito", sans-serif;
 }
 
+body {
+  position: relative;
+  background-color: #fcffea;
+  color: #030304;
+  min-height: 100vh;
+}
+
 /* blue: #5398bf */
 /* light-yellow:  #e6b833 */
 /* dark yellow: #e9b82f */
@@ -96,3 +103,34 @@ body:not(.logo) {
 /* cream: #fcffea */
 /* green: #95bb5c */
 /* sorta black: #030304 */
+/* bubble gum: #ba9ffb */
+
+div[class*="tag-"] {
+  border-width: 2px;
+  color: #030304;
+}
+
+.tag-keycap {
+  background-color: rgba(186, 159, 251, 0.5);
+  border-color: #ba9ffb;
+}
+
+.tag-keyboard {
+  background-color: rgba(83, 152, 191, 0.5);
+  border-color: #5398bf;
+}
+
+.tag-switch {
+  background-color: rgba(200, 63, 33, 0.5);
+  border-color: #c83f21;
+}
+
+div[class*="status-"] {
+  color: #030304;
+}
+.status-ic {
+  background-color: #e6b833;
+}
+.status-gb {
+  background-color: #95bb5c;
+}
