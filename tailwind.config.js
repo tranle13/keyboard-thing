@@ -22,6 +22,7 @@ export default {
         "sorta-blue": "#5398bf",
         "sorta-black": "#030304",
         "bubble-gum": "#ba9ffb",
+        "sorta-yellow": "#ffc642",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

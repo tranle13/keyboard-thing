@@ -96,8 +96,44 @@ body {
   min-height: 100vh;
 }
 
+.mobile-menu ul {
+  transition: 1.5s ease-in-out;
+}
+.mobile-menu ul.open {
+  transform: translateX(500px);
+}
+.mobile-menu ul.close {
+  transform: translateX(0);
+}
+
+.ham-menu {
+  width: 20px;
+}
+
+.ham-menu div,
+.ham-menu:after,
+.ham-menu:before {
+  background-color: #fcffea;
+  content: "";
+  display: block;
+  height: 3px;
+  border-radius: 100px;
+  margin: 5px 0;
+  transition: 0.5s;
+}
+
+.ham-menu.close:before {
+  transform: translateY(7.7px) rotate(135deg);
+}
+.ham-menu.close:after {
+  transform: translateY(-7.7px) rotate(-135deg);
+}
+.ham-menu.close div {
+  transform: scale(0);
+}
+
 /* blue: #5398bf */
-/* light-yellow:  #e6b833 */
+/* light-yellow:  #FFC642 */
 /* dark yellow: #e9b82f */
 /* red: #c83f21 */
 /* cream: #fcffea */
@@ -129,7 +165,7 @@ div[class*="status-"] {
   color: #030304;
 }
 .status-ic {
-  background-color: #e6b833;
+  background-color: #ffc642;
 }
 .status-gb {
   background-color: #95bb5c;
