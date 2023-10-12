@@ -1,4 +1,26 @@
-import { agres_keyboard, mehka, naturalpack, thenajin, zerog } from "../assets";
+import {
+  agres_keyboard,
+  commentor_1,
+  commentor_2,
+  img_1,
+  img_10,
+  img_11,
+  img_12,
+  img_2,
+  img_3,
+  img_4,
+  img_5,
+  img_6,
+  img_7,
+  img_8,
+  img_9,
+  mehka,
+  naturalpack,
+  skok,
+  thenajin,
+  unknown,
+  zerog,
+} from "../assets";
 
 const trendIcs = [
   {
@@ -49,7 +71,53 @@ const trendIcs = [
 ];
 
 const post = {
-  title: "A keyboard styled after the 80s classic",
+  title: "tastierarossa // A keyboard styled after the 80s classic",
+  status: "IC",
+  tags: [{ name: "keyboard", color: "tag-keyboard" }],
+  ic_link: "https://forms.gle/aFiZrsEqfHnYhcbr7",
+  author: "skok",
+  author_pfp: skok,
+  date: "Sep 17, 2023",
+  description:
+    'tastierarossa. A keyboard styled after the 80s classic. Name In Italian testarossa means "red head" In Italian tastierarossa means "red keyboard" Options Red/Black/Sandblasted SS E-White/E-Black/Sandblasted SS Black/Grey/Mirror PVD Black Brass Plate Options Alu Full/Half PC Full/Half Pricing (based on 125 units + some extras) Board/PCB/Plate/Dboard: ~$550 Extra Plates: ~$35 Extra PCBs: ~$50 Specs Top Mount or O-ring 7 degree typing angle 19.8mm Adjusted Front Height ~3.8LBs unbuilt 6063 Skuf Feet',
+  images: [
+    {
+      img: img_1,
+      caption: "Keyboard",
+    },
+    { img: img_2 },
+    { img: img_3, caption: "Inspiration: Ferrari Testarossa" },
+    { img: img_4, caption: "Engraving" },
+    { img: img_5, caption: "Engraving" },
+    { img: img_6 },
+    { img: img_7 },
+    { img: img_8 },
+    { img: img_9 },
+    { img: img_10, caption: "Render" },
+    { img: img_11, caption: "Render" },
+    { img: img_12, caption: "Render" },
+  ],
+  comments: [
+    {
+      author: "C_L | Soup",
+      author_pfp: unknown,
+      content: "Holy moly this looks real good.",
+      date: "Sep 11, 2023",
+    },
+    {
+      author: "Bolsa Huncho",
+      author_pfp: commentor_1,
+      content:
+        "So stoked to have been a part of this project and watching how far its coming along. Now where my racecar boys at",
+      date: "Sep 17, 2023",
+    },
+    {
+      author: "whirlwind",
+      author_pfp: commentor_2,
+      content: "Very nice, looking forward to this 👍🏻",
+      date: "Sep  17, 2023",
+    },
+  ],
 };
 
-export { trendIcs };
+export { post, trendIcs };
