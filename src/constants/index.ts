@@ -48,4 +48,8 @@ const trendIcs = [
   },
 ];
 
+const post = {
+  title: "A keyboard styled after the 80s classic",
+};
+
 export { trendIcs };
