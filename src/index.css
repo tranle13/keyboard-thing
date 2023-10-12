@@ -204,3 +204,32 @@ div[class*="status-"] {
 .next {
   right: 10px;
 }
+
+/* .author-post:before {
+  background-color: red;
+  bottom: 0;
+  content: "";
+  display: block;
+  left: 20px;
+  z-index: -1;
+  position: absolute;
+  top: 0;
+  width: max(2px, 0.125rem);
+} */
+.post:before,
+.post:after {
+  display: block;
+  position: absolute;
+  top: 11px;
+  right: 100%;
+  left: -8px;
+  background-color: burlywood;
+  width: 8px;
+  height: 16px;
+  content: "";
+  pointer-events: none;
+  clip-path: polygon(0 50%, 100% 0, 100% 100%);
+}
+.post:after {
+  margin-left: 1.5px;
+}
