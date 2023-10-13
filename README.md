@@ -13,6 +13,8 @@
   - tailwind-merge
   - tailwindcss-animate
   - @tanstack/react-table
+  - @radix-ui/react-popover
+  - @radix-ui/react-slot
 - tinymce
   - @tinymce/tinymce-react
   - fs-extra
