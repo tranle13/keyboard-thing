@@ -8,7 +8,7 @@ const Detail = () => {
   const data = post as Post;
 
   return (
-    <div className="w-full">
+    <div className="w-full px-10 pb-5">
       <div className="title-and-tags flex my-5 gap-3">
         <Badge className={`h-min mt-1 status-${data.status.toLowerCase()}`}>
           {data.status}
