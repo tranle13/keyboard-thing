@@ -1,5 +1,10 @@
 import { Button } from "@/shadcn-ui/components/ui/button";
 import { Input } from "@/shadcn-ui/components/ui/input";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/shadcn-ui/components/ui/popover";
 import { PostImage } from "@/shared/interfaces";
 import { Editor } from "@tinymce/tinymce-react";
 import React, { useRef, useState } from "react";
@@ -28,6 +33,15 @@ const NewTopic = () => {
       .slice(0, index)
       .concat(images.slice(index + 1, images.length));
     setImages(temp);
+  };
+
+  const handleImageChange = (index: number, url: string) => {
+    setImages(
+      images.map((image, idx) => {
+        if (idx === index) image.url = url;
+        return image;
+      })
+    );
   };
 
   const handleCaptionChange = (index: number, cap: string) => {
@@ -68,15 +82,33 @@ const NewTopic = () => {
           {images.map((image, index) => {
             return (
               <div className="flex gap-3 items-center" key={index}>
-                {image.url ? (
-                  <div className="rounded-xl overflow-hidden">
-                    <img src={image.url} alt={`image-${index}`} />
-                  </div>
-                ) : (
-                  <div className="border-dotted border-2 border-sorta-black text-xl p-2 rounded-xl">
-                    <HiOutlineCamera />
-                  </div>
-                )}
+                <Popover>
+                  <PopoverTrigger>
+                    {image.url ? (
+                      <div className="rounded-xl overflow-hidden w-10 h-10">
+                        <img src={image.url} alt={`image-${index}`} />
+                      </div>
+                    ) : (
+                      <div className="border-dotted border-2 border-sorta-black text-xl p-2 rounded-xl w-10 h-10">
+                        <HiOutlineCamera />
+                      </div>
+                    )}
+                  </PopoverTrigger>
+                  <PopoverContent>
+                    <div className="grid grid-cols-3 items-center gap-4">
+                      <label htmlFor="image-url">Image URL</label>
+                      <Input
+                        id="image-url"
+                        className="col-span-2 h-8"
+                        value={image.url}
+                        onChange={(e) =>
+                          handleImageChange(index, e.target.value)
+                        }
+                      />
+                    </div>
+                  </PopoverContent>
+                </Popover>
+
                 <Input
                   className="border-0 bg-cream/40"
                   type="text"
