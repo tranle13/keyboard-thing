@@ -1,36 +1,107 @@
 import { Button } from "@/shadcn-ui/components/ui/button";
 import { Input } from "@/shadcn-ui/components/ui/input";
+import { PostImage } from "@/shared/interfaces";
 import { Editor } from "@tinymce/tinymce-react";
-import { useRef, useState } from "react";
-import { HiOutlineCamera } from "react-icons/hi2";
+import React, { useRef, useState } from "react";
+import {
+  HiOutlineCamera,
+  HiOutlinePlus,
+  HiOutlineTrash,
+} from "react-icons/hi2";
 
 const NewTopic = () => {
   const editorRef = useRef(null);
   const [title, setTitle] = useState("");
-  const log = () => {
-    if (editorRef.current) {
-      console.log(editorRef.current.getContent());
-    }
+  const [images, setImages] = useState<PostImage[]>([
+    {
+      url: "",
+      caption: "",
+    },
+  ]);
+
+  const handleAddImage = () => {
+    setImages([...images, { url: "", caption: "" }]);
   };
+
+  const handleRemoveImage = (index: number) => {
+    const temp = images
+      .slice(0, index)
+      .concat(images.slice(index + 1, images.length));
+    setImages(temp);
+  };
+
+  const handleCaptionChange = (index: number, cap: string) => {
+    setImages(
+      images.map((image, idx) => {
+        if (idx === index) image.caption = cap;
+        return image;
+      })
+    );
+  };
+
+  const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log(editorRef.current?.getContent());
+  };
+
+  const handleDiscard = (e: React.SyntheticEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  };
+
   return (
-    <div className="new-topic flex flex-col gap-5">
+    <div className="new-topic flex flex-col">
       <h2 className="text-2xl font-bold my-6">New Topic</h2>
-      <form className="bg-sorta-yellow/50 flex flex-col gap-3 p-5 rounded-xl">
+      <form
+        className="bg-sorta-yellow/50 flex flex-col gap-3 p-5 rounded-xl"
+        onSubmit={(e) => handleSubmit(e)}
+        onReset={(e) => handleDiscard(e)}
+      >
         <Input
           className="border-0 bg-cream/40"
           type="text"
           placeholder="Topic title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
         />
 
-        <div className="flex gap-3">
-          <div className="border-dotted border-2 border-sorta-black text-xl p-2 rounded-xl">
-            <HiOutlineCamera />
-          </div>
-          <Input
-            className="border-0 bg-cream/40"
-            type="text"
-            placeholder="Image caption (optional)"
-          />
+        <div className="flex gap-3 flex-col my-5">
+          {images.map((image, index) => {
+            return (
+              <div className="flex gap-3 items-center" key={index}>
+                {image.url ? (
+                  <div className="rounded-xl overflow-hidden">
+                    <img src={image.url} alt={`image-${index}`} />
+                  </div>
+                ) : (
+                  <div className="border-dotted border-2 border-sorta-black text-xl p-2 rounded-xl">
+                    <HiOutlineCamera />
+                  </div>
+                )}
+                <Input
+                  className="border-0 bg-cream/40"
+                  type="text"
+                  placeholder="Image caption (optional)"
+                  value={image.caption || ""}
+                  onChange={(e) => handleCaptionChange(index, e.target.value)}
+                />
+                {index === 0 ? (
+                  <span
+                    className="cursor-pointer text-sorta-black text-xl"
+                    onClick={handleAddImage}
+                  >
+                    <HiOutlinePlus />
+                  </span>
+                ) : (
+                  <span
+                    className="cursor-pointer text-sorta-black text-xl"
+                    onClick={() => handleRemoveImage(index)}
+                  >
+                    <HiOutlineTrash />
+                  </span>
+                )}
+              </div>
+            );
+          })}
         </div>
 
         <Input
@@ -59,10 +130,15 @@ const NewTopic = () => {
         />
 
         <div className="flex gap-3 justify-end">
-          <Button variant="ghost" className="text-sorta-yellow">
+          <Button variant="ghost" className="text-sorta-yellow" type="reset">
             Discard
           </Button>
-          <Button className="bg-sorta-yellow text-sorta-black">Post</Button>
+          <Button
+            className="bg-sorta-yellow text-sorta-black hover:bg-sorta-dark-yellow"
+            type="submit"
+          >
+            Post
+          </Button>
         </div>
       </form>
     </div>
