@@ -10,20 +10,18 @@ import thenajin from "./profiles/thenajin.jpeg";
 import unknown from "./profiles/unknown.png";
 import zerog from "./profiles/zerog.jpeg";
 
-import {
-  default as img_1,
-  default as img_10,
-  default as img_11,
-  default as img_12,
-  default as img_2,
-  default as img_3,
-  default as img_4,
-  default as img_5,
-  default as img_6,
-  default as img_7,
-  default as img_8,
-  default as img_9,
-} from "./detail/img_1.jpeg";
+import img_1 from "./detail/img_1.jpeg";
+import img_10 from "./detail/img_10.jpeg";
+import img_11 from "./detail/img_11.jpeg";
+import img_12 from "./detail/img_12.jpeg";
+import img_2 from "./detail/img_2.jpeg";
+import img_3 from "./detail/img_3.jpg";
+import img_4 from "./detail/img_4.jpeg";
+import img_5 from "./detail/img_5.jpeg";
+import img_6 from "./detail/img_6.jpeg";
+import img_7 from "./detail/img_7.jpeg";
+import img_8 from "./detail/img_8.jpeg";
+import img_9 from "./detail/img_9.jpeg";
 
 export {
   agres_keyboard,

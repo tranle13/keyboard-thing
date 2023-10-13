@@ -2,46 +2,9 @@ import Carousel from "@/components/Carousel";
 import { post } from "@/constants";
 import { Badge } from "@/shadcn-ui/components/ui/badge";
 import { buttonVariants } from "@/shadcn-ui/components/ui/button";
-
-interface Post {
-  title: string;
-  status: "IC" | "GB";
-  tags: Tag[];
-  ic_link: string;
-  author: string;
-  author_pfp: string;
-  date: string;
-  description: string;
-  images: PostImage[];
-  comments: Comment[];
-}
-
-interface Tag {
-  name: string;
-  color: string;
-}
-
-interface PostImage {
-  img: string;
-  caption?: string;
-}
-
-interface Comment {
-  author: string;
-  author_pfp: string;
-  content: string;
-  date: string;
-}
+import { Post } from "@/shared/interfaces";
 
 const Detail = () => {
-  const imgs = [
-    "https://amherststudent.com/content/images/size/w1200/2022/10/GHIBLI.jpg",
-    "https://cdn.britannica.com/86/212186-050-EC39872A/My-Neighbor-Totoro-Hayao-Miyazaki-Studio-Ghibli-movie-still-1988.jpg",
-    "https://cdn.mos.cms.futurecdn.net/D6PhGgGfSEGHnNG92wzFBQ-1200-80.jpg",
-    "https://m.media-amazon.com/images/M/MV5BMTQ5ODk1NDg2NF5BMl5BanBnXkFtZTcwMTM5OTEyNw@@._V1_.jpg",
-    "https://m.media-amazon.com/images/M/MV5BMTk2MzI0ODc1N15BMl5BanBnXkFtZTcwMTI5OTEyNw@@._V1_.jpg",
-    "https://i.ytimg.com/vi/vqFry4BkhsU/maxresdefault.jpg",
-  ];
   const data = post as Post;
 
   return (
@@ -82,14 +45,14 @@ const Detail = () => {
             />
           </div>
           <div className="post border-[1px] border-solid border-gray-200 rounded-lg ml-14 relative after:bg-cream before:bg-gray-200">
-            <div className="px-5 py-2 border-b-gray-200 border-solid border-b-[1px]">
+            <div className="px-4 py-2 border-b-gray-200 border-solid border-b-[1px]">
               <span className="font-bold">{data.author}</span> &nbsp;
               <span className="text-gray-400 text-sm">
                 posted on {data.date}
               </span>
             </div>
-            <div className="flex flex-col items-center gap-5 p-5">
-              <Carousel images={imgs} />
+            <div className="flex flex-col items-center gap-5 p-4">
+              <Carousel images={data.images} />
               <p>{data.description}</p>
             </div>
           </div>
@@ -104,13 +67,13 @@ const Detail = () => {
               />
             </div>
             <div className="post border-[1px] border-solid border-gray-200 rounded-lg ml-14 relative after:bg-cream before:bg-gray-200">
-              <div className="px-5 py-2 border-b-gray-200 border-solid border-b-[1px]">
+              <div className="px-4 py-2 border-b-gray-200 border-solid border-b-[1px]">
                 <span className="font-bold">{comment.author}</span> &nbsp;
                 <span className="text-gray-400 text-sm">
                   posted on {comment.date}
                 </span>
               </div>
-              <div className="p-5">
+              <div className="p-4">
                 <p>{comment.content}</p>
               </div>
             </div>
