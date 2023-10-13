@@ -81,6 +81,17 @@
     url("./fonts/OkezoneChamoonRegular.ttf") format("truetype");
 }
 
+:root {
+  --cream: #fcffea;
+  --blue: #5398bf;
+  --light-yellow: #ffc642;
+  --dark-yellow: #e9b82f;
+  --red: #c83f21;
+  --green: #95bb5c;
+  --sorta-black: #030304;
+  --bubble-gum: #ba9ffb;
+}
+
 .logo {
   font-family: OkezoneChamoonRegular;
 }
@@ -91,8 +102,8 @@ body:not(.logo) {
 
 body {
   position: relative;
-  background-color: #fcffea;
-  color: #030304;
+  background-color: var(--cream);
+  color: var(--sorta-black);
   min-height: 100vh;
 }
 
@@ -113,7 +124,7 @@ body {
 .ham-menu div,
 .ham-menu:after,
 .ham-menu:before {
-  background-color: #fcffea;
+  background-color: var(--cream);
   content: "";
   display: block;
   height: 3px;
@@ -132,43 +143,34 @@ body {
   transform: scale(0);
 }
 
-/* blue: #5398bf */
-/* light-yellow:  #FFC642 */
-/* dark yellow: #e9b82f */
-/* red: #c83f21 */
-/* cream: #fcffea */
-/* green: #95bb5c */
-/* sorta black: #030304 */
-/* bubble gum: #ba9ffb */
-
 div[class*="tag-"] {
   border-width: 2px;
-  color: #030304;
+  color: var(--sorta-black);
 }
 
 .tag-keycap {
   background-color: rgba(186, 159, 251, 0.5);
-  border-color: #ba9ffb;
+  border-color: var(--bubble-gum);
 }
 
 .tag-keyboard {
   background-color: rgba(83, 152, 191, 0.5);
-  border-color: #5398bf;
+  border-color: var(--blue);
 }
 
 .tag-switch {
   background-color: rgba(200, 63, 33, 0.5);
-  border-color: #c83f21;
+  border-color: var(--red);
 }
 
 div[class*="status-"] {
-  color: #030304;
+  color: var(--sorta-black);
 }
 .status-ic {
-  background-color: #ffc642;
+  background-color: var(--light-yellow);
 }
 .status-gb {
-  background-color: #95bb5c;
+  background-color: var(--green);
 }
 
 .carousel-wrapper {
@@ -191,8 +193,8 @@ div[class*="status-"] {
   user-select: none;
   z-index: 2;
   font-size: 24px;
-  color: #fcffea;
-  background-color: #030304;
+  color: var(--cream);
+  background-color: var(--sorta-black);
   border-radius: 100px;
   width: min-content;
 }

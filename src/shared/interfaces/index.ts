@@ -1,5 +1,5 @@
 export interface PostImage {
-  img: string;
+  url: string;
   caption?: string;
 }
 
