@@ -48,7 +48,7 @@ const Carousel = ({ images }: Props) => {
         <AnimatePresence initial={false} custom={direction}>
           <motion.img
             key={page}
-            src={images[imageIndex].img}
+            src={images[imageIndex].url}
             custom={direction}
             variants={variants}
             initial="enter"
