@@ -13,6 +13,9 @@
   - tailwind-merge
   - tailwindcss-animate
   - @tanstack/react-table
+- tinymce
+  - @tinymce/tinymce-react
+  - fs-extra
 
 ## Expanding the ESLint configuration
 
