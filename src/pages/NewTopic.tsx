@@ -13,6 +13,7 @@ import {
   HiOutlinePlus,
   HiOutlineTrash,
 } from "react-icons/hi2";
+import { useNavigate } from "react-router-dom";
 
 const NewTopic = () => {
   const editorRef = useRef(null);
@@ -23,31 +24,24 @@ const NewTopic = () => {
       caption: "",
     },
   ]);
+  const navigate = useNavigate();
 
   const handleAddImage = () => {
     setImages([...images, { url: "", caption: "" }]);
   };
 
   const handleRemoveImage = (index: number) => {
+    // TODO: check to see if there is another way to implement this later when server is up
     const temp = images
       .slice(0, index)
       .concat(images.slice(index + 1, images.length));
     setImages(temp);
   };
 
-  const handleImageChange = (index: number, url: string) => {
+  const handleChange = (index: number, key: keyof PostImage, value: string) => {
     setImages(
       images.map((image, idx) => {
-        if (idx === index) image.url = url;
-        return image;
-      })
-    );
-  };
-
-  const handleCaptionChange = (index: number, cap: string) => {
-    setImages(
-      images.map((image, idx) => {
-        if (idx === index) image.caption = cap;
+        if (idx === index) image[key] = value;
         return image;
       })
     );
@@ -55,15 +49,18 @@ const NewTopic = () => {
 
   const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    // TODO: Need to save this to BE later
     console.log(editorRef.current?.getContent());
   };
 
   const handleDiscard = (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
+    navigate("/");
   };
 
   return (
-    <div className="new-topic flex flex-col">
+    <div className="new-topic flex flex-col px-10 pb-5">
       <h2 className="text-2xl font-bold my-6">New Topic</h2>
       <form
         className="bg-sorta-yellow/50 flex flex-col gap-3 p-5 rounded-xl"
@@ -102,7 +99,7 @@ const NewTopic = () => {
                         className="col-span-2 h-8"
                         value={image.url}
                         onChange={(e) =>
-                          handleImageChange(index, e.target.value)
+                          handleChange(index, "url", e.target.value)
                         }
                       />
                     </div>
@@ -114,7 +111,9 @@ const NewTopic = () => {
                   type="text"
                   placeholder="Image caption (optional)"
                   value={image.caption || ""}
-                  onChange={(e) => handleCaptionChange(index, e.target.value)}
+                  onChange={(e) =>
+                    handleChange(index, "caption", e.target.value)
+                  }
                 />
                 {index === 0 ? (
                   <span
