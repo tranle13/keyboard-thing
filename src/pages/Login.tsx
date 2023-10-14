@@ -1,30 +1,28 @@
 import { ChangeEvent, SyntheticEvent, useState } from "react";
 import { BsArrowRightCircleFill } from "react-icons/bs";
-import { FiEye } from "react-icons/fi";
+import Input from "../shared/ui/input/input";
 
 interface FormError {
-  field: string;
-  message: string;
+  username: string;
+  password: string;
 }
 
 const Login = () => {
-  const [showPassword, setShowPassword] = useState(false);
   const [form, setForm] = useState({
     username: "",
     password: "",
   });
-  const [errors, setErrors] = useState({
-    username: "",
-    password: "",
-  });
+  const [errors, setErrors] = useState<FormError | null>();
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
   };
+  const handleFocus = () => {
+    setErrors(null);
+  };
   const handleSubmit = (e: SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // TODO: check to see if user has entered username AND password & display error accordingly
     const errs = {
       username: "",
       password: "",
@@ -43,53 +41,23 @@ const Login = () => {
           onSubmit={(e) => handleSubmit(e)}
         >
           <h3 className="text-2xl font-bold">Welcome back!</h3>
-          <div className="relative">
-            <input
-              type="text"
-              placeholder="Username"
-              className={`account-input w-full ${
-                errors.password ? "error" : ""
-              }`}
-              id="username"
-              name="username"
-              onChange={(e) => handleChange(e)}
-              value={form.username}
-            />
-            <p
-              className={`error absolute top-10 text-xs text-[#c83f21] w-full px-[18px] py-1 ${
-                errors.username ? "show" : "hide"
-              }`}
-            >
-              {errors.username}
-            </p>
-          </div>
-          <div className="relative">
-            <input
-              type={showPassword ? "type" : "password"}
-              placeholder="Password"
-              className={`account-input w-full ${
-                errors.password ? "error" : ""
-              }`}
-              id="password"
-              name="password"
-              style={{ paddingRight: "46px" }}
-              value={form.password}
-              onChange={(e) => handleChange(e)}
-            />
-            <span
-              className="cursor-pointer absolute top-1/3 right-[18px]"
-              onClick={() => setShowPassword(!showPassword)}
-            >
-              <FiEye />
-            </span>
-            <p
-              className={`error absolute top-10 text-xs text-[#c83f21] w-full px-[18px] py-1 ${
-                errors.password ? "show" : "hide"
-              }`}
-            >
-              {errors.password}
-            </p>
-          </div>
+          <Input
+            value={form.username}
+            error={errors?.username}
+            placeholder="Username"
+            id="username"
+            handleChange={handleChange}
+            handleFocus={handleFocus}
+          />
+          <Input
+            value={form.password}
+            error={errors?.password}
+            placeholder="Password"
+            id="password"
+            handleChange={handleChange}
+            handleFocus={handleFocus}
+            type="password"
+          />
           <button
             className="account-button bg-[#b0ccc7]/40 flex items-center gap-3 px-2 py-2 w-fit rounded-full mx-auto relative"
             type="submit"
