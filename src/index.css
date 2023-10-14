@@ -235,7 +235,7 @@ div[class*="status-"] {
   margin-left: 1.5px;
 }
 
-/* SECTION --- LOGIN / REGISTER */
+/* SECTION START --- LOGIN / REGISTER */
 .login-img {
   background: url("./assets/account/login.png");
   background-position: center;
@@ -268,3 +268,33 @@ div[class*="status-"] {
 .account-button:hover .button-text {
   opacity: 0;
 }
+.account-input.error {
+  animation: error-shake 0.25s ease-in-out;
+  border-color: var(--red);
+}
+@keyframes error-shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25%,
+  75% {
+    transform: translateX(5px);
+  }
+  50% {
+    transform: translateX(-5px);
+  }
+}
+.error {
+  transition: all 0.5s;
+}
+.error.show {
+  height: 20px;
+}
+.error.hide {
+  height: 0;
+  overflow: hidden;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+/* SECTION END --- LOGIN / REGISTER */
