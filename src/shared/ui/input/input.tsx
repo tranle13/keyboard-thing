@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import { CSSProperties, ChangeEvent, useState } from "react";
 import { FiEye } from "react-icons/fi";
 import "./input.css";
 
@@ -10,6 +10,7 @@ interface Props {
   type?: string;
   handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
   handleFocus: () => void;
+  style?: CSSProperties;
 }
 
 const Input = ({
@@ -20,6 +21,7 @@ const Input = ({
   type = "text",
   handleChange,
   handleFocus,
+  style,
 }: Props) => {
   const [showPassword, setShowPassword] = useState(false);
   const isPasswordInput = type === "password";
@@ -35,6 +37,7 @@ const Input = ({
         onChange={(e) => handleChange(e)}
         onFocus={() => handleFocus()}
         value={value}
+        style={style}
       />
       {type === "password" && (
         <span

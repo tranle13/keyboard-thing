@@ -57,6 +57,7 @@ const Login = () => {
             handleChange={handleChange}
             handleFocus={handleFocus}
             type="password"
+            style={{ paddingRight: "46px" }}
           />
           <button
             className="account-button bg-[#b0ccc7]/40 flex items-center gap-3 px-2 py-2 w-fit rounded-full mx-auto relative"
