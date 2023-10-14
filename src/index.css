@@ -234,3 +234,37 @@ div[class*="status-"] {
 .post:after {
   margin-left: 1.5px;
 }
+
+/* SECTION --- LOGIN / REGISTER */
+.login-img {
+  background: url("./assets/account/login.png");
+  background-position: center;
+  background-size: cover;
+  min-height: calc(100vh - 76px);
+}
+.account-input {
+  padding: 7px 18px;
+  border: 2px solid rgba(211, 211, 211, 0.3);
+  border-radius: 100px;
+  outline: none;
+}
+.account-input:focus {
+  border: double 2px transparent;
+  background-image: var(--dark-yellow); /* fallback for older browsers */
+  background-image: -webkit-linear-gradient(white, white),
+    -webkit-linear-gradient(to right, #ffc642, #ba9ffb); /* Chrome 10-25, Safari 5.1-6 */
+  background-image: linear-gradient(white, white),
+    linear-gradient(to right, #698097, #b0ccc7, #df8936); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+*/
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+}
+.swipe-right,
+.button-text {
+  transition: all 0.25s ease-in-out;
+}
+.account-button:hover .swipe-right {
+  transform: translateX(225%);
+}
+.account-button:hover .button-text {
+  opacity: 0;
+}

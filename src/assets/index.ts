@@ -23,6 +23,9 @@ import img_7 from "./detail/img_7.jpeg";
 import img_8 from "./detail/img_8.jpeg";
 import img_9 from "./detail/img_9.jpeg";
 
+import login from "./account/login.png";
+import signup from "./account/signup.png";
+
 export {
   agres_keyboard,
   commentor_1,
@@ -40,8 +43,10 @@ export {
   img_8,
   img_9,
   keyboard,
+  login,
   mehka,
   naturalpack,
+  signup,
   skok,
   thenajin,
   unknown,
