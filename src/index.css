@@ -236,11 +236,19 @@ div[class*="status-"] {
 }
 
 /* SECTION START --- LOGIN / REGISTER */
+.login-img,
+.signup-img {
+  min-height: calc(100vh - 76px);
+}
 .login-img {
   background: url("./assets/account/login.png");
   background-position: center;
   background-size: cover;
-  min-height: calc(100vh - 76px);
+}
+.signup-img {
+  background: url("./assets/account/signup.png");
+  background-position: center;
+  background-size: cover;
 }
 .swipe-right,
 .button-text {
@@ -252,4 +260,5 @@ div[class*="status-"] {
 .account-button:hover .button-text {
   opacity: 0;
 }
+
 /* SECTION END --- LOGIN / REGISTER */
