@@ -1,0 +1,45 @@
+.account-input {
+  padding: 7px 18px;
+  border: 2px solid rgba(211, 211, 211, 0.3);
+  border-radius: 100px;
+  outline: none;
+}
+.account-input:focus {
+  border: double 2px transparent;
+  background-image: #df8936; /* fallback for older browsers */
+  background-image: -webkit-linear-gradient(white, white),
+    -webkit-linear-gradient(to right, #698097, #b0ccc7, #df8936); /* Chrome 10-25, Safari 5.1-6 */
+  background-image: linear-gradient(white, white),
+    linear-gradient(to right, #698097, #b0ccc7, #df8936); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+*/
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+}
+.account-input.error {
+  animation: error-shake 0.25s ease-in-out;
+  border-color: var(--red);
+}
+@keyframes error-shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25%,
+  75% {
+    transform: translateX(5px);
+  }
+  50% {
+    transform: translateX(-5px);
+  }
+}
+.error {
+  transition: all 0.5s;
+}
+.error.show {
+  height: 20px;
+}
+.error.hide {
+  height: 0;
+  overflow: hidden;
+  padding-top: 0;
+  padding-bottom: 0;
+}
