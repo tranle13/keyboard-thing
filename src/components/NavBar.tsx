@@ -18,7 +18,7 @@ const NavBar = () => {
           </li>
           <Link to="/group-buy">Group Buy</Link>
           <Link to="/interest-check">Interest Check</Link>
-          <Link to="/about">About</Link>
+          <Link to="/log-in">Log In</Link>
         </ul>
 
         {/* menu on mobile devices */}
