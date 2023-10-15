@@ -234,31 +234,3 @@ div[class*="status-"] {
 .post:after {
   margin-left: 1.5px;
 }
-
-/* SECTION START --- LOGIN / REGISTER */
-.login-img,
-.signup-img {
-  min-height: calc(100vh - 76px);
-}
-.login-img {
-  background: url("./assets/account/login.png");
-  background-position: center;
-  background-size: cover;
-}
-.signup-img {
-  background: url("./assets/account/signup.png");
-  background-position: center;
-  background-size: cover;
-}
-.swipe-right,
-.button-text {
-  transition: all 0.25s ease-in-out;
-}
-.account-button:hover .swipe-right {
-  transform: translateX(225%);
-}
-.account-button:hover .button-text {
-  opacity: 0;
-}
-
-/* SECTION END --- LOGIN / REGISTER */

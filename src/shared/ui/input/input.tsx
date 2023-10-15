@@ -1,6 +1,6 @@
 import { CSSProperties, ChangeEvent, useState } from "react";
 import { FiEye } from "react-icons/fi";
-import "./input.css";
+import styles from "./input.module.css";
 
 interface Props {
   value: string;
@@ -31,7 +31,9 @@ const Input = ({
       <input
         type={isPasswordInput && showPassword ? "text" : type}
         placeholder={placeholder}
-        className={`account-input w-full ${error ? "error" : ""}`}
+        className={`${styles["account-input"]} w-full ${
+          styles[error ? "error" : ""]
+        }`}
         id={id}
         name={id}
         onChange={(e) => handleChange(e)}
@@ -49,7 +51,7 @@ const Input = ({
       )}
       <p
         className={`error absolute top-10 text-xs text-[#c83f21] w-full px-[18px] py-1 ${
-          error ? "show" : "hide"
+          styles[error ? "show" : "hide"]
         }`}
       >
         {error}

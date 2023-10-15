@@ -27,3 +27,9 @@ interface Comment {
   content: string;
   date: string;
 }
+
+export interface FormState {
+  username: string;
+  email?: string;
+  password: string;
+}
