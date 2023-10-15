@@ -1,8 +1,17 @@
 const express = require("express");
 const router = express.Router();
 const { signup, login, users } = require("../controllers/users-controllers");
+const { check } = require("express-validator");
 
-router.post("/sign-up", signup);
+router.post(
+  "/sign-up",
+  [
+    check("username").not().isEmpty(),
+    check("email").normalizeEmail().isEmail(),
+    check("password").isLength({ min: 6 }),
+  ],
+  signup
+);
 router.post("/log-in", login);
 router.get("/", users);
 
