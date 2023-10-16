@@ -22,4 +22,6 @@ const topicSchema = new mongoose.Schema({
   author: { type: mongoose.Types.ObjectId, required: true, ref: "User" },
 });
 
+topicSchema.index({ views: 1 });
+
 module.exports = mongoose.model("Topic", topicSchema);
