@@ -5,7 +5,7 @@ const userSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true, minLength: 6 },
-  image: { type: String, default: "unknown.png" },
+  image: { type: String, default: "" },
   topics: [{ type: mongoose.Types.ObjectId, required: true, ref: "Topic" }],
 });
 

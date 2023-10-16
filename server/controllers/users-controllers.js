@@ -161,4 +161,31 @@ const imageUpload = async (req, res, next) => {
   }
 };
 
-module.exports = { getUserWithId, signup, login, users, imageUpload };
+const deleteImage = async (req, res, next) => {
+  // NOTE: FE needs to encode the path for this to work
+  try {
+    const imagePath = decodeURIComponent(req.params.imp);
+    const path = require("path");
+    const finalPath = path.resolve("../client/public") + imagePath;
+    const fs = require("fs");
+    fs.unlink(finalPath, (err) => {
+      if (err) return next(new HttpError(err, 500));
+    });
+    await User.findOneAndUpdate(
+      { _id: req.params.uid },
+      { image: "" }
+    ).orFail();
+    return res.end();
+  } catch (err) {
+    return next(new HttpError(err, 500));
+  }
+};
+
+module.exports = {
+  getUserWithId,
+  signup,
+  login,
+  users,
+  imageUpload,
+  deleteImage,
+};

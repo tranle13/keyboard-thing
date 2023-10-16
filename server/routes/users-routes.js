@@ -6,6 +6,7 @@ const {
   login,
   users,
   imageUpload,
+  deleteImage,
 } = require("../controllers/users-controllers");
 const { check } = require("express-validator");
 
@@ -22,5 +23,6 @@ router.post(
 router.post("/login", login);
 router.get("/", users);
 router.post("/upload", imageUpload);
+router.delete("/image/:imp/:uid", deleteImage);
 
 module.exports = router;
