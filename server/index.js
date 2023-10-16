@@ -10,13 +10,6 @@ app.use(express.json());
 app.use("/api/users", usersRoutes);
 app.use("/api/topics", topicsRoutes);
 
-// TODO: change this db name to something else when starting to connect to FE
-mongoose
-  .connect(
-    "mongodb+srv://orangedev:01031993wonho@cluster-0.jnzc7cc.mongodb.net/users?retryWrites=true&w=majority"
-  )
-  .then(() => {
-    app.listen(5000);
-    console.log("Connected to db!");
-  })
-  .catch((err) => console.log(`Connection failed :( ${err}`));
+// Connect to db
+const connectDB = require("./config/db");
+connectDB();

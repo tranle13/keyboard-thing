@@ -1,8 +1,14 @@
 const express = require("express");
 const router = express.Router();
-const { signup, login, users } = require("../controllers/users-controllers");
+const {
+  getUserWithId,
+  signup,
+  login,
+  users,
+} = require("../controllers/users-controllers");
 const { check } = require("express-validator");
 
+router.get("/:uid", getUserWithId);
 router.post(
   "/sign-up",
   [

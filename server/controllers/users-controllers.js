@@ -12,6 +12,24 @@ const users = async (_, res, next) => {
   }
 };
 
+const getUserWithId = async (req, res, next) => {
+  try {
+    const userId = req.params.uid;
+    const user = await User.findById(userId);
+
+    if (!user)
+      return next(
+        new HttpError("Could not find a user with the provided id", 404)
+      );
+
+    res.json(user);
+  } catch (err) {
+    return next(
+      new HttpError("Something went wrong, please try again later", 500)
+    );
+  }
+};
+
 const signup = async (req, res, next) => {
   try {
     const errors = validationResult(req);
@@ -63,4 +81,4 @@ const login = async (req, res, next) => {
   }
 };
 
-module.exports = { signup, login, users };
+module.exports = { getUserWithId, signup, login, users };
