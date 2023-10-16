@@ -5,12 +5,13 @@ const {
   signup,
   login,
   users,
+  imageUpload,
 } = require("../controllers/users-controllers");
 const { check } = require("express-validator");
 
 router.get("/:uid", getUserWithId);
 router.post(
-  "/sign-up",
+  "/signup",
   [
     check("username").not().isEmpty(),
     check("email").normalizeEmail().isEmail(),
@@ -18,7 +19,8 @@ router.post(
   ],
   signup
 );
-router.post("/log-in", login);
+router.post("/login", login);
 router.get("/", users);
+router.post("/upload", imageUpload);
 
 module.exports = router;
