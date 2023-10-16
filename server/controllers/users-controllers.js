@@ -39,7 +39,7 @@ const signup = async (req, res, next) => {
         )
       );
 
-    const newUser = new User({ username, email, password });
+    const newUser = new User({ username, email, password, topics: [] });
     await newUser.save();
     res.status(201).json(newUser);
   } catch (err) {
