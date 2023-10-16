@@ -2,11 +2,13 @@ const express = require("express");
 const mongoose = require("mongoose");
 
 const usersRoutes = require("./routes/users-routes");
+const topicsRoutes = require("./routes/topics-routes");
 
 const app = express();
 
 app.use(express.json());
 app.use("/api/users", usersRoutes);
+app.use("/api/topics", topicsRoutes);
 
 // TODO: change this db name to something else when starting to connect to FE
 mongoose
