@@ -74,7 +74,6 @@ const createTopic = async (req, res, next) => {
       categories,
       content,
       status,
-      views: 0,
       author,
     });
 

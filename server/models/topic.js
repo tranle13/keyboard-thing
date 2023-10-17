@@ -18,7 +18,7 @@ const topicSchema = new mongoose.Schema({
   categories: { type: [categorySchema], default: [] },
   content: String,
   status: String,
-  views: Number,
+  views: { type: Number, default: 0 },
   author: { type: mongoose.Types.ObjectId, required: true, ref: "User" },
 });
 
