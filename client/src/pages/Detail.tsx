@@ -1,4 +1,4 @@
-import Carousel from "@/components/Carousel";
+import Carousel from "@/components/molecules/Carousel";
 import { post } from "@/constants";
 import { Badge } from "@/shadcn-ui/components/ui/badge";
 import { buttonVariants } from "@/shadcn-ui/components/ui/button";

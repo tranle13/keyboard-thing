@@ -1,6 +1,6 @@
 import { login } from "@/assets";
-import { NewForm } from "@/components/NewForm";
-import { NewInput } from "@/components/NewInput";
+import { Input } from "@/components/atoms/Input";
+import { Form } from "@/components/molecules/Form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { BaseSyntheticEvent, useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
@@ -43,7 +43,7 @@ const Login = () => {
           backgroundSize: "cover",
         }}
       />
-      <NewForm
+      <Form
         header={<h3 className="text-2xl font-bold">Welcome back!</h3>}
         buttonLabel="Log in"
         secondaryButtonLabel="Sign up"
@@ -53,13 +53,13 @@ const Login = () => {
         buttonIconStyle="group-hover:translate-x-[225%]"
         handler={handleSubmit(submitForm)}
       >
-        <NewInput<LoginInterface>
+        <Input<LoginInterface>
           register={register}
           errors={errors}
           placeholder="Username"
           name="username"
         />
-        <NewInput<LoginInterface>
+        <Input<LoginInterface>
           register={register}
           errors={errors}
           placeholder="Password"
@@ -72,8 +72,8 @@ const Login = () => {
           >
             <FiEye />
           </span>
-        </NewInput>
-      </NewForm>
+        </Input>
+      </Form>
     </div>
   );
 };

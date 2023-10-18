@@ -14,7 +14,7 @@ interface FormProps {
   buttonStyle: string;
 }
 
-export const NewForm: FC<FormProps> = ({
+export const Form: FC<FormProps> = ({
   header,
   buttonLabel,
   secondaryButtonLabel,

@@ -1,6 +1,6 @@
 import { signup } from "@/assets";
-import { NewForm } from "@/components/NewForm";
-import { NewInput } from "@/components/NewInput";
+import { Input } from "@/components/atoms/Input";
+import { Form } from "@/components/molecules/Form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { BaseSyntheticEvent, useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
@@ -55,7 +55,7 @@ const Signup = () => {
           backgroundSize: "cover",
         }}
       />
-      <NewForm
+      <Form
         header={
           <div className="flex flex-col gap-2">
             <h3 className="text-2xl font-bold">Hello!</h3>
@@ -73,20 +73,20 @@ const Signup = () => {
         buttonIconStyle="group-hover:translate-x-[275%]"
         handler={handleSubmit(submitForm)}
       >
-        <NewInput<SignupInterface>
+        <Input<SignupInterface>
           register={register}
           errors={errors}
           placeholder="Username"
           name="username"
         />
-        <NewInput<SignupInterface>
+        <Input<SignupInterface>
           register={register}
           errors={errors}
           placeholder="Email"
           type="email"
           name="email"
         />
-        <NewInput<SignupInterface>
+        <Input<SignupInterface>
           register={register}
           errors={errors}
           placeholder="Password"
@@ -99,8 +99,8 @@ const Signup = () => {
           >
             <FiEye />
           </span>
-        </NewInput>
-      </NewForm>
+        </Input>
+      </Form>
     </div>
   );
 };

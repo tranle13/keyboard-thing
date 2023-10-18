@@ -1,7 +1,7 @@
 import { trendIcs } from "@/constants";
-import { IC, columns } from "../components/Columns";
-import Intro from "../components/Intro";
-import DataTable from "../shared/ui/data-table";
+import { IC, columns } from "../components/atoms/Columns";
+import DataTable from "../components/molecules/DataTable";
+import Intro from "../components/molecules/Intro";
 
 const Home = () => {
   const data = trendIcs as IC[];
