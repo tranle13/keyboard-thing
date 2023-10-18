@@ -1,11 +1,11 @@
-## Dependencies
+## Used dependencies & their purposes
 
 (for the sake of my goldfish memory when I need to remove a package/library)
 
-- Tailwind
+- **Tailwind**: inline styles with classes
   - postcss
   - autoprefixer
-- shadcn-ui
+- shadcn-ui: use pre-built UI elements
   - @types/node
   - class-variance-authority
   - clsx
@@ -15,9 +15,12 @@
   - @tanstack/react-table
   - @radix-ui/react-popover
   - @radix-ui/react-slot
-- tinymce
+- tinymce: rich text editor
   - @tinymce/tinymce-react
   - fs-extra
+- styled-components: confine private styles into their own files
+- zod | @hookform/resolvers: form validation and resolver to work with react-hook-form
+- @splinetool/react-spline: display Spline's 3D models
 
 ## Expanding the ESLint configuration
 

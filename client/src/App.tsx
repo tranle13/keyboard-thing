@@ -4,7 +4,8 @@ import Detail from "./pages/Detail";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import NewTopic from "./pages/NewTopic";
-import Signup from "./pages/SignUp";
+import Signup from "./pages/Signup";
+import { Test } from "./pages/Test";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/interest-check" element={<NewTopic />} />
           <Route path="/log-in" element={<Login />} />
           <Route path="/sign-up" element={<Signup />} />
+          <Route path="/test" element={<Test />} />
         </Routes>
         {/* <Footer /> */}
       </div>

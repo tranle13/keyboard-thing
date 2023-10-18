@@ -2,9 +2,11 @@ import { signup } from "@/assets";
 import { Input } from "@/components/atoms/Input";
 import { Form } from "@/components/molecules/Form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "axios";
 import { BaseSyntheticEvent, useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { FiEye } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
 import { z } from "zod";
 
 interface SignupInterface extends FieldValues {
@@ -37,11 +39,18 @@ const Signup = () => {
   } = useForm<SignupInterface>({ resolver: zodResolver(SignupSchema) });
 
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
 
   const submitForm = async (data: FieldValues, e?: BaseSyntheticEvent) => {
     // TODO - handle registering data with BE, handle BE errors, go to home if no BE errors
     e?.preventDefault();
-    console.log(data);
+    try {
+      await axios.post("/api/users/signup", data);
+      navigate("/test");
+    } catch (e) {
+      // TODO: use Toast/Alert component from shadcn
+      console.log(e);
+    }
   };
 
   return (

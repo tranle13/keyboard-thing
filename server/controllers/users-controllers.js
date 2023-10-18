@@ -37,28 +37,26 @@ const signup = async (req, res, next) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty)
-      return next(
-        new HttpError("Invalid inputs passed, please check your data", 422)
-      );
+      return res
+        .status(422)
+        .send({ message: "Invalid inputs passed, please check your data" });
 
     const { username, email, password } = req.body;
     if (!(username && email && password)) {
-      return next(new HttpError("All inputs are required"), 400);
+      return res.status(400).send({ message: "All inputs are required" });
     }
     const usernameUser = await User.findOne({ username });
     if (usernameUser)
-      return next(
-        new HttpError("Username taken, guess great minds think alike :)", 400)
-      );
+      return res.status(400).send({
+        message: "Username taken, guess great minds think alike :)",
+      });
 
     const emailUser = await User.findOne({ email });
     if (emailUser)
-      return next(
-        new HttpError(
+      return res.status(400).send({
+        message:
           "An account was created with this email, please use another email",
-          400
-        )
-      );
+      });
 
     const hashedPassword = hashPassword(password);
     const newUser = new User({
@@ -86,10 +84,9 @@ const signup = async (req, res, next) => {
         topics: newUser.topics,
       });
   } catch (err) {
-    return next(
-      // new HttpError("Signing up failed, please try again later",500)
-      new HttpError(err, 500)
-    );
+    return res
+      .status(500)
+      .send({ message: "Signing up failed, please try again later" });
   }
 };
 
@@ -98,7 +95,7 @@ const login = async (req, res, next) => {
     const { username, password } = req.body;
 
     if (!(username && password))
-      return next(new HttpError("All inputs are required", 400));
+      return res.status(400).send({ mesage: "All inputs are required" });
 
     const user = await User.findOne({ username });
 
@@ -116,9 +113,11 @@ const login = async (req, res, next) => {
           cookieParams
         )
         .json({ _id: user._id, username: user.username, email: user.email });
-    } else return next(new HttpError("Invalid credentials", 401));
+    } else return res.status(401).send({ message: "Invalid credentials" });
   } catch (err) {
-    return next(new HttpError("Login failed, please try again later", 500));
+    return res
+      .status(500)
+      .send({ message: "Login failed, please try again later" });
   }
 };
 
