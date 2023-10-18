@@ -4,7 +4,7 @@ import Detail from "./pages/Detail";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import NewTopic from "./pages/NewTopic";
-import SignUp from "./pages/SignUp";
+import Signup from "./pages/SignUp";
 
 function App() {
   return (
@@ -16,7 +16,7 @@ function App() {
           <Route path="/group-buy" element={<Detail />} />
           <Route path="/interest-check" element={<NewTopic />} />
           <Route path="/log-in" element={<Login />} />
-          <Route path="/sign-up" element={<SignUp />} />
+          <Route path="/sign-up" element={<Signup />} />
         </Routes>
         {/* <Footer /> */}
       </div>
