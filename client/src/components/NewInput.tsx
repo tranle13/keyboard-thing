@@ -31,7 +31,7 @@ export const NewInput = <T extends Record<string, unknown>>({
   return (
     <div className="relative">
       <input
-        className="account-input w-full"
+        className={`account-input w-full ${error ? "error" : ""}`}
         type={type}
         {...register(name)}
         {...rest}

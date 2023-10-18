@@ -281,13 +281,3 @@ div[class*="status-"] {
   padding-top: 0;
   padding-bottom: 0;
 }
-.swipe-right,
-.button-text {
-  transition: all 0.25s ease-in-out;
-}
-.account-button:hover .swipe-right {
-  transform: translateX(225%);
-}
-.account-button:hover .button-text {
-  opacity: 0;
-}

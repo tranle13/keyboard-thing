@@ -25,6 +25,7 @@ const SignupSchema = z.object({
     .email("Invalid email"),
   password: z
     .string({ required_error: "Password is required" })
+    .trim()
     .min(8, "Password must have 8 or more characters"),
 });
 
@@ -68,6 +69,8 @@ const Signup = () => {
         secondaryButtonLabel="Log in"
         secondaryText="Already have an account?"
         route="/log-in"
+        buttonStyle="bg-[#cea77f]/40"
+        buttonIconStyle="group-hover:translate-x-[275%]"
         handler={handleSubmit(submitForm)}
       >
         <NewInput<SignupInterface>

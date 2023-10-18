@@ -10,6 +10,8 @@ interface FormProps {
   handler: (e: SyntheticEvent) => void;
   children: ReactNode;
   route: string;
+  buttonIconStyle: string;
+  buttonStyle: string;
 }
 
 export const NewForm: FC<FormProps> = ({
@@ -19,6 +21,8 @@ export const NewForm: FC<FormProps> = ({
   secondaryText,
   children,
   route,
+  buttonIconStyle,
+  buttonStyle,
   handler,
 }) => {
   const navigate = useNavigate();
@@ -32,13 +36,17 @@ export const NewForm: FC<FormProps> = ({
         {header}
         {children}
         <button
-          className="account-button bg-[#b0ccc7]/40 flex items-center gap-3 px-2 py-2 w-fit rounded-full mx-auto relative"
+          className={`group flex items-center gap-3 px-2 py-2 w-fit rounded-full mx-auto relative ${buttonStyle}`}
           type="submit"
         >
-          <span className="swipe-right text-2xl absolute">
+          <span
+            className={`transition-all duration-300 text-2xl absolute ${buttonIconStyle}`}
+          >
             <BsArrowRightCircleFill />
           </span>
-          <span className="button-text ml-8 mr-1">{buttonLabel}</span>
+          <span className="transition-all ml-8 mr-1 group-hover:opacity-0">
+            {buttonLabel}
+          </span>
         </button>
 
         <div className="h-[1px] bg-gray-100" />

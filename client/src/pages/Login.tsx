@@ -13,12 +13,8 @@ interface LoginInterface extends FieldValues {
 }
 
 const LoginSchema = z.object({
-  username: z.string({
-    required_error: "Username is required",
-  }),
-  password: z.string({
-    required_error: "Password is required",
-  }),
+  username: z.string().trim().min(5, "Username is required"),
+  password: z.string().trim().min(8, "Password is required"),
 });
 
 const Login = () => {
@@ -48,19 +44,13 @@ const Login = () => {
         }}
       />
       <NewForm
-        header={
-          <div className="flex flex-col gap-2">
-            <h3 className="text-2xl font-bold">Hello!</h3>
-            <p className="text-sm text-gray-400/50">
-              Join the community and keep up with sweet updates from your
-              favorite keyboards
-            </p>
-          </div>
-        }
-        buttonLabel="Sign up"
-        secondaryButtonLabel="Log in"
-        secondaryText="Already have an account?"
-        route="/log-in"
+        header={<h3 className="text-2xl font-bold">Welcome back!</h3>}
+        buttonLabel="Log in"
+        secondaryButtonLabel="Sign up"
+        secondaryText="Don't have an account?"
+        route="/sign-up"
+        buttonStyle="bg-[#b0ccc7]/40"
+        buttonIconStyle="group-hover:translate-x-[225%]"
         handler={handleSubmit(submitForm)}
       >
         <NewInput<LoginInterface>
