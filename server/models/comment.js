@@ -4,7 +4,7 @@ const commentSchema = new mongoose.Schema({
   author: { type: mongoose.Types.ObjectId, required: true, ref: "User" },
   topic: { type: mongoose.Types.ObjectId, required: true, ref: "Topic" },
   content: String,
-  date: Date,
+  date: { type: Date, default: Date.now },
 });
 
-module.exports = mongoose.model("Comment", commentSchema);
+exports.Comment = mongoose.model("Comment", commentSchema);
