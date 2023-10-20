@@ -6,22 +6,34 @@ const imageSchema = new mongoose.Schema({
 });
 
 const categorySchema = new mongoose.Schema({
-  name: String,
+  name: {
+    type: String,
+    enum: {
+      values: ["Keyboard", "Keycap", "Switch", "PCB", "Badge"],
+      message: "{VALUE} is not supported, please contact us for a new addition",
+    },
+  },
   color: String,
 });
 
 const topicSchema = new mongoose.Schema({
   title: { type: String, required: true },
-  images: { type: [imageSchema], default: [] },
+  images: [imageSchema],
   ic_link: String,
-  date_posted: Date,
-  categories: { type: [categorySchema], default: [] },
+  date_posted: { type: Date, default: Date.now },
+  categories: [categorySchema],
   content: String,
-  status: String,
+  status: {
+    type: String,
+    enum: {
+      values: ["IC", "GB", "Closed"],
+      message: "{VALUE} is nor supported, please contact us for a new addition",
+    },
+  },
   views: { type: Number, default: 0 },
   author: { type: mongoose.Types.ObjectId, required: true, ref: "User" },
 });
 
 topicSchema.index({ views: 1 });
 
-module.exports = mongoose.model("Topic", topicSchema);
+exports.Topic = mongoose.model("Topic", topicSchema);

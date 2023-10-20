@@ -1,18 +1,15 @@
 const express = require("express");
 const fileUpload = require("express-fileupload");
-// const cookieParser = require("cookie-parser");
-const port = process.env.PORT || 5000;
 
-const usersRoutes = require("./routes/users-routes");
-const topicsRoutes = require("./routes/topics-routes");
+const users = require("./routes/users");
+const topics = require("./routes/topics");
 
 const app = express();
 
 app.use(express.json());
 app.use(fileUpload());
-// app.use(cookieParser);
-app.use("/api/users", usersRoutes);
-app.use("/api/topics", topicsRoutes);
+app.use("/api/users", users);
+app.use("/api/topics", topics);
 
 // Allow cross-site requests
 app.use((_, res, next) => {
@@ -29,4 +26,4 @@ app.use((_, res, next) => {
 const connectDB = require("./config/db");
 connectDB();
 
-app.listen(port, () => console.log(`Listening on port ${port}`));
+app.listen(process.env.PORT, () => console.log(`Listening on port ${port}`));
