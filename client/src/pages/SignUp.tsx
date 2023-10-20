@@ -19,7 +19,7 @@ const SignupSchema = z.object({
   username: z
     .string({ required_error: "Username is required" })
     .regex(
-      /^[a-zA-Z0-9]([._-](?![._-])|[a-zA-Z0-9]){3,28}[a-zA-Z0-9]$/,
+      /^[a-zA-Z0-9]([._-](?![._-])|[a-zA-Z0-9]){1,28}[a-zA-Z0-9]$/,
       "Invalid username"
     ),
   email: z
