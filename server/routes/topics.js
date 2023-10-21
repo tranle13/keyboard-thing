@@ -10,8 +10,10 @@ const router = express.Router();
 router.get("/", async (req, res) => {
   const { page, pageSize } = req.body;
   const topics = await Topic.find()
+    .sort("-views")
     .skip((page - 1) * pageSize)
-    .limit(pageSize);
+    .limit(pageSize)
+    .populate([{ path: "author", select: "username image" }]);
   res.send(topics);
 });
 

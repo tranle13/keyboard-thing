@@ -28,7 +28,7 @@ const topicSchema = new mongoose.Schema({
 
 topicSchema.index({ views: 1 });
 
-function validateTitle(title) {
+function validateReq(req) {
   const schema = Joi.object({
     title: Joi.string().required().messages({
       "string.base": "Title is required",
@@ -36,8 +36,8 @@ function validateTitle(title) {
       "any.required": "Title is required",
     }),
   });
-  return schema.validate(title);
+  return schema.validate(req);
 }
 
 exports.Topic = mongoose.model("Topic", topicSchema);
-exports.validate = validateTitle;
+exports.validate = validateReq;

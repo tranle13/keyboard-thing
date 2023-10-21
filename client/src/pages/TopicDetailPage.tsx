@@ -4,7 +4,7 @@ import { Badge } from "@/shadcn-ui/components/ui/badge";
 import { buttonVariants } from "@/shadcn-ui/components/ui/button";
 import { Post } from "@/shared/interfaces";
 
-const Detail = () => {
+const TopicDetailPage = () => {
   const data = post as Post;
 
   return (
@@ -84,4 +84,4 @@ const Detail = () => {
   );
 };
 
-export default Detail;
+export default TopicDetailPage;

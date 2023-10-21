@@ -1,4 +1,5 @@
 import keyboard from "./home/keyboard.png";
+import loading from "./home/puff.svg";
 
 import agres_keyboard from "./profiles/aregs_keyboard.jpeg";
 import commentor_1 from "./profiles/commentor_1.jpeg";
@@ -43,6 +44,7 @@ export {
   img_8,
   img_9,
   keyboard,
+  loading,
   loginImg,
   mehka,
   naturalpack,
