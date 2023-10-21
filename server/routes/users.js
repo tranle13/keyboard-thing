@@ -13,6 +13,18 @@ router.get("/me", async (req, res) => {
   res.send(user);
 });
 
+// GET a user's posts
+router.get("/:usn/posts", async (req, res) => {
+  const topics = await User.findOne({ username: req.params.usn }).populate(
+    "topics"
+  );
+
+  if (!topics)
+    return res.status(404).send({ message: "This user does not exist" });
+
+  res.send(_.pick(topics, ["topics"]));
+});
+
 // POST a new user
 router.post("/", async (req, res) => {
   const { error } = validate(req.body);

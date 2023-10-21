@@ -1,12 +1,11 @@
 const express = require("express");
-const { Topic } = require("../models/topic");
+const mongoose = require("mongoose");
+const { Topic, validate } = require("../models/topic");
 const { User } = require("../models/user");
 const router = express.Router();
 
 // GET all topics (paginated)
 router.get("/", async (req, res) => {
-  // TODO: req validation here
-
   const { page, pageSize } = req.body;
   const topics = await Topic.find()
     .skip((page - 1) * pageSize)
@@ -15,30 +14,18 @@ router.get("/", async (req, res) => {
 });
 
 // GET a topic
-router.get("/:id", async (_, res) => {
-  // TODO: req validation here
+router.get("/:id", async (req, res) => {
+  const topic = await Topic.findOne({ _id: req.params.id });
 
-  const topic = await Topic.findOne({ _id: id });
+  if (!topic) return res.status(404).send("This topic does not exist");
+
   res.send(topic);
-});
-
-// GET topics by user
-router.get("/:usn", async (req, res) => {
-  // TODO: req validation here
-
-  const topics = await User.findOne({ username: req.params.username }).populate(
-    "topics"
-  );
-
-  if (!topics)
-    return res.status(404).send({ message: "This user does not exist" });
-
-  res.send(topics);
 });
 
 // POST a new topic
 router.post("/", async (req, res) => {
-  // TODO: req validation here
+  let { error } = validate({ title: req.body.title });
+  if (error) return res.status(400).send(error.details[0].message);
 
   const { title, images, ic_link, categories, content, status, _id } = req.body;
 
@@ -67,10 +54,8 @@ router.post("/", async (req, res) => {
   res.send(topic);
 });
 
-// PUT a topic
+// PUT edit a topic
 router.put("/:id", async (req, res) => {
-  // TODO: req validation here
-
   const { title, images, ic_link, categories, content, status } = req.body;
   const topic = await Topic.findByIdAndUpdate(
     req.params.id,
@@ -85,13 +70,13 @@ router.put("/:id", async (req, res) => {
     { new: true }
   );
 
+  if (!topic) return res.status(404).send("This topic does not exist");
+
   res.send(topic);
 });
 
 // DELETE a topic
 router.delete("/:id", async (req, res) => {
-  // TODO: req validation here
-
   const topic = await Topic.findById(req.params.id).populate("author");
 
   if (!topic)
