@@ -1,15 +1,15 @@
-import { signup } from "@/assets";
+import { signupImg } from "@/assets";
 import { Input } from "@/components/atoms/Input";
 import { Form } from "@/components/molecules/Form";
+import * as authServices from "@/services/authService";
+import * as userServices from "@/services/userService";
 import { zodResolver } from "@hookform/resolvers/zod";
-import axios from "axios";
 import { BaseSyntheticEvent, useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { FiEye } from "react-icons/fi";
-import { useNavigate } from "react-router-dom";
 import { z } from "zod";
 
-interface SignupInterface extends FieldValues {
+export interface SignupInterface extends FieldValues {
   username: string;
   email: string;
   password: string;
@@ -31,7 +31,7 @@ const SignupSchema = z.object({
     .min(8, "Password must have 8 or more characters"),
 });
 
-const Signup = () => {
+const RegisterPage = () => {
   const {
     register,
     handleSubmit,
@@ -39,14 +39,14 @@ const Signup = () => {
   } = useForm<SignupInterface>({ resolver: zodResolver(SignupSchema) });
 
   const [showPassword, setShowPassword] = useState(false);
-  const navigate = useNavigate();
 
-  const submitForm = async (data: FieldValues, e?: BaseSyntheticEvent) => {
+  const submitForm = async (data: SignupInterface, e?: BaseSyntheticEvent) => {
     // TODO - handle registering data with BE, handle BE errors, go to home if no BE errors
     e?.preventDefault();
     try {
-      await axios.post("/api/users/signup", data);
-      navigate("/test");
+      const res = await userServices.register(data);
+      authServices.loginWithJwt(res.headers["x-auth-token"]);
+      window.location.href = "/";
     } catch (e) {
       // TODO: use Toast/Alert component from shadcn
       console.log(e);
@@ -58,7 +58,7 @@ const Signup = () => {
       <div
         className="w-1/2"
         style={{
-          background: `url(${signup})`,
+          background: `url(${signupImg})`,
           minHeight: "calc(100vh - 76px)",
           backgroundPosition: "center",
           backgroundSize: "cover",
@@ -114,4 +114,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default RegisterPage;

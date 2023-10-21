@@ -17,13 +17,10 @@ router.post("/", async (req, res) => {
   if (!validPassword) return res.status(400).send("Invalid email or password");
 
   const token = user.generateAuthToken();
-  res
-    .header("x-auth-token", token)
-    .header("access-control-expose-headers", "x-auth-token")
-    .send(_.pick(user, ["_id", "username"]));
+  res.send(token);
 });
 
-function validate(user) {
+function validate(req) {
   const schema = Joi.object({
     username: Joi.string().required().messages({
       "string.base": "Username is required",
@@ -36,7 +33,7 @@ function validate(user) {
       "any.required": "Password is required",
     }),
   });
-  return schema.validate(user);
+  return schema.validate(req);
 }
 
 module.exports = router;

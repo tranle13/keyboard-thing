@@ -15,7 +15,7 @@ import {
 } from "react-icons/hi2";
 import { useNavigate } from "react-router-dom";
 
-const NewTopic = () => {
+const TopicCreatePage = () => {
   const editorRef = useRef(null);
   const [title, setTitle] = useState("");
   const [images, setImages] = useState<PostImage[]>([
@@ -176,4 +176,4 @@ const NewTopic = () => {
   );
 };
 
-export default NewTopic;
+export default TopicCreatePage;

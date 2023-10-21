@@ -1,25 +1,24 @@
-import { login } from "@/assets";
+import { loginImg } from "@/assets";
 import { Input } from "@/components/atoms/Input";
 import { Form } from "@/components/molecules/Form";
+import * as authServices from "@/services/authService";
 import { zodResolver } from "@hookform/resolvers/zod";
-import axios from "axios";
 import { BaseSyntheticEvent, useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { FiEye } from "react-icons/fi";
-import { useNavigate } from "react-router-dom";
 import { z } from "zod";
 
-interface LoginInterface extends FieldValues {
+export interface LoginInterface extends FieldValues {
   username: string;
   password: string;
 }
 
 const LoginSchema = z.object({
-  username: z.string().trim().min(5, "Username is required"),
+  username: z.string().trim().min(3, "Username is required"),
   password: z.string().trim().min(8, "Password is required"),
 });
 
-const Login = () => {
+const LoginPage = () => {
   const {
     register,
     handleSubmit,
@@ -27,17 +26,16 @@ const Login = () => {
   } = useForm<LoginInterface>({ resolver: zodResolver(LoginSchema) });
 
   const [showPassword, setShowPassword] = useState(false);
-  const navigate = useNavigate();
 
-  const submitForm = async (data: FieldValues, e?: BaseSyntheticEvent) => {
-    // TODO - handle registering data with BE, handle BE errors, go to home if no BE errors
+  const submitForm = async (data: LoginInterface, e?: BaseSyntheticEvent) => {
+    // TODO - handle BE errors, go to home if no BE errors
     e?.preventDefault();
     try {
-      await axios.post("/api/users/login", data);
-      navigate("/test");
+      await authServices.login(data);
+      window.location.href = "/";
     } catch (e) {
       // TODO: use Toast/Alert component from shadcn
-      console.log(e);
+      // console.log(e);
     }
   };
 
@@ -46,7 +44,7 @@ const Login = () => {
       <div
         className="w-1/2"
         style={{
-          background: `url(${login})`,
+          background: `url(${loginImg})`,
           minHeight: "calc(100vh - 76px)",
           backgroundPosition: "center",
           backgroundSize: "cover",
@@ -57,7 +55,7 @@ const Login = () => {
         buttonLabel="Log in"
         secondaryButtonLabel="Sign up"
         secondaryText="Don't have an account?"
-        route="/sign-up"
+        route="/register"
         buttonStyle="bg-[#b0ccc7]/40"
         buttonIconStyle="group-hover:translate-x-[225%]"
         handler={handleSubmit(submitForm)}
@@ -87,4 +85,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LoginPage;

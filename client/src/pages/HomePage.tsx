@@ -3,7 +3,18 @@ import { IC, columns } from "../components/atoms/Columns";
 import DataTable from "../components/molecules/DataTable";
 import Intro from "../components/molecules/Intro";
 
-const Home = () => {
+interface Topic {
+  title: string;
+  images: [];
+  ic_link: string;
+  date_posted: Date;
+  categories: [];
+  content: string;
+  status: "IC" | "GB" | "Closed";
+  views: number;
+}
+
+const HomePage = () => {
   const data = trendIcs as IC[];
 
   return (
@@ -20,4 +31,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default HomePage;
