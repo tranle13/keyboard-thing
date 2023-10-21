@@ -3,20 +3,18 @@ import httpService from "@/services/httpService";
 import { useQuery } from "@tanstack/react-query";
 import { format } from "date-fns";
 
-const useTopics = () =>
+const useTopic = (id: string) =>
   useQuery({
-    queryKey: ["topics"],
+    queryKey: ["topic"],
     queryFn: () =>
-      httpService.get<Topic[]>("/api/topics").then((res) => {
+      httpService.get<Topic>(`/api/topics/${id}`).then((res) => {
         const { data } = res;
-        data.map((d) => {
-          d.date_posted = format(new Date(d.date_posted), "MMM dd, yyyy");
-          return d;
-        });
-
-        return data;
+        return {
+          ...data,
+          date_posted: format(new Date(data.date_posted), "MMM dd, yyyy"),
+        };
       }),
     staleTime: 60 * 60 * 1_000, //1h
   });
 
-export default useTopics;
+export default useTopic;

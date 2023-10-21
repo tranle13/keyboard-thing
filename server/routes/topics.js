@@ -19,7 +19,9 @@ router.get("/", async (req, res) => {
 
 // GET a topic
 router.get("/:id", validateObjectId, async (req, res) => {
-  const topic = await Topic.findOne({ _id: req.params.id });
+  const topic = await Topic.findOne({ _id: req.params.id }).populate([
+    { path: "author", select: "username image" },
+  ]);
 
   if (!topic) return res.status(404).send("This topic does not exist");
 

@@ -1,4 +1,4 @@
-import { PostImage } from "@/shared/interfaces";
+import { TopicImage } from "@/entities/TopicImage";
 import { wrap } from "@popmotion/popcorn";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
@@ -8,11 +8,14 @@ import {
 } from "react-icons/io";
 
 interface Props {
-  images: PostImage[];
+  images?: TopicImage[];
 }
 
 const Carousel = ({ images }: Props) => {
   const [[page, direction], setPage] = useState([0, 0]);
+
+  if (!images?.length) return null;
+
   const imageIndex = wrap(0, images.length, page);
   const variants = {
     enter: (direction: number) => {

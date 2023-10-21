@@ -20,7 +20,7 @@ const HomePage = () => {
         <DataTable
           data={data || []}
           columns={columns}
-          clickHandler={(row) => console.log(row)}
+          clickHandler={(row) => (window.location.href = `/topic/${row._id}`)}
         />
       )}
     </div>

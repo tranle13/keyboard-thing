@@ -2,7 +2,6 @@ import { unknown } from "@/assets";
 import { Topic } from "@/entities/Topic";
 import { Badge } from "@/shadcn-ui/components/ui/badge";
 import { ColumnDef } from "@tanstack/react-table";
-import { format } from "date-fns";
 
 export const columns: ColumnDef<Topic>[] = [
   {
@@ -47,12 +46,8 @@ export const columns: ColumnDef<Topic>[] = [
     header: "Views",
   },
   {
-    accessorKey: "date_created",
+    accessorKey: "date_posted",
     header: "Date posted",
-    cell: ({ row }) => {
-      const date = row.original.date_posted;
-      return <span>{format(new Date(date), "MMM dd, yyyy")}</span>;
-    },
   },
   {
     accessorKey: "status",
