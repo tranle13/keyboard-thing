@@ -5,16 +5,26 @@ const bcrypt = require("bcrypt");
 // const fs = require("fs");
 // const { v4: uuid } = require("uuid");
 const { User, validate } = require("../models/user");
+const auth = require("../middleware/auth");
 const router = express.Router();
 
 // GET current user
-router.get("/me", async (req, res) => {
+router.get("/me", auth, async (req, res) => {
   const user = await User.findById(req.body._id).select("-password");
   res.send(user);
 });
 
+// GET a user
+router.get("/:usn", auth, async (req, res) => {
+  const user = await User.findOne({ username: req.params.usn });
+
+  if (!user) return res.status(404).send("This user does not exist");
+
+  res.send(_.pick(user, ["username", "image"]));
+});
+
 // GET a user's posts
-router.get("/:usn/posts", async (req, res) => {
+router.get("/:usn/posts", auth, async (req, res) => {
   const topics = await User.findOne({ username: req.params.usn }).populate(
     "topics"
   );
@@ -54,10 +64,9 @@ router.post("/", async (req, res) => {
     .send(_.pick(user, ["_id", "username", "email"]));
 });
 
+// TODO: go back to this once the profile is up and running normally
 // PATCH update a user
 // router.patch("/me", async (req, res) => {
-//   // TODO: req validation here
-
 //   const { username, password, image, _id } = req.body;
 //   const user = await User.findOneAndUpdate(
 //     _id,
