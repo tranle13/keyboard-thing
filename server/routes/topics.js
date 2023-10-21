@@ -68,7 +68,7 @@ router.post("/", async (req, res) => {
 });
 
 // PUT a topic
-router.PUT("/:id", async (req, res) => {
+router.put("/:id", async (req, res) => {
   // TODO: req validation here
 
   const { title, images, ic_link, categories, content, status } = req.body;

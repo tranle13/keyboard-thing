@@ -1,30 +1,24 @@
+// const express = require("express");
+// const config = require("config");
+// const app = express();
+
+// require("./startup/cors")(app);
+// require("./startup/routes")(app);
+// require("./startup/db")();
+// require("./startup/config")();
+// require("./startup/validation")();
+
+// const port = process.env.PORT || config.get("port");
+// const server = app.listen(port, () => console.log(`Listening on port ${port}`));
+
+// module.exports = server;
+
 const express = require("express");
-const fileUpload = require("express-fileupload");
-
-const users = require("./routes/users");
-const topics = require("./routes/topics");
-
+const config = require("config");
 const app = express();
 
-app.use(express.json());
-app.use(fileUpload());
+require("./startup/routes")(app);
+require("./startup/db")();
 
-app.use("/api/users", users);
-app.use("/api/topics", topics);
-
-// Allow cross-site requests
-app.use((_, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-  );
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE");
-  next();
-});
-
-// Connect to db
-const connectDB = require("./config/db");
-connectDB();
-
-app.listen(process.env.PORT, () => console.log(`Listening on port ${port}`));
+const port = process.env.PORT || config.get("port");
+app.listen(port, () => console.log(`Listening on ${port}...`));
