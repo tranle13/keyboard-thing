@@ -1,35 +1,22 @@
+import { unknown } from "@/assets";
+import { Topic } from "@/entities/Topic";
 import { Badge } from "@/shadcn-ui/components/ui/badge";
 import { ColumnDef } from "@tanstack/react-table";
 
-export type IC = {
-  title: string;
-  views: number;
-  date_created: string;
-  author_pfp: string;
-  author: string;
-  status: "IC" | "GB";
-  tags: Tag[];
-};
-
-type Tag = {
-  name: string;
-  color: string;
-};
-
-export const columns: ColumnDef<IC>[] = [
+export const columns: ColumnDef<Topic>[] = [
   {
     accessorKey: "author",
     header: "Author",
     cell: ({ row }) => {
-      const ic = row.original;
+      const topic = row.original;
       return (
         <div className="flex flex-wrap gap-2">
           <img
             className="w-5 rounded-full"
-            src={ic.author_pfp}
+            src={topic.author.image || unknown}
             alt="profile-picture"
           />
-          <span>{ic.author}</span>
+          <span>{topic.author.username}</span>
         </div>
       );
     },
@@ -42,12 +29,12 @@ export const columns: ColumnDef<IC>[] = [
     accessorKey: "tags",
     header: "Categories",
     cell: ({ row }) => {
-      const tags = row.original.tags;
+      const categories = row.original.categories;
       return (
         <div className="flex gap-2 flex-wrap">
-          {tags.map((tag, index) => (
-            <Badge className={`${tag.color}`} key={index}>
-              {tag.name}
+          {categories.map((c, i) => (
+            <Badge className={`${c.color}`} key={i}>
+              {c.name}
             </Badge>
           ))}
         </div>
@@ -59,7 +46,7 @@ export const columns: ColumnDef<IC>[] = [
     header: "Views",
   },
   {
-    accessorKey: "date_created",
+    accessorKey: "date_posted",
     header: "Date posted",
   },
   {

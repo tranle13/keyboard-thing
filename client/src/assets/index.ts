@@ -1,4 +1,5 @@
 import keyboard from "./home/keyboard.png";
+import loading from "./home/puff.svg";
 
 import agres_keyboard from "./profiles/aregs_keyboard.jpeg";
 import commentor_1 from "./profiles/commentor_1.jpeg";
@@ -23,8 +24,8 @@ import img_7 from "./detail/img_7.jpeg";
 import img_8 from "./detail/img_8.jpeg";
 import img_9 from "./detail/img_9.jpeg";
 
-import login from "./account/login.png";
-import signup from "./account/signup.png";
+import loginImg from "./account/login-img.png";
+import signupImg from "./account/signup-img.png";
 
 export {
   agres_keyboard,
@@ -43,10 +44,11 @@ export {
   img_8,
   img_9,
   keyboard,
-  login,
+  loading,
+  loginImg,
   mehka,
   naturalpack,
-  signup,
+  signupImg,
   skok,
   thenajin,
   unknown,

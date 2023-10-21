@@ -1,20 +1,39 @@
+const _ = require("lodash");
 const express = require("express");
 const bcrypt = require("bcrypt");
+const Joi = require("joi");
 const { User } = require("../models/user");
 const router = express.Router();
 
 // POST log in
 router.post("/", async (req, res) => {
-  // TODO: req validation here
+  const { error } = validate(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
 
   let user = await User.findOne({ username: req.body.username });
-  if (!user)
-    return res.status(404).send({ message: "Invalid username or password" });
+  if (!user) return res.status(404).send("Invalid username or password");
 
   const validPassword = bcrypt.compare(user.password, req.body.password);
-  if (!validPassword)
-    return res.status(400).send({ message: "Invalid email or password" });
+  if (!validPassword) return res.status(400).send("Invalid email or password");
 
-  // TODO: generate token and send it back
-  res.end();
+  const token = user.generateAuthToken();
+  res.send(token);
 });
+
+function validate(req) {
+  const schema = Joi.object({
+    username: Joi.string().required().messages({
+      "string.base": "Username is required",
+      "string.empty": "Username is required",
+      "any.required": "Username is required",
+    }),
+    password: Joi.string().required().messages({
+      "string.base": "Password is required",
+      "string.empty": "Password is required",
+      "any.required": "Password is required",
+    }),
+  });
+  return schema.validate(req);
+}
+
+module.exports = router;
