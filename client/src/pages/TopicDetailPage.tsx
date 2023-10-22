@@ -34,7 +34,7 @@ const TopicDetailPage = () => {
               </Badge>
             ))}
             <span className="text-xs">
-              • project opened on {topic?.date_posted}
+              • project opened on {formatDate(topic?.date_posted)}
             </span>
           </div>
         </div>
@@ -60,7 +60,7 @@ const TopicDetailPage = () => {
             <div className="px-4 py-2 border-b-sorta-black border-solid border-b-[1px]">
               <span className="font-bold">{topic?.author.username}</span> &nbsp;
               <span className="text-gray-400 text-sm">
-                posted on {formatDate(topic?.date_posted || "")}
+                posted on {formatDate(topic?.date_posted)}
               </span>
             </div>
             <div className="flex flex-col items-center gap-5 p-4">
