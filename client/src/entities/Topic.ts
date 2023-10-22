@@ -11,6 +11,7 @@ export interface Topic {
   views: number;
   author: Author;
   _id: string;
+  comments: Comment[];
 }
 
 interface Category {
@@ -19,7 +20,15 @@ interface Category {
 }
 
 interface Author {
-  _id: string;
+  _id?: string;
   username: string;
   image: string;
+}
+
+interface Comment {
+  author: Author;
+  _id: string;
+  content: string;
+  date: string;
+  topic: string; // topic id
 }
