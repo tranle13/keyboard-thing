@@ -3,10 +3,12 @@ import { Input } from "@/components/atoms/Input";
 import { Form } from "@/components/molecules/Form";
 import * as authServices from "@/services/authService";
 import * as userServices from "@/services/userService";
+import { useToast } from "@/shadcn-ui/components/ui/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { AxiosError } from "axios";
 import { BaseSyntheticEvent, useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
-import { FiEye } from "react-icons/fi";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 import { z } from "zod";
 
 export interface SignupInterface extends FieldValues {
@@ -32,6 +34,7 @@ const SignupSchema = z.object({
 });
 
 const RegisterPage = () => {
+  const { toast } = useToast();
   const {
     register,
     handleSubmit,
@@ -41,15 +44,18 @@ const RegisterPage = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const submitForm = async (data: SignupInterface, e?: BaseSyntheticEvent) => {
-    // TODO - handle registering data with BE, handle BE errors, go to home if no BE errors
     e?.preventDefault();
     try {
       const res = await userServices.register(data);
       authServices.loginWithJwt(res.headers["x-auth-token"]);
       window.location.href = "/";
     } catch (e) {
-      // TODO: use Toast/Alert component from shadcn
-      console.log(e);
+      const error = e as AxiosError;
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong",
+        description: `${error.response?.data}`,
+      });
     }
   };
 
@@ -106,7 +112,7 @@ const RegisterPage = () => {
             className="cursor-pointer absolute top-1/3 right-[18px]"
             onClick={() => setShowPassword(!showPassword)}
           >
-            <FiEye />
+            {showPassword ? <FiEyeOff /> : <FiEye />}
           </span>
         </Input>
       </Form>

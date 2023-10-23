@@ -1,3 +1,4 @@
+import { User } from "@/entities/User";
 import { LoginInterface } from "@/pages/LoginPage";
 import jwtDecode from "jwt-decode";
 import http from "./httpService";
@@ -26,7 +27,7 @@ export function getJwt() {
 export function getCurrentUser() {
   try {
     const jwt = localStorage.getItem(tokenKey);
-    return jwtDecode(jwt || "");
+    return jwtDecode(jwt || "") as User;
   } catch (e) {
     return null;
   }

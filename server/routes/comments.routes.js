@@ -1,4 +1,5 @@
 const express = require("express");
+const mongoose = require("mongoose");
 const { Comment } = require("../models/comment.model");
 const { Topic } = require("../models/topic.model");
 const auth = require("../middleware/auth");
