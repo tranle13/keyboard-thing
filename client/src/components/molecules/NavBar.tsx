@@ -1,8 +1,10 @@
+import authService from "@/services/authService";
 import { useState } from "react";
 import { IoSearch } from "react-icons/io5";
 import { Link } from "react-router-dom";
 
 const NavBar = () => {
+  const user = authService.getCurrentUser();
   const [toggle, setToggle] = useState(false);
   const handleClick = () => {};
 
@@ -18,7 +20,17 @@ const NavBar = () => {
           </li>
           <Link to="/group-buy">Group Buy</Link>
           <Link to="/interest-check">Interest Check</Link>
-          <Link to="/login">Log In</Link>
+          {user ? (
+            <Link to="/profile">
+              <img
+                className="w-8 h-8 rounded-full"
+                src={user.image}
+                alt="profile-picture"
+              />
+            </Link>
+          ) : (
+            <Link to="/login">Log In</Link>
+          )}
         </ul>
 
         {/* menu on mobile devices */}

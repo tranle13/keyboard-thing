@@ -16,6 +16,7 @@ userSchema.methods.generateAuthToken = function () {
     {
       _id: this._id,
       username: this.username,
+      image: this.image,
     },
     config.get("jwtPrivateKey"),
     { expiresIn: "24h" }

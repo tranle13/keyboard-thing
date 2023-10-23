@@ -6,8 +6,6 @@ axios.interceptors.response.use(null, (error) => {
     error.response.status >= 400 &&
     error.response.status < 500;
 
-  console.log("YOOOOOO");
-
   if (!expectedError) {
     // TODO: log it out on UI with toast
   }

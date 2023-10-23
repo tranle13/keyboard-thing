@@ -1,7 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const { Topic, validate } = require("../models/topic");
-const { User } = require("../models/user");
+const { Topic, validate } = require("../models/topic.model");
+const { User } = require("../models/user.model");
 const auth = require("../middleware/auth");
 const validateObjectId = require("../middleware/validateObjectId");
 const router = express.Router();
@@ -20,7 +20,8 @@ router.get("/", async (req, res) => {
 // GET a topic
 router.get("/:id", validateObjectId, async (req, res) => {
   const topic = await Topic.findOne({ _id: req.params.id }).populate([
-    { path: "author", select: "username image" },
+    { path: "author", select: "username image -_id" },
+    { path: "comments" },
   ]);
 
   if (!topic) return res.status(404).send("This topic does not exist");
