@@ -1,9 +1,10 @@
 import { loading, unknown } from "@/assets";
+import Carousel from "@/components/Carousel";
 import EditorForm from "@/components/EditorForm";
-import Carousel from "@/components/molecules/Carousel";
+import useAddComment from "@/hooks/useAddComment";
+import useComments from "@/hooks/useComments";
 import useTopic from "@/hooks/useTopic";
 import authService from "@/services/authService";
-import httpService from "@/services/httpService";
 import { Badge } from "@/shadcn-ui/components/ui/badge";
 import { buttonVariants } from "@/shadcn-ui/components/ui/button";
 import { formatDate } from "@/utils";
@@ -15,27 +16,50 @@ import { Editor as TinyMCEEditor } from "tinymce";
 
 const TopicDetailPage = () => {
   const { id } = useParams();
-  const user = authService.getCurrentUser();
-  const { data: topic, error, isLoading } = useTopic(id || "");
   const ref = createRef<TinyMCEEditor | null>();
+  const user = authService.getCurrentUser();
+  const {
+    data: comments,
+    error: cError,
+    isLoading: cIsLoading,
+  } = useComments(id || "");
+  const {
+    data: topic,
+    error: tError,
+    isLoading: tIsLoading,
+  } = useTopic(id || "");
+  const addComment = useAddComment();
+
+  if (tError || !topic) return null;
+  if (tIsLoading) return <img src={loading} alt="loading" className="w-10" />;
+
   // TODO: separate this into its own service file and handle error accordingly
   const uploadComment = async (e: FormEvent<HTMLFormElement>) => {
     try {
       e.preventDefault();
+      if (ref.current?.getContent() && user) {
+        addComment.mutate({
+          author: {
+            username: user.username,
+            image: user.image,
+          },
+          topic: topic._id,
+          content: encode(ref.current?.getContent()),
+        });
+      }
 
-      await httpService.post("/api/comments/new", {
-        topicId: topic?._id,
-        username: user?.username,
-        image: user?.image,
-        content: encode(ref.current?.getContent()),
-      });
+      // await httpService.post("/api/comments/new", {
+      //   topicId: topic?._id,
+      //   username: user?.username,
+      //   image: user?.image,
+      //   content: encode(ref.current?.getContent()),
+      // });
+
+      // window.location.reload();
     } catch (e) {
       console.log(e);
     }
   };
-
-  if (error) return null;
-  if (isLoading) return <img src={loading} alt="loading" className="w-10" />;
 
   return (
     <div className="w-full px-10 pb-5">
@@ -69,8 +93,8 @@ const TopicDetailPage = () => {
           </a>
         )}
       </div>
-      <div className="post-wrapper relative before:bg-gray-300">
-        <div className="author-post relative bg-cream">
+      <div className="topic-comments-wrapper relative before:bg-gray-300">
+        <div className="topic relative bg-cream">
           <div className="absolute">
             <img
               className="w-10 h-10 rounded-full object-cover"
@@ -91,27 +115,31 @@ const TopicDetailPage = () => {
             </div>
           </div>
         </div>
-        {topic?.comments?.map((comment, index) => (
-          <div key={index} className="relative mt-7 bg-cream">
-            <img
-              className="w-10 h-10 rounded-full object-cover absolute"
-              src={comment.author.image || unknown}
-              alt="commentor-profile-picture"
-            />
-            <div className="post border-[1px] border-solid border-gray-200 rounded-lg ml-14 relative after:bg-cream before:bg-gray-200">
-              <div className="px-4 py-2 border-b-gray-200 border-solid border-b-[1px]">
-                <span className="font-bold">{comment.author.username}</span>{" "}
-                &nbsp;
-                <span className="text-gray-400 text-sm">
-                  posted on {formatDate(comment.date)}
-                </span>
-              </div>
-              <div className="p-4">
-                <span>{parse(decode(comment.content))}</span>
+        {cError || cIsLoading ? (
+          <img src={loading} alt="loading" />
+        ) : (
+          comments?.data.map((comment, index) => (
+            <div key={index} className="relative mt-7 bg-cream">
+              <img
+                className="w-10 h-10 rounded-full object-cover absolute"
+                src={comment.author.image || unknown}
+                alt="commentor-profile-picture"
+              />
+              <div className="post border-[1px] border-solid border-gray-200 rounded-lg ml-14 relative after:bg-cream before:bg-gray-200">
+                <div className="px-4 py-2 border-b-gray-200 border-solid border-b-[1px]">
+                  <span className="font-bold">{comment.author.username}</span>{" "}
+                  &nbsp;
+                  <span className="text-gray-400 text-sm">
+                    posted on {formatDate(comment.date)}
+                  </span>
+                </div>
+                <div className="p-4">
+                  <span>{parse(decode(comment.content))}</span>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))
+        )}
         {user && (
           <div className="relative mt-7">
             <img

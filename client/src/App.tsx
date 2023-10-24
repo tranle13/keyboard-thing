@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import NavBar from "./components/NavBar";
 import PrivateRoutes from "./components/PrivateRoutes";
-import NavBar from "./components/molecules/NavBar";
 import ErrorPage from "./pages/ErrorPage";
 import GBPage from "./pages/GBPage";
 import HomePage from "./pages/HomePage";

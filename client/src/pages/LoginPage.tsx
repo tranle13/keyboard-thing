@@ -1,6 +1,6 @@
 import { loginImg } from "@/assets";
-import { Input } from "@/components/atoms/Input";
-import { Form } from "@/components/molecules/Form";
+import { Form } from "@/components/Form";
+import { Input } from "@/components/Input";
 import * as authServices from "@/services/authService";
 import { useToast } from "@/shadcn-ui/components/ui/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";

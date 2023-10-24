@@ -1,4 +1,5 @@
 import { TopicImage } from "./TopicImage";
+import { User } from "./User";
 
 export interface Topic {
   title: string;
@@ -9,26 +10,11 @@ export interface Topic {
   content: string;
   status: "IC" | "GB" | "Closed";
   views: number;
-  author: Author;
+  author: User;
   _id: string;
-  comments: Comment[];
 }
 
 interface Category {
   name: "Keyboard" | "Keycap" | "Switch" | "PCB" | "Badge";
   color: string;
-}
-
-interface Author {
-  _id?: string;
-  username: string;
-  image: string;
-}
-
-interface Comment {
-  author: Author;
-  _id: string;
-  content: string;
-  date: string;
-  topic: string; // topic id
 }
