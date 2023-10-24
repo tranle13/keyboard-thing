@@ -1,22 +1,19 @@
 import { loading, unknown } from "@/assets";
 import Carousel from "@/components/Carousel";
-import EditorForm from "@/components/EditorForm";
-import useAddComment from "@/hooks/useAddComment";
+import CommentForm from "@/components/CommentForm";
+import { Spinner } from "@/components/Spinner";
 import useComments from "@/hooks/useComments";
 import useTopic from "@/hooks/useTopic";
 import authService from "@/services/authService";
 import { Badge } from "@/shadcn-ui/components/ui/badge";
 import { buttonVariants } from "@/shadcn-ui/components/ui/button";
 import { formatDate } from "@/utils";
-import { decode, encode } from "html-entities";
+import { decode } from "html-entities";
 import parse from "html-react-parser";
-import { FormEvent, createRef } from "react";
 import { useParams } from "react-router-dom";
-import { Editor as TinyMCEEditor } from "tinymce";
 
 const TopicDetailPage = () => {
   const { id } = useParams();
-  const ref = createRef<TinyMCEEditor | null>();
   const user = authService.getCurrentUser();
   const {
     data: comments,
@@ -28,38 +25,9 @@ const TopicDetailPage = () => {
     error: tError,
     isLoading: tIsLoading,
   } = useTopic(id || "");
-  const addComment = useAddComment();
 
   if (tError || !topic) return null;
   if (tIsLoading) return <img src={loading} alt="loading" className="w-10" />;
-
-  // TODO: separate this into its own service file and handle error accordingly
-  const uploadComment = async (e: FormEvent<HTMLFormElement>) => {
-    try {
-      e.preventDefault();
-      if (ref.current?.getContent() && user) {
-        addComment.mutate({
-          author: {
-            username: user.username,
-            image: user.image,
-          },
-          topic: topic._id,
-          content: encode(ref.current?.getContent()),
-        });
-      }
-
-      // await httpService.post("/api/comments/new", {
-      //   topicId: topic?._id,
-      //   username: user?.username,
-      //   image: user?.image,
-      //   content: encode(ref.current?.getContent()),
-      // });
-
-      // window.location.reload();
-    } catch (e) {
-      console.log(e);
-    }
-  };
 
   return (
     <div className="w-full px-10 pb-5">
@@ -115,48 +83,44 @@ const TopicDetailPage = () => {
             </div>
           </div>
         </div>
-        {cError || cIsLoading ? (
-          <img src={loading} alt="loading" />
-        ) : (
-          comments?.data.map((comment, index) => (
-            <div key={index} className="relative mt-7 bg-cream">
-              <img
-                className="w-10 h-10 rounded-full object-cover absolute"
-                src={comment.author.image || unknown}
-                alt="commentor-profile-picture"
-              />
-              <div className="post border-[1px] border-solid border-gray-200 rounded-lg ml-14 relative after:bg-cream before:bg-gray-200">
-                <div className="px-4 py-2 border-b-gray-200 border-solid border-b-[1px]">
-                  <span className="font-bold">{comment.author.username}</span>{" "}
-                  &nbsp;
-                  <span className="text-gray-400 text-sm">
-                    posted on {formatDate(comment.date)}
-                  </span>
-                </div>
-                <div className="p-4">
-                  <span>{parse(decode(comment.content))}</span>
+        {/* SECTION - comments */}
+        <div className="relative my-7 flex flex-col gap-7">
+          {cError && cIsLoading ? (
+            <Spinner />
+          ) : (
+            comments?.data.map((comment, index) => (
+              <div key={index} className="relative bg-cream">
+                <img
+                  className="w-10 h-10 rounded-full object-cover absolute"
+                  src={comment.author.image || unknown}
+                  alt="commentor-profile-picture"
+                />
+                <div className="post border-[1px] border-solid border-gray-200 rounded-lg ml-14 relative after:bg-cream before:bg-gray-200">
+                  <div className="px-4 py-2 border-b-gray-200 border-solid border-b-[1px]">
+                    <span className="font-bold">{comment.author.username}</span>{" "}
+                    &nbsp;
+                    <span className="text-gray-400 text-sm">
+                      posted on {formatDate(comment.date)}
+                    </span>
+                  </div>
+                  <div className="p-4">
+                    <span>{parse(decode(comment.content))}</span>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))
-        )}
+            ))
+          )}
+        </div>
+        {/* SECTION - user comment */}
         {user && (
-          <div className="relative mt-7">
+          <div className="relative">
             <img
               className="w-10 h-10 rounded-full object-cover absolute"
               src={user?.image || unknown}
               alt="me-profile-picture"
             />
             <div className="ml-14">
-              <EditorForm
-                editorRef={ref}
-                height={150}
-                handleSubmit={(e) => uploadComment(e)}
-                handleReset={(e) => {
-                  e.preventDefault();
-                  ref.current?.resetContent();
-                }}
-              />
+              <CommentForm user={user} topic={topic} />
             </div>
           </div>
         )}
