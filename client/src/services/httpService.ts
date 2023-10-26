@@ -10,6 +10,11 @@ axios.interceptors.response.use(null, (error) => {
     // TODO: log it out on UI with toast
   }
 
+  if (error.response.data.toLowerCase() === "invalid token") {
+    window.location.href = "/";
+    // show error with toast that log in session expired
+  }
+
   return Promise.reject(error);
 });
 

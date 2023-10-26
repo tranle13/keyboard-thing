@@ -1,10 +1,10 @@
-import authService from "@/services/authService";
-import { useState } from "react";
+import AuthContext from "@/context/authContext";
+import { useContext, useState } from "react";
 import { IoSearch } from "react-icons/io5";
 import { Link } from "react-router-dom";
 
 const NavBar = () => {
-  const user = authService.getCurrentUser();
+  const { user } = useContext(AuthContext);
   const [toggle, setToggle] = useState(false);
   const handleClick = () => {};
 

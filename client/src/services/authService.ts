@@ -3,6 +3,14 @@ import { LoginInterface } from "@/pages/LoginPage";
 import jwtDecode from "jwt-decode";
 import http from "./httpService";
 
+interface JWT {
+  exp: number;
+  iat: number;
+  image: string;
+  username: string;
+  _id: string;
+}
+
 const tokenKey = "kb";
 
 http.setJwt(getJwt());
@@ -27,7 +35,17 @@ export function getJwt() {
 export function getCurrentUser() {
   try {
     const jwt = localStorage.getItem(tokenKey);
-    return jwtDecode(jwt || "") as User;
+    if (!jwt) return null;
+
+    const decoded: JWT = jwtDecode(jwt);
+    if (decoded.exp * 1000 < Date.now()) return null;
+
+    const user: User = {
+      username: decoded.username,
+      image: decoded.image,
+      _id: decoded._id,
+    };
+    return user;
   } catch (e) {
     return null;
   }

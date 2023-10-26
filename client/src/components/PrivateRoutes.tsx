@@ -1,8 +1,9 @@
-import authService from "@/services/authService";
+import AuthContext from "@/context/authContext";
+import { useContext } from "react";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 
 const PrivateRoutes = () => {
-  const user = authService.getCurrentUser();
+  const { user } = useContext(AuthContext);
   const location = useLocation();
 
   if (user) return <Outlet />;

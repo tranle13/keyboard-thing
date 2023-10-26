@@ -3,13 +3,14 @@ import CommentForm from "@/components/CommentForm";
 import Comments from "@/components/Comments";
 import Topic from "@/components/Topic";
 import TopicHeader from "@/components/TopicHeader";
+import AuthContext from "@/context/authContext";
 import useTopic from "@/hooks/useTopic";
-import authService from "@/services/authService";
+import { useContext } from "react";
 import { useParams } from "react-router-dom";
 
 const TopicDetailPage = () => {
   const { id: topicId } = useParams();
-  const user = authService.getCurrentUser();
+  const { user } = useContext(AuthContext);
   const { data: topic, error, isLoading } = useTopic(topicId || "");
 
   if (error || !topic) return null;
@@ -25,7 +26,7 @@ const TopicDetailPage = () => {
           <div className="relative">
             <img
               className="w-10 h-10 rounded-full object-cover absolute"
-              src={user?.image || unknown}
+              src={user.image || unknown}
               alt="me-profile-picture"
             />
             <div className="ml-14">
