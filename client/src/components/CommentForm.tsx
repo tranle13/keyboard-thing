@@ -14,7 +14,7 @@ interface Props {
 
 const CommentForm = ({ user, topic }: Props) => {
   const { toast } = useToast();
-  const ref = createRef<TinyMCEEditor | null>();
+  const ref = createRef<TinyMCEEditor>();
   const { mutate, isPending, error } = useAddComment();
 
   if (error) {
@@ -29,7 +29,7 @@ const CommentForm = ({ user, topic }: Props) => {
   return (
     <EditorForm
       isUpdating={isPending}
-      editorRef={ref}
+      ref={ref}
       height={150}
       handleSubmit={(e) => {
         e.preventDefault();

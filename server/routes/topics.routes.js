@@ -33,9 +33,10 @@ router.post("/", auth, async (req, res) => {
   let { error } = validate({ title: req.body.title });
   if (error) return res.status(400).send(error.details[0].message);
 
-  const { title, images, ic_link, categories, content, status, _id } = req.body;
+  const { title, images, ic_link, categories, content, status, author } =
+    req.body;
 
-  const user = await User.findById(_id);
+  const user = await User.findOne({ username: author });
 
   if (!user)
     return res.status(404).send({ message: "Could not find the user" });
@@ -47,7 +48,7 @@ router.post("/", auth, async (req, res) => {
     categories,
     content,
     status,
-    author: _id,
+    author: user._id,
   });
 
   const session = await mongoose.startSession();

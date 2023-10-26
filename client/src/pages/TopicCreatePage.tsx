@@ -1,22 +1,24 @@
 import EditorForm from "@/components/EditorForm";
+import AuthContext from "@/context/authContext";
+import { Topic } from "@/entities/Topic";
 import { TopicImage } from "@/entities/TopicImage";
+import httpService from "@/services/httpService";
 import { Input } from "@/shadcn-ui/components/ui/input";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/shadcn-ui/components/ui/popover";
-import React, { createRef, useState } from "react";
-import {
-  HiOutlineCamera,
-  HiOutlinePlus,
-  HiOutlineTrash,
-} from "react-icons/hi2";
+import { encode } from "html-entities";
+import { FormEvent, createRef, useContext, useState } from "react";
+import { HiOutlineCamera, HiOutlinePlus, HiOutlineTrash } from "react-icons/hi";
 import { Editor as TinyMCEEditor } from "tinymce";
 
 const TopicCreatePage = () => {
-  const ref = createRef<TinyMCEEditor | null>();
+  const { user } = useContext(AuthContext);
+  const ref = createRef<TinyMCEEditor>();
   const [title, setTitle] = useState("");
+  const [icLink, setIcLink] = useState("");
   const [images, setImages] = useState<TopicImage[]>([
     {
       url: "",
@@ -49,16 +51,31 @@ const TopicCreatePage = () => {
     );
   };
 
-  const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // TODO: Need to save this to BE later
-    console.log(ref.current?.getContent());
+    try {
+      if (ref.current?.getContent()) {
+        const topic = await httpService.post<Topic>("/api/topics/", {
+          title,
+          images,
+          ic_link: icLink,
+          categories: [{ name: "Keycap", color: "tag-keycap" }],
+          content: encode(ref.current.getContent()),
+          status: "IC",
+          author: user?.username,
+        });
+        // TODO: navigate to the detail page of newly created topic
+        // window.location.href = `/topic/${topic.}`
+      }
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
     <EditorForm
-      editorRef={ref}
+      ref={ref}
       height={500}
       header="New Topic"
       extraClass="px-10 pb-5"
@@ -135,6 +152,7 @@ const TopicCreatePage = () => {
         className="border-0 bg-cream/40"
         type="text"
         placeholder="IC link (optional)"
+        onChange={(e) => setIcLink(e.target.value)}
       />
     </EditorForm>
   );
