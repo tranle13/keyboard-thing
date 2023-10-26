@@ -206,7 +206,7 @@ div[class*="status-"] {
   right: 10px;
 }
 
-.post-wrapper:before {
+.topic-comments-wrapper:before {
   bottom: 0;
   content: "";
   display: block;

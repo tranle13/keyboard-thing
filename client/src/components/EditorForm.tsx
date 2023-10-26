@@ -11,6 +11,7 @@ interface Props {
   secondaryButtonText?: string;
   extraClass?: string;
   header?: string;
+  isUpdating?: boolean;
   handleSubmit: (e: FormEvent<HTMLFormElement>) => void;
   handleReset: (e: FormEvent<HTMLFormElement>) => void;
 }
@@ -23,6 +24,7 @@ const EditorForm = ({
   secondaryButtonText,
   extraClass,
   header,
+  isUpdating = false,
   handleSubmit,
   handleReset,
 }: Props) => {
@@ -39,6 +41,7 @@ const EditorForm = ({
         {children}
 
         <Editor
+          disabled={isUpdating}
           apiKey="ugljrczpl64v3yl2yat6m9ke7toakblkuv44j6fwc78ez5f8"
           onInit={(_, editor) => {
             editorRef.current = editor;
@@ -66,12 +69,12 @@ const EditorForm = ({
             variant="ghost"
             className="text-sorta-yellow"
             type="reset"
-            disabled={!hasContent}
+            disabled={!hasContent && isUpdating}
           >
             {secondaryButtonText || "Discard"}
           </Button>
           <Button
-            disabled={!hasContent}
+            disabled={!hasContent && isUpdating}
             className="bg-sorta-yellow text-sorta-black hover:bg-sorta-dark-yellow"
             type="submit"
           >

@@ -24,10 +24,7 @@ const topicSchema = new mongoose.Schema({
   status: { type: String, enum: ["IC", "GB", "Closed"] },
   views: { type: Number, default: 0 },
   author: { type: mongoose.Types.ObjectId, required: true, ref: "User" },
-  comments: [{ type: mongoose.Types.ObjectId, ref: "Comment" }],
 });
-
-topicSchema.index({ views: 1 });
 
 function validateReq(req) {
   const schema = Joi.object({

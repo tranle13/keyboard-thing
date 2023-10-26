@@ -1,8 +1,8 @@
 import { loading } from "@/assets";
-import { columns } from "@/components/atoms/Columns";
-import DataTable from "@/components/molecules/DataTable";
+import { columns } from "@/components/Columns";
+import DataTable from "@/components/DataTable";
 import useTopics from "@/hooks/useTopics";
-import Intro from "../components/molecules/Intro";
+import Intro from "../components/Intro";
 
 const HomePage = () => {
   const { data, error, isLoading } = useTopics();

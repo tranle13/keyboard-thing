@@ -21,7 +21,6 @@ router.get("/", async (req, res) => {
 router.get("/:id", validateObjectId, async (req, res) => {
   const topic = await Topic.findOne({ _id: req.params.id }).populate([
     { path: "author", select: "username image -_id" },
-    { path: "comments" },
   ]);
 
   if (!topic) return res.status(404).send("This topic does not exist");
