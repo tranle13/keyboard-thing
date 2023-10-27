@@ -1,5 +1,5 @@
 import { Topic } from "@/entities/Topic";
-import httpService from "@/services/httpService";
+import httpService from "@/queries/services/httpService";
 import { useQuery } from "@tanstack/react-query";
 
 const useTopics = () =>

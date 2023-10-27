@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { Comments } from "../entities/Comments";
+import { Comments } from "../../entities/Comments";
 
 const useComments = (topicId: string) =>
   useQuery({

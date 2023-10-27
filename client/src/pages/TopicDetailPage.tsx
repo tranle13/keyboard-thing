@@ -4,7 +4,7 @@ import Comments from "@/components/Comments";
 import Topic from "@/components/Topic";
 import TopicHeader from "@/components/TopicHeader";
 import AuthContext from "@/context/authContext";
-import useTopic from "@/hooks/useTopic";
+import useTopic from "@/queries/hooks/useTopic";
 import { useContext } from "react";
 import { useParams } from "react-router-dom";
 

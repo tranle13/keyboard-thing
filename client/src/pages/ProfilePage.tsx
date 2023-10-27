@@ -1,4 +1,4 @@
-import authService from "@/services/authService";
+import authService from "@/queries/services/authService";
 
 const ProfilePage = () => {
   const user = authService.getCurrentUser();

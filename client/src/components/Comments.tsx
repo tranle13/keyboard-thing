@@ -1,5 +1,5 @@
 import { unknown } from "@/assets";
-import useComments from "@/hooks/useComments";
+import useComments from "@/queries/hooks/useComments";
 import { formatDate } from "@/utils";
 import { decode } from "html-entities";
 import parse from "html-react-parser";

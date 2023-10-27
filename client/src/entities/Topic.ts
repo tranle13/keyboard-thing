@@ -1,14 +1,21 @@
 import { TopicImage } from "./TopicImage";
 import { User } from "./User";
 
-export interface Topic {
+interface BaseTopic {
   title: string;
   images: TopicImage[];
   ic_link: string;
-  date_posted: string;
   categories: Category[];
   content: string;
   status: "IC" | "GB" | "Closed";
+}
+
+export interface RequestTopic extends BaseTopic {
+  author: string;
+}
+
+export interface Topic extends BaseTopic {
+  date_posted: string;
   views: number;
   author: User;
   _id: string;

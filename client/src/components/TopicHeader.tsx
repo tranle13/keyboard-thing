@@ -36,6 +36,7 @@ const TopicHeader = ({ topic }: Props) => {
         <a
           className={`${buttonVariants()} ml-auto my-auto`}
           href={topic.ic_link}
+          target="_blank"
         >
           IC Form
         </a>

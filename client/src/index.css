@@ -102,7 +102,7 @@ body:not(.logo) {
 
 body {
   position: relative;
-  background-color: var(--cream);
+  /* background-color: var(--cream); */
   color: var(--sorta-black);
   min-height: 100vh;
 }

@@ -8,7 +8,7 @@ import mehka from "./profiles/mehka.jpeg";
 import naturalpack from "./profiles/naturalpack.jpeg";
 import skok from "./profiles/skok.jpeg";
 import thenajin from "./profiles/thenajin.jpeg";
-import unknown from "./profiles/unknown.png";
+import unknown from "./profiles/unknown.jpeg";
 import zerog from "./profiles/zerog.jpeg";
 
 import img_1 from "./detail/img_1.jpeg";

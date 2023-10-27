@@ -1,6 +1,6 @@
 import { SignupInterface } from "@/pages/RegisterPage";
-import axios from "axios";
+import httpService from "./httpService";
 
 export function register(cred: SignupInterface) {
-  return axios.post("/api/users/", { ...cred });
+  return httpService.post("/api/users/", { ...cred });
 }

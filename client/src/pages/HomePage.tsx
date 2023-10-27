@@ -1,7 +1,8 @@
 import { loading } from "@/assets";
 import { columns } from "@/components/Columns";
 import DataTable from "@/components/DataTable";
-import useTopics from "@/hooks/useTopics";
+import Topics from "@/components/Topics";
+import useTopics from "@/queries/hooks/useTopics";
 import Intro from "../components/Intro";
 
 const HomePage = () => {
@@ -17,11 +18,14 @@ const HomePage = () => {
       {isLoading ? (
         <img src={loading} alt="loading" />
       ) : (
-        <DataTable
-          data={data || []}
-          columns={columns}
-          clickHandler={(row) => (window.location.href = `/topic/${row._id}`)}
-        />
+        <>
+          <DataTable
+            data={data || []}
+            columns={columns}
+            clickHandler={(row) => (window.location.href = `/topic/${row._id}`)}
+          />
+          <Topics />
+        </>
       )}
     </div>
   );

@@ -1,6 +1,6 @@
 import { Topic } from "@/entities/Topic";
 import { User } from "@/entities/User";
-import useAddComment from "@/hooks/useAddComment";
+import useAddComment from "@/queries/hooks/useAddComment";
 import { useToast } from "@/shadcn-ui/components/ui/use-toast";
 import { encode } from "html-entities";
 import { createRef } from "react";
