@@ -23,6 +23,7 @@ import img_6 from "./detail/img_6.jpeg";
 import img_7 from "./detail/img_7.jpeg";
 import img_8 from "./detail/img_8.jpeg";
 import img_9 from "./detail/img_9.jpeg";
+import noImage from "./detail/no-image.jpeg";
 
 import loginImg from "./account/login-img.png";
 import signupImg from "./account/signup-img.png";
@@ -48,6 +49,7 @@ export {
   loginImg,
   mehka,
   naturalpack,
+  noImage,
   signupImg,
   skok,
   thenajin,

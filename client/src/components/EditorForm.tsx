@@ -11,7 +11,6 @@ import {
 import { Editor as TinyMCEEditor } from "tinymce";
 
 interface Props {
-  // editorRef: MutableRefObject<TinyMCEEditor | null>;
   children?: ReactNode;
   height: number;
   buttonText?: string;
@@ -22,11 +21,6 @@ interface Props {
   handleSubmit: (e: FormEvent<HTMLFormElement>) => void;
   handleReset: (e: FormEvent<HTMLFormElement>) => void;
 }
-
-// interface Props2 {
-//   isUpdating?: boolean;
-//   height: number;
-// }
 
 export const EditorForm = forwardRef<TinyMCEEditor, Props>((props, ref) => {
   const [hasContent, setHasContent] = useState(false);

@@ -18,7 +18,7 @@ function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
-        <div className="flex flex-col" data-theme="dark">
+        <div className="flex flex-col" data-theme="retro">
           <Toaster />
           <NavBar />
           <Routes>

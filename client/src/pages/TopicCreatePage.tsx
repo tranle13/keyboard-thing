@@ -1,4 +1,4 @@
-import NewTopic from "@/components/NewTopic";
+import NewTopic from "@/components/NewTopicPage";
 import AuthContext from "@/context/authContext";
 import { RequestTopic } from "@/entities/Topic";
 import { TopicImage } from "@/entities/TopicImage";
