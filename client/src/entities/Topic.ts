@@ -5,12 +5,13 @@ interface BaseTopic {
   title: string;
   images: TopicImage[];
   ic_link: string;
-  categories: Category[];
+  categories: string[];
   content: string;
   status: "IC" | "GB" | "Closed";
 }
 
 export interface RequestTopic extends BaseTopic {
+  cover_image: string;
   author: string;
 }
 
@@ -19,9 +20,4 @@ export interface Topic extends BaseTopic {
   views: number;
   author: User;
   _id: string;
-}
-
-interface Category {
-  name: "Keyboard" | "Keycap" | "Switch" | "PCB" | "Badge";
-  color: string;
 }

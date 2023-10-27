@@ -8,7 +8,7 @@ interface Props {
 const FormSection = ({ children, label }: Props) => {
   return (
     <div className="grid grid-cols-[150px_auto]">
-      <label className="label">
+      <label className="label items-start">
         <span className="label-text">{label}</span>
       </label>
       {children}

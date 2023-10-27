@@ -33,8 +33,16 @@ router.post("/", auth, async (req, res) => {
   let { error } = validate({ title: req.body.title });
   if (error) return res.status(400).send(error.details[0].message);
 
-  const { title, images, ic_link, categories, content, status, author } =
-    req.body;
+  const {
+    title,
+    cover_image,
+    status,
+    ic_link,
+    categories,
+    images,
+    content,
+    author,
+  } = req.body;
 
   const user = await User.findOne({ username: author });
 
@@ -43,11 +51,12 @@ router.post("/", auth, async (req, res) => {
 
   const topic = new Topic({
     title,
-    images,
+    cover_image,
+    status,
     ic_link,
     categories,
+    images,
     content,
-    status,
     author: user._id,
   });
 

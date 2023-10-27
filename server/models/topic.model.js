@@ -6,24 +6,22 @@ const imageSchema = new mongoose.Schema({
   caption: String,
 });
 
-const categorySchema = new mongoose.Schema({
-  name: {
-    type: String,
-    enum: ["Keyboard", "Keycap", "Switch", "PCB", "Badge"],
-  },
-  color: String,
-});
-
 const topicSchema = new mongoose.Schema({
   title: { type: String, required: true },
-  images: [imageSchema],
-  ic_link: String,
-  date_posted: { type: Date, default: Date.now },
-  categories: [categorySchema],
-  content: String,
+  cover_image: String,
   status: { type: String, enum: ["IC", "GB", "Closed"] },
-  views: { type: Number, default: 0 },
+  ic_link: String,
+  categories: [
+    {
+      type: String,
+      enum: ["Keyboard", "Keycap", "Switch", "PCB", "Badge", "Other"],
+    },
+  ],
+  images: [imageSchema],
+  content: String,
   author: { type: mongoose.Types.ObjectId, required: true, ref: "User" },
+  date_posted: { type: Date, default: Date.now },
+  views: { type: Number, default: 0 },
 });
 
 function validateReq(req) {

@@ -1,37 +1,20 @@
 import { noImage } from "@/assets";
 import { TopicImage } from "@/entities/TopicImage";
-import { ChangeEvent, MouseEvent, useState } from "react";
+import { ChangeEvent, MouseEvent } from "react";
 import { HiOutlineTrash } from "react-icons/hi";
 
-const AddImage = () => {
-  // SECTION = States
-  const [images, setImages] = useState<TopicImage[]>([]);
-
-  // SECTION = Functions
-  const addImage = (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    setImages([...images, { url: "", caption: "" }]);
-  };
-  const removeImage = (e: MouseEvent<HTMLSpanElement>, index: number) => {
-    e.preventDefault();
-    const temp = images
-      .slice(0, index)
-      .concat(images.slice(index + 1, images.length));
-    setImages(temp);
-  };
-  const setImage = (
+interface Props {
+  images: TopicImage[];
+  addImage: (e: MouseEvent<HTMLButtonElement>) => void;
+  removeImage: (e: MouseEvent<HTMLSpanElement>, index: number) => void;
+  setImage: (
     e: ChangeEvent<HTMLInputElement>,
     index: number,
     key: keyof TopicImage
-  ) => {
-    setImages(
-      images.map((image, i) => {
-        if (i === index) image[key] = e.target.value;
-        return image;
-      })
-    );
-  };
+  ) => void;
+}
 
+const AddImage = ({ images, addImage, removeImage, setImage }: Props) => {
   return (
     <div className="form-control gap-3">
       <button className="btn btn-sm btn-block text-primary" onClick={addImage}>

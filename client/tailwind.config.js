@@ -87,7 +87,15 @@ export default {
     },
   },
   daisyui: {
-    themes: ["dark", "cupcake", "bumblebee", "retro", "halloween"],
+    themes: [
+      "dark",
+      "cupcake",
+      "bumblebee",
+      "retro",
+      "halloween",
+      "dracula",
+      "night",
+    ],
   },
   plugins: [import("tailwindcss-animate"), daisyui],
 };

@@ -16,9 +16,13 @@ const ContentEditor = forwardRef<TinyMCEEditor, Props>((props, ref) => {
   return (
     <Editor
       apiKey="6u83swqogsxupwyr54zmcbd6cc7gx4jw6uj1g56ui6tte16k"
+      onInit={(_, editor) => {
+        editorRef.current = editor;
+      }}
       initialValue=""
       init={{
         min_height: props.height || 400,
+        max_height: 600,
         statusbar: false,
         menubar: false,
         placeholder: "Type your content here...",
