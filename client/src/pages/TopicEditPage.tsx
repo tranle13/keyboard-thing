@@ -13,13 +13,13 @@ import {
 } from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { Editor as TinyMCEEditor } from "tinymce";
-import AddCategories from "./topic/AddCategories";
-import AddImage from "./topic/AddImage";
-import AddStatus, { Status } from "./topic/AddStatus";
-import ContentEditor from "./topic/ContentEditor";
-import FormSection from "./topic/FormSection";
+import AddCategories from "../components/topic/AddCategories";
+import AddImage from "../components/topic/AddImage";
+import AddStatus, { Status } from "../components/topic/AddStatus";
+import ContentEditor from "../components/topic/ContentEditor";
+import FormSection from "../components/topic/FormSection";
 
-const NewTopic = () => {
+const TopicEditPage = () => {
   // SECTION = Context
   const { user } = useContext(AuthContext);
 
@@ -85,7 +85,7 @@ const NewTopic = () => {
           cover_image: coverImage,
           status: "IC",
           ic_link: icLink,
-          categories: categories.map((c) => c.name),
+          categories: categories.filter((c) => c.checked).map((c) => c.name),
           images: images.filter((i) => i.url || i.caption),
           content: encode(ref.current.getContent()),
           author: user?.username || "",
@@ -186,4 +186,4 @@ const NewTopic = () => {
   );
 };
 
-export default NewTopic;
+export default TopicEditPage;

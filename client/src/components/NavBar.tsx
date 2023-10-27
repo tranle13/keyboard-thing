@@ -9,7 +9,7 @@ const NavBar = () => {
   const handleClick = () => {};
 
   return (
-    <div className="sticky top-0 flex justify-between items-center py-4 px-10 bg-sorta-black z-[100]">
+    <div className="sticky top-0 flex justify-between items-center py-4 px-10 bg-sorta-black z-[100] h-fit">
       <Link className="logo text-[50px] text-sorta-blue leading-9 pb-2" to="/">
         K.
       </Link>

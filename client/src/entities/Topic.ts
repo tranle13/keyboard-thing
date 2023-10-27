@@ -3,15 +3,15 @@ import { User } from "./User";
 
 interface BaseTopic {
   title: string;
-  images: TopicImage[];
+  cover_image: string;
+  status: "IC" | "GB" | "Closed";
   ic_link: string;
   categories: string[];
+  images: TopicImage[];
   content: string;
-  status: "IC" | "GB" | "Closed";
 }
 
 export interface RequestTopic extends BaseTopic {
-  cover_image: string;
   author: string;
 }
 
