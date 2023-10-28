@@ -4,6 +4,7 @@ import { formatDate } from "@/utils";
 import { decode } from "html-entities";
 import parse from "html-react-parser";
 import { useState } from "react";
+import Pagination from "./Pagination";
 
 interface Props {
   topicId?: string;
@@ -18,19 +19,6 @@ const Comments = ({ topicId = "" }: Props) => {
   } = useComments({ topicId, page: currentPage });
 
   if (error || !comments || !comments.data.length) return;
-
-  const paginate = (direction: "prev" | "next") => {
-    switch (direction) {
-      case "prev":
-        if (currentPage - 1 < 0) setCurrentPage(currentPage - 1);
-        else setCurrentPage(1);
-        break;
-      default:
-        if (currentPage + 1 < comments.total) setCurrentPage(currentPage + 1);
-        else setCurrentPage(comments.total);
-        break;
-    }
-  };
 
   return (
     <div className="relative flex flex-col gap-7">
@@ -64,15 +52,11 @@ const Comments = ({ topicId = "" }: Props) => {
               </span>
             </div>
           ))}
-          <div className="join justify-center">
-            <button className="join-item btn" onClick={() => paginate("prev")}>
-              «
-            </button>
-            <button className="join-item btn">{currentPage}</button>
-            <button className="join-item btn" onClick={() => paginate("next")}>
-              »
-            </button>
-          </div>
+          <Pagination
+            totalPages={comments.total}
+            currentPage={currentPage}
+            onPageChange={(newPage: number) => setCurrentPage(newPage)}
+          />
         </>
       )}
     </div>

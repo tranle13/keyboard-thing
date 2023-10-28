@@ -1,12 +1,19 @@
-import { Topic } from "@/entities/Topic";
+import { Topics } from "@/entities/Topics";
 import httpService from "@/queries/services/httpService";
 import { useQuery } from "@tanstack/react-query";
 
-const useTopics = () =>
+interface Props {
+  page: number;
+  pageSize?: number;
+}
+
+const useTopics = ({ page, pageSize = 5 }: Props) =>
   useQuery({
-    queryKey: ["topics"],
+    queryKey: ["topics", page],
     queryFn: () =>
-      httpService.get<Topic[]>("/api/topics").then((res) => res.data),
+      httpService
+        .get<Topics>("/api/topics/", { params: { page, pageSize } })
+        .then((res) => res.data),
     staleTime: 60 * 60 * 1_000, //1h
   });
 

@@ -8,13 +8,20 @@ const router = express.Router();
 
 // GET all topics (paginated)
 router.get("/", async (req, res) => {
-  const { page, pageSize } = req.body;
-  const topics = await Topic.find()
+  const { page, pageSize } = req.query;
+  const query = {};
+  const topics = await Topic.find(query)
     .sort("-views")
     .skip((page - 1) * pageSize)
     .limit(pageSize)
     .populate([{ path: "author", select: "username image" }]);
-  res.send(topics);
+  const count = await Topic.countDocuments(query);
+  res.send({
+    total: Math.ceil(count / pageSize),
+    page: parseInt(page),
+    pageSize: parseInt(pageSize),
+    data: topics,
+  });
 });
 
 // GET a topic

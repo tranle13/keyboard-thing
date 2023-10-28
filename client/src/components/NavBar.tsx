@@ -28,11 +28,15 @@ const NavBar = () => {
             <Link to="/interest-check">Interest Check</Link>
           </li>
           <li>
-            <Link to="/me">
-              <div className="w-8 mask mask-hexagon">
-                <img src={user?.image} alt="profile" />
-              </div>
-            </Link>
+            {user ? (
+              <Link to="/me">
+                <div className="w-8 mask mask-hexagon">
+                  <img src={user?.image} alt="profile" />
+                </div>
+              </Link>
+            ) : (
+              <Link to="/login">Log In</Link>
+            )}
           </li>
         </ul>
       </div>
