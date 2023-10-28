@@ -17,7 +17,7 @@ function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
-        <div className="grid grid-rows-[75px_auto]" data-theme="dracula">
+        <div className="flex flex-col min-h-screen" data-theme="dracula">
           <NavBar />
           <Routes>
             <Route element={<PrivateRoutes />}>

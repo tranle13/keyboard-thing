@@ -11,26 +11,39 @@ interface Props {
 
 const Topic = ({ topic }: Props) => {
   return (
-    <div className="topic relative bg-cream">
+    <div>
       {topic && (
         <>
-          <div className="absolute">
-            <img
-              className="w-10 h-10 rounded-full object-cover"
-              src={topic.author.image || unknown}
-              alt="author-profile-picture"
-            />
-          </div>
-          <div className="post border-[1px] border-solid border-sorta-black rounded-lg ml-14 relative after:bg-cream before:bg-sorta-black">
-            <div className="px-4 py-2 border-b-sorta-black border-solid border-b-[1px]">
-              <span className="font-bold">{topic.author.username}</span> &nbsp;
-              <span className="text-gray-400 text-sm">
-                posted on {formatDate(topic.date_posted)}
-              </span>
+          <div className="card w-full bg-neutral-content gap-5 p-6">
+            <div className="flex gap-3 items-center">
+              <div className="avatar">
+                <div className="w-8 h-8 mask mask-hexagon">
+                  <img
+                    className=""
+                    src={topic.author.image || unknown}
+                    alt="author-profile-picture"
+                  />
+                </div>
+              </div>
+              <div className="flex flex-col">
+                <span className="text-base-100 font-bold">
+                  {topic.author.username}
+                </span>
+                <span className="text-neutral text-xs">
+                  posted on {formatDate(topic.date_posted)}
+                </span>
+              </div>
             </div>
-            <div className="flex flex-col items-center gap-5 p-4">
-              <Carousel images={topic.images} />
-              <span>{parse(decode(topic.content))}</span>
+            <div className="flex flex-col items-center">
+              {!!topic.images.length && (
+                <>
+                  <Carousel images={topic.images} />
+                  <div className="divider" />
+                </>
+              )}
+              <span className="text-base-100">
+                {parse(decode(topic.content))}
+              </span>
             </div>
           </div>
         </>

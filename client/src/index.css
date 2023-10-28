@@ -102,8 +102,6 @@ body:not(.logo) {
 
 body {
   position: relative;
-  /* background-color: var(--cream); */
-  color: var(--sorta-black);
   min-height: 100vh;
 }
 
@@ -141,69 +139,6 @@ body {
 }
 .ham-menu.close div {
   transform: scale(0);
-}
-
-div[class*="tag-"] {
-  border-width: 2px;
-  color: var(--sorta-black);
-}
-
-.tag-keycap {
-  background-color: rgba(186, 159, 251, 0.5);
-  border-color: var(--bubble-gum);
-}
-
-.tag-keyboard {
-  background-color: rgba(83, 152, 191, 0.5);
-  border-color: var(--blue);
-}
-
-.tag-switch {
-  background-color: rgba(200, 63, 33, 0.5);
-  border-color: var(--red);
-}
-
-div[class*="status-"] {
-  color: var(--sorta-black);
-}
-.status-ic {
-  background-color: var(--light-yellow);
-}
-.status-gb {
-  background-color: var(--green);
-}
-
-.carousel-wrapper {
-  width: 500px;
-  aspect-ratio: 16/9;
-  background-color: rgba(3, 3, 4, 0.2);
-}
-.carousel-wrapper img {
-  position: absolute;
-  max-width: 100%;
-  object-fit: cover;
-}
-
-.prev,
-.next {
-  cursor: pointer;
-  position: absolute;
-  top: calc(50% - 12px);
-  user-select: none;
-  z-index: 2;
-  font-size: 24px;
-  color: var(--cream);
-  background-color: var(--sorta-black);
-  border-radius: 100px;
-  width: min-content;
-}
-
-.prev {
-  left: 10px;
-}
-
-.next {
-  right: 10px;
 }
 
 .topic-comments-wrapper:before {

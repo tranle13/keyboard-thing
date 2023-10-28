@@ -2,16 +2,22 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Comments } from "../../entities/Comments";
 
-const useComments = (topicId: string) =>
+interface Props {
+  topicId: string;
+  page: number;
+  pageSize?: number;
+}
+
+const useComments = ({ topicId, page = 1, pageSize = 5 }: Props) =>
   useQuery({
-    queryKey: ["comments"],
+    queryKey: ["comments", page],
     queryFn: () =>
       axios
         .get<Comments>("/api/comments/", {
           params: {
             topicId,
-            page: 1,
-            pageSize: 2,
+            page,
+            pageSize,
           },
         })
         .then((res) => res.data),

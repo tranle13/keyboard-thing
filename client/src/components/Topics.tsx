@@ -11,7 +11,11 @@ const Topics = ({ topics }: Props) => {
   return (
     <div className="flex flex-wrap justify-between gap-y-10">
       {topics.map((topic, i) => (
-        <div className="card max-md:w-40 w-1/6 shadow-xl" key={i}>
+        <div
+          className="card max-md:w-40 w-1/6 shadow-xl cursor-pointer"
+          key={i}
+          onClick={() => (window.location.href = `/topic/${topic._id}`)}
+        >
           <figure>
             <img
               className="h-[110px] object-cover w-full"
@@ -30,7 +34,7 @@ const Topics = ({ topics }: Props) => {
                 {topic.status}
               </div>
             </h2>
-            <div className="flex gap-2 items-center text-sm text-gray-400">
+            <div className="flex gap-2 items-center text-sm text-neutral">
               <div className="avatar">
                 <div className="w-6 mask mask-hexagon">
                   <img src={topic.author.image || unknown} />

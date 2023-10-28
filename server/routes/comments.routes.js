@@ -8,7 +8,9 @@ const router = express.Router();
 router.get("/", async (req, res) => {
   const { page, pageSize, topicId } = req.query;
   const query = { topic: topicId };
-  const comments = await Comment.find({ topic: topicId });
+  const comments = await Comment.find({ topic: topicId })
+    .skip((page - 1) * pageSize)
+    .limit(pageSize);
   const count = await Comment.countDocuments(query);
   res.send({
     total: Math.ceil(count / pageSize),

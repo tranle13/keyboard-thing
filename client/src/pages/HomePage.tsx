@@ -9,7 +9,7 @@ const HomePage = () => {
   if (error) return null;
 
   return (
-    <div className="px-10 pb-5">
+    <div className="px-10 pb-5 flex-1">
       <Intro />
 
       <h3 className="text-4xl font-bold mb-5">Trending Projects</h3>
