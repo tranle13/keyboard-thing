@@ -9,21 +9,19 @@ import ICPage from "./pages/ICPage";
 import LoginPage from "./pages/LoginPage";
 import ProfilePage from "./pages/ProfilePage";
 import RegisterPage from "./pages/RegisterPage";
-import TopicCreatePage from "./pages/TopicCreatePage";
 import TopicDetailPage from "./pages/TopicDetailPage";
+import TopicEditPage from "./pages/TopicEditPage";
 import Logout from "./routing/Logout";
-import { Toaster } from "./shadcn-ui/components/ui/toaster";
 
 function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
-        <div className="flex flex-col">
-          <Toaster />
+        <div className="flex flex-col min-h-screen" data-theme="dracula">
           <NavBar />
           <Routes>
             <Route element={<PrivateRoutes />}>
-              <Route path="/topic/new" element={<TopicCreatePage />} />
+              <Route path="/topic/new" element={<TopicEditPage />} />
               <Route path="/logout" element={<Logout />} />
               <Route path="/profile" element={<ProfilePage />} />
             </Route>

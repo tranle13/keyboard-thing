@@ -8,13 +8,20 @@ const router = express.Router();
 
 // GET all topics (paginated)
 router.get("/", async (req, res) => {
-  const { page, pageSize } = req.body;
-  const topics = await Topic.find()
+  const { page, pageSize } = req.query;
+  const query = {};
+  const topics = await Topic.find(query)
     .sort("-views")
     .skip((page - 1) * pageSize)
     .limit(pageSize)
     .populate([{ path: "author", select: "username image" }]);
-  res.send(topics);
+  const count = await Topic.countDocuments(query);
+  res.send({
+    total: Math.ceil(count / pageSize),
+    page: parseInt(page),
+    pageSize: parseInt(pageSize),
+    data: topics,
+  });
 });
 
 // GET a topic
@@ -33,21 +40,31 @@ router.post("/", auth, async (req, res) => {
   let { error } = validate({ title: req.body.title });
   if (error) return res.status(400).send(error.details[0].message);
 
-  const { title, images, ic_link, categories, content, status, _id } = req.body;
+  const {
+    title,
+    cover_image,
+    status,
+    ic_link,
+    categories,
+    images,
+    content,
+    author,
+  } = req.body;
 
-  const user = await User.findById(_id);
+  const user = await User.findOne({ username: author });
 
   if (!user)
     return res.status(404).send({ message: "Could not find the user" });
 
   const topic = new Topic({
     title,
-    images,
+    cover_image,
+    status,
     ic_link,
     categories,
+    images,
     content,
-    status,
-    author: _id,
+    author: user._id,
   });
 
   const session = await mongoose.startSession();

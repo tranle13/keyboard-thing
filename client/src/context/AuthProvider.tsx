@@ -1,4 +1,4 @@
-import { getCurrentUser } from "@/services/authService";
+import { getCurrentUser } from "@/queries/services/authService";
 import { ReactNode } from "react";
 import AuthContext from "./authContext";
 

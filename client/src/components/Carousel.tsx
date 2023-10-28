@@ -47,7 +47,7 @@ const Carousel = ({ images }: Props) => {
 
   return (
     <>
-      <div className="carousel-wrapper relative flex justify-center items-center rounded-xl overflow-hidden">
+      <div className="bg-primary-content w-[80%] aspect-video relative flex justify-center items-center rounded-xl overflow-hidden">
         <AnimatePresence initial={false} custom={direction}>
           <motion.img
             key={page}
@@ -71,14 +71,20 @@ const Carousel = ({ images }: Props) => {
             }}
           />
         </AnimatePresence>
-        <div className="prev" onClick={() => pagination(-1)}>
+        <div
+          className="absolute cursor-pointer z-[2] text-[30px] rounded-full w-min left-3 text-base-content bg-secondary select-none top-[calc(50%-12px)]"
+          onClick={() => pagination(-1)}
+        >
           <IoMdArrowDropleftCircle />
         </div>
-        <div className="next" onClick={() => pagination(1)}>
+        <div
+          className="absolute cursor-pointer z-[2] text-[30px] rounded-full w-min right-3 text-base-content bg-secondary select-none top-[calc(50%-12px)]"
+          onClick={() => pagination(1)}
+        >
           <IoMdArrowDroprightCircle />
         </div>
       </div>
-      <p className="text-sm text-gray-300 text-center">
+      <p className="text-sm text-neutral text-center mt-3">
         {images[imageIndex].caption}&nbsp;
       </p>
     </>

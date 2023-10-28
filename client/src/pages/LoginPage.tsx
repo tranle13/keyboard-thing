@@ -1,7 +1,7 @@
 import { loginImg } from "@/assets";
 import { Form } from "@/components/Form";
 import { Input } from "@/components/Input";
-import * as authServices from "@/services/authService";
+import * as authServices from "@/queries/services/authService";
 import { useToast } from "@/shadcn-ui/components/ui/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AxiosError } from "axios";

@@ -8,7 +8,7 @@ import mehka from "./profiles/mehka.jpeg";
 import naturalpack from "./profiles/naturalpack.jpeg";
 import skok from "./profiles/skok.jpeg";
 import thenajin from "./profiles/thenajin.jpeg";
-import unknown from "./profiles/unknown.png";
+import unknown from "./profiles/unknown.jpeg";
 import zerog from "./profiles/zerog.jpeg";
 
 import img_1 from "./detail/img_1.jpeg";
@@ -23,6 +23,7 @@ import img_6 from "./detail/img_6.jpeg";
 import img_7 from "./detail/img_7.jpeg";
 import img_8 from "./detail/img_8.jpeg";
 import img_9 from "./detail/img_9.jpeg";
+import noImage from "./detail/no-image.jpeg";
 
 import loginImg from "./account/login-img.png";
 import signupImg from "./account/signup-img.png";
@@ -48,6 +49,7 @@ export {
   loginImg,
   mehka,
   naturalpack,
+  noImage,
   signupImg,
   skok,
   thenajin,
