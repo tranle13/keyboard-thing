@@ -50,7 +50,7 @@ export const Form: FC<FormProps> = ({
         <div className="divider after:h-[1px] before:h-[1px]" />
 
         <div className="flex gap-3 text-sm justify-center">
-          <span className="text-gray-300">{secondaryText}</span>
+          <span className="text-neutral-content">{secondaryText}</span>
           <button
             className="hover:underline"
             type="button"

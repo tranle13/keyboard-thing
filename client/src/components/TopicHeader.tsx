@@ -20,7 +20,7 @@ const TopicHeader = ({ topic }: Props) => {
       <div className="flex flex-col gap-1 flex-1">
         <h2 className="text-2xl font-bold">{topic.title}</h2>
 
-        <div className="flex gap-2 text-gray-400 items-center">
+        <div className="flex gap-2 items-center">
           {topic.categories.map((c, i) => (
             <div
               key={i}

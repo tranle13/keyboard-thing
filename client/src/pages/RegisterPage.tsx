@@ -81,7 +81,7 @@ const RegisterPage = () => {
         header={
           <div className="flex flex-col gap-2">
             <h3 className="text-2xl font-bold">Hello!</h3>
-            <p className="text-sm text-gray-400/50">
+            <p className="text-sm text-neutral-content">
               Join the community and keep up with sweet updates from your
               favorite keyboards
             </p>
@@ -100,6 +100,13 @@ const RegisterPage = () => {
             <span>{error}</span>
           </div>
         )}
+        <Input<SignupInterface>
+          register={register}
+          errors={errors}
+          placeholder="Email"
+          type="email"
+          name="email"
+        />
         <div className="flex gap-1">
           <div className="flex-1">
             <Input<SignupInterface>
@@ -128,13 +135,6 @@ const RegisterPage = () => {
             </div>
           </div>
         </div>
-        <Input<SignupInterface>
-          register={register}
-          errors={errors}
-          placeholder="Email"
-          type="email"
-          name="email"
-        />
         <div className="flex gap-1">
           <div className="flex-1">
             <Input<SignupInterface>
