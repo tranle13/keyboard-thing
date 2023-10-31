@@ -26,7 +26,7 @@ const Topic = ({ topic }: Props) => {
                 </div>
               </div>
               <div className="flex flex-col">
-                <span className="text-base-100 font-bold">
+                <span className="text-neutral-focus font-bold">
                   {topic.author.username}
                 </span>
                 <span className="text-neutral text-xs">
@@ -41,7 +41,7 @@ const Topic = ({ topic }: Props) => {
                   <div className="divider" />
                 </>
               )}
-              <span className="text-base-100">
+              <span className="text-neutral-focus">
                 {parse(decode(topic.content))}
               </span>
             </div>
