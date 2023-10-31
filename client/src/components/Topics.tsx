@@ -9,10 +9,10 @@ const Topics = ({ topics }: Props) => {
   if (!topics) return null;
 
   return (
-    <div className="flex flex-wrap justify-between gap-y-10">
+    <div className="grid grid-cols-[repeat(auto-fit,minmax(320px,1fr))] gap-5">
       {topics.map((topic, i) => (
         <div
-          className="card max-md:w-40 w-1/6 shadow-xl cursor-pointer"
+          className="card w-full shadow-xl cursor-pointer"
           key={i}
           onClick={() => (window.location.href = `/topic/${topic._id}`)}
         >

@@ -14,7 +14,7 @@ const Topic = ({ topic }: Props) => {
     <div>
       {topic && (
         <>
-          <div className="card w-full bg-neutral-content gap-5 p-6">
+          <div className="card w-full bg-base-300 shadow gap-5 p-6">
             <div className="flex gap-3 items-center">
               <div className="avatar">
                 <div className="w-8 h-8 mask mask-hexagon">
@@ -26,10 +26,8 @@ const Topic = ({ topic }: Props) => {
                 </div>
               </div>
               <div className="flex flex-col">
-                <span className="text-neutral-focus font-bold">
-                  {topic.author.username}
-                </span>
-                <span className="text-neutral text-xs">
+                <span className="font-bold">{topic.author.username}</span>
+                <span className="text-xs">
                   posted on {formatDate(topic.date_posted)}
                 </span>
               </div>
@@ -41,9 +39,7 @@ const Topic = ({ topic }: Props) => {
                   <div className="divider" />
                 </>
               )}
-              <span className="text-neutral-focus">
-                {parse(decode(topic.content))}
-              </span>
+              <span>{parse(decode(topic.content))}</span>
             </div>
           </div>
         </>

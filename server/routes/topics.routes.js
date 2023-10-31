@@ -8,8 +8,8 @@ const router = express.Router();
 
 // GET all topics (paginated)
 router.get("/", async (req, res) => {
-  const { page, pageSize } = req.query;
-  const query = {};
+  const { page, pageSize, status } = req.query;
+  const query = status ? { status } : {};
   const topics = await Topic.find(query)
     .sort("-views")
     .skip((page - 1) * pageSize)

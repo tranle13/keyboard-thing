@@ -21,7 +21,38 @@ const NavBar = () => {
             className="input input-primary input-sm w-24 md:w-auto"
           />
         </div>
-        <ul className="menu menu-horizontal px-1 items-center">
+        <div className="dropdown dropdown-hover dropdown-end">
+          <label
+            tabIndex={0}
+            className="btn btn-sm bg-base-300 border-base-300"
+          >
+            Topics
+          </label>
+          <ul
+            tabIndex={0}
+            className="dropdown-content z-[1] menu p-2 shadow-2xl bg-secondary text-secondary-content rounded-box w-52"
+          >
+            <li>
+              <Link to="/group-buy">Group Buy</Link>
+            </li>
+            <li>
+              <Link to="/interest-check">Interest Check</Link>
+            </li>
+            <li>
+              <Link to="/closed">Closed</Link>
+            </li>
+          </ul>
+        </div>
+        {user ? (
+          <Link to="/me">
+            <div className="w-8 mask mask-hexagon">
+              <img src={user.image || unknown} alt="profile" />
+            </div>
+          </Link>
+        ) : (
+          <Link to="/login">Log In</Link>
+        )}
+        {/* <ul className="menu menu-horizontal px-1 items-center">
           <li>
             <Link to="/group-buy">Group Buy</Link>
           </li>
@@ -39,7 +70,7 @@ const NavBar = () => {
               <Link to="/login">Log In</Link>
             )}
           </li>
-        </ul>
+        </ul> */}
       </div>
     </div>
   );
