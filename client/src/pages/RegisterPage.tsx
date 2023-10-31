@@ -3,12 +3,12 @@ import { Form } from "@/components/Form";
 import { Input } from "@/components/Input";
 import * as authServices from "@/queries/services/authService";
 import * as userServices from "@/queries/services/userService";
-import { useToast } from "@/shadcn-ui/components/ui/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AxiosError } from "axios";
 import { BaseSyntheticEvent, useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
-import { FiEye, FiEyeOff } from "react-icons/fi";
+import { AiOutlineCloseCircle } from "react-icons/ai";
+import { FiEye, FiEyeOff, FiInfo } from "react-icons/fi";
 import { z } from "zod";
 
 export interface SignupInterface extends FieldValues {
@@ -34,15 +34,25 @@ const SignupSchema = z.object({
 });
 
 const RegisterPage = () => {
-  const { toast } = useToast();
+  // SECTION = Constants
+  const passwordRules = [
+    "• Contains only alphanumeric characters.",
+    "• Can contain dot (.), underscore (_), and hyphen (-).",
+    "• Dot (.), underscore (_), or hyphen (-) must not be the first or last character.",
+    "• Dot (.), underscore (_), or hyphen (-) must not appear consecutively.",
+    "• The number of characters must be between 3 to 30.",
+  ];
+
+  // SECTION = Hooks
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<SignupInterface>({ resolver: zodResolver(SignupSchema) });
-
   const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState("");
 
+  // SECTION = Functions
   const submitForm = async (data: SignupInterface, e?: BaseSyntheticEvent) => {
     e?.preventDefault();
     try {
@@ -51,14 +61,11 @@ const RegisterPage = () => {
       window.location.href = "/";
     } catch (e) {
       const error = e as AxiosError;
-      toast({
-        variant: "destructive",
-        title: "Uh oh! Something went wrong",
-        description: `${error.response?.data}`,
-      });
+      setError(error.response?.data as string);
     }
   };
 
+  // SECTION = Return
   return (
     <div className="flex">
       <div
@@ -74,7 +81,7 @@ const RegisterPage = () => {
         header={
           <div className="flex flex-col gap-2">
             <h3 className="text-2xl font-bold">Hello!</h3>
-            <p className="text-sm text-gray-400/50">
+            <p className="text-sm text-neutral-content">
               Join the community and keep up with sweet updates from your
               favorite keyboards
             </p>
@@ -83,17 +90,16 @@ const RegisterPage = () => {
         buttonLabel="Sign up"
         secondaryButtonLabel="Log in"
         secondaryText="Already have an account?"
-        route="/log-in"
-        buttonStyle="bg-[#cea77f]/40"
+        route="/login"
         buttonIconStyle="group-hover:translate-x-[275%]"
         handler={handleSubmit(submitForm)}
       >
-        <Input<SignupInterface>
-          register={register}
-          errors={errors}
-          placeholder="Username"
-          name="username"
-        />
+        {error && (
+          <div className="alert alert-error">
+            <AiOutlineCloseCircle />
+            <span>{error}</span>
+          </div>
+        )}
         <Input<SignupInterface>
           register={register}
           errors={errors}
@@ -101,20 +107,68 @@ const RegisterPage = () => {
           type="email"
           name="email"
         />
-        <Input<SignupInterface>
-          register={register}
-          errors={errors}
-          placeholder="Password"
-          name="password"
-          type={showPassword ? "text" : "password"}
-        >
-          <span
-            className="cursor-pointer absolute top-1/3 right-[18px]"
-            onClick={() => setShowPassword(!showPassword)}
-          >
-            {showPassword ? <FiEyeOff /> : <FiEye />}
-          </span>
-        </Input>
+        <div className="flex gap-1">
+          <div className="flex-1">
+            <Input<SignupInterface>
+              register={register}
+              errors={errors}
+              placeholder="Username"
+              name="username"
+            />
+          </div>
+          <div className="dropdown dropdown-hover dropdown-end flex-0">
+            <label
+              tabIndex={0}
+              className="btn btn-circle btn-ghost btn-sm text-info mt-[25%]"
+            >
+              <FiInfo />
+            </label>
+            <div
+              tabIndex={0}
+              className="card compact dropdown-content z-[1] shadow bg-base-100 rounded-box w-64"
+            >
+              <div className="card-body">
+                {passwordRules.map((rule, index) => (
+                  <p key={index}>{rule}</p>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="flex gap-1">
+          <div className="flex-1">
+            <Input<SignupInterface>
+              register={register}
+              errors={errors}
+              placeholder="Password"
+              name="password"
+              type={showPassword ? "text" : "password"}
+            >
+              <span
+                className="cursor-pointer absolute right-[18px] top-[calc(50%-13px)]"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? <FiEyeOff /> : <FiEye />}
+              </span>
+            </Input>
+          </div>
+          <div className="dropdown dropdown-hover dropdown-end flex-0">
+            <label
+              tabIndex={0}
+              className="btn btn-circle btn-ghost btn-sm text-info mt-[25%]"
+            >
+              <FiInfo />
+            </label>
+            <div
+              tabIndex={0}
+              className="card compact dropdown-content z-[1] shadow bg-base-100 rounded-box w-64"
+            >
+              <div className="card-body">
+                <p>Password has minimum of 8 characters</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </Form>
     </div>
   );

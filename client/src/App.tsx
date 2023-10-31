@@ -17,22 +17,24 @@ function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
-        <div className="flex flex-col min-h-screen" data-theme="dracula">
+        <div className="flex flex-col min-h-screen" data-theme="bumblebee">
           <NavBar />
-          <Routes>
-            <Route element={<PrivateRoutes />}>
-              <Route path="/topic/new" element={<TopicEditPage />} />
-              <Route path="/logout" element={<Logout />} />
-              <Route path="/profile" element={<ProfilePage />} />
-            </Route>
-            <Route path="/" index element={<HomePage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/register" element={<RegisterPage />} />
-            <Route path="/interest-check" element={<ICPage />} />
-            <Route path="/group-buy" element={<GBPage />} />
-            <Route path="/topic/:id" element={<TopicDetailPage />} />
-            <Route path="*" element={<ErrorPage />} />
-          </Routes>
+          <>
+            <Routes>
+              <Route element={<PrivateRoutes />}>
+                <Route path="/topic/new" element={<TopicEditPage />} />
+                <Route path="/logout" element={<Logout />} />
+                <Route path="/profile" element={<ProfilePage />} />
+              </Route>
+              <Route path="/" index element={<HomePage />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/register" element={<RegisterPage />} />
+              <Route path="/interest-check" element={<ICPage />} />
+              <Route path="/group-buy" element={<GBPage />} />
+              <Route path="/topic/:id" element={<TopicDetailPage />} />
+              <Route path="*" element={<ErrorPage />} />
+            </Routes>
+          </>
         </div>
       </BrowserRouter>
     </AuthProvider>

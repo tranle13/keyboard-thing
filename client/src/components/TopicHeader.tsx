@@ -1,5 +1,4 @@
 import { Topic as TopicInterface } from "@/entities/Topic";
-import { buttonVariants } from "@/shadcn-ui/components/ui/button";
 import { formatDate } from "@/utils";
 
 interface Props {
@@ -12,16 +11,16 @@ const TopicHeader = ({ topic }: Props) => {
   return (
     <div className="title-and-tags flex my-5 gap-3">
       <div
-        className={`badge mt-[6px] ${
+        className={`badge mt-[6px] flex-0 ${
           topic.status === "IC" ? "badge-secondary" : "badge-accent"
         }`}
       >
         {topic.status}
       </div>
-      <div className="flex flex-col gap-1">
+      <div className="flex flex-col gap-1 flex-1">
         <h2 className="text-2xl font-bold">{topic.title}</h2>
 
-        <div className="flex gap-2 text-gray-400 items-center">
+        <div className="flex gap-2 items-center">
           {topic.categories.map((c, i) => (
             <div
               key={i}
@@ -37,7 +36,7 @@ const TopicHeader = ({ topic }: Props) => {
       </div>
       {topic.ic_link && (
         <a
-          className={`${buttonVariants()} ml-auto my-auto`}
+          className="btn btn-primary flex-0"
           href={topic.ic_link}
           target="_blank"
         >

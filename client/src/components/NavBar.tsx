@@ -1,3 +1,4 @@
+import { unknown } from "@/assets";
 import AuthContext from "@/context/authContext";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
@@ -31,7 +32,7 @@ const NavBar = () => {
             {user ? (
               <Link to="/me">
                 <div className="w-8 mask mask-hexagon">
-                  <img src={user?.image} alt="profile" />
+                  <img src={user.image || unknown} alt="profile" />
                 </div>
               </Link>
             ) : (

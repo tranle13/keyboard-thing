@@ -11,7 +11,6 @@ interface FormProps {
   children: ReactNode;
   route: string;
   buttonIconStyle: string;
-  buttonStyle: string;
 }
 
 export const Form: FC<FormProps> = ({
@@ -22,7 +21,6 @@ export const Form: FC<FormProps> = ({
   children,
   route,
   buttonIconStyle,
-  buttonStyle,
   handler,
 }) => {
   const navigate = useNavigate();
@@ -36,7 +34,7 @@ export const Form: FC<FormProps> = ({
         {header}
         {children}
         <button
-          className={`group flex items-center gap-3 px-2 py-2 w-fit rounded-full mx-auto relative ${buttonStyle}`}
+          className={`group flex items-center gap-3 px-2 py-2 w-fit rounded-full mx-auto relative bg-secondary text-secondary-content`}
           type="submit"
         >
           <span
@@ -49,10 +47,10 @@ export const Form: FC<FormProps> = ({
           </span>
         </button>
 
-        <div className="h-[1px] bg-gray-100" />
+        <div className="divider after:h-[1px] before:h-[1px]" />
 
         <div className="flex gap-3 text-sm justify-center">
-          <span className="text-gray-300">{secondaryText}</span>
+          <span className="text-neutral-content">{secondaryText}</span>
           <button
             className="hover:underline"
             type="button"

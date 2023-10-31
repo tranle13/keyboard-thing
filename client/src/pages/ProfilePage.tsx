@@ -14,7 +14,7 @@ const ProfilePage = () => {
       <div>
         <div className="flex gap-2">
           <label htmlFor="username">Username: </label>
-          <p id="username" className="text-gray-400">
+          <p id="username" className="text-neutral">
             {user.username}
           </p>
         </div>
