@@ -24,7 +24,7 @@ function App() {
               <Route element={<PrivateRoutes />}>
                 <Route path="/topic/new" element={<TopicEditPage />} />
                 <Route path="/logout" element={<Logout />} />
-                <Route path="/profile" element={<ProfilePage />} />
+                <Route path="/me" element={<ProfilePage />} />
               </Route>
               <Route path="/" index element={<HomePage />} />
               <Route path="/login" element={<LoginPage />} />

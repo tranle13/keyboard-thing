@@ -2,6 +2,7 @@ import keyboard from "./home/keyboard.png";
 import loading from "./home/puff.svg";
 
 import agres_keyboard from "./profiles/aregs_keyboard.jpeg";
+import bg from "./profiles/bg.jpg";
 import commentor_1 from "./profiles/commentor_1.jpeg";
 import commentor_2 from "./profiles/commentor_2.jpeg";
 import mehka from "./profiles/mehka.jpeg";
@@ -30,6 +31,7 @@ import signupImg from "./account/signup-img.png";
 
 export {
   agres_keyboard,
+  bg,
   commentor_1,
   commentor_2,
   img_1,
