@@ -151,31 +151,6 @@ const ProfilePage = () => {
                 </div>
               </div>
             ))}
-          {topics &&
-            topics.data.map((topic, index) => (
-              <div
-                className="card card-compact bg-base-300 cursor-pointer group"
-                key={index}
-              >
-                <figure>
-                  <img
-                    src={topic.cover_image}
-                    alt="cover-image"
-                    className="h-[150px] object-cover w-full group-hover:scale-100"
-                  />
-                </figure>
-                <div className="card-body">
-                  <h2 className="card-title line-clamp-1">{topic.title}</h2>
-                  <div>
-                    {topic.categories.map((cat) => (
-                      <span className="badge" key={cat}>
-                        {cat}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            ))}
         </div>
       </div>
     </div>
