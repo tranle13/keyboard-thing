@@ -50,7 +50,9 @@ const NavBar = () => {
             </div>
           </Link>
         ) : (
-          <Link to="/login">Log In</Link>
+          <Link className="btn btn-sm bg-base-300 border-base-300" to="/login">
+            Log In
+          </Link>
         )}
         {/* <ul className="menu menu-horizontal px-1 items-center">
           <li>

@@ -6,6 +6,8 @@ const Joi = require("joi");
 const userSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
   email: { type: String, required: true, unique: true },
+  bio: { type: String, default: "" },
+  theme: { type: String, default: "light" },
   password: { type: String, required: true },
   image: { type: String, default: "" },
   topics: [{ type: mongoose.Types.ObjectId, required: true, ref: "Topic" }],
@@ -17,6 +19,7 @@ userSchema.methods.generateAuthToken = function () {
       _id: this._id,
       username: this.username,
       image: this.image,
+      theme: this.theme,
     },
     config.get("jwtPrivateKey"),
     { expiresIn: "24h" }

@@ -1,3 +1,12 @@
+# TODO
+
+- [ ] Error page with 3D (?)
+- [ ] Explore Threejs with exported 3D models & textures from Spline
+- [ ] Chats between users (?)
+- [ ] Store uploaded images for profile and background
+- [ ] Allow user to change theme
+- [ ] Extract and encapsulate UI & functionalities out of pages
+
 ## Used dependencies & their purposes
 
 (for the sake of my goldfish memory when I need to remove a package/library)

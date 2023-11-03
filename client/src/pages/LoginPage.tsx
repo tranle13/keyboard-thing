@@ -42,7 +42,7 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="flex">
+    <div className="flex flex-1">
       <div
         className="w-1/2"
         style={{
@@ -80,14 +80,15 @@ const LoginPage = () => {
           placeholder="Password"
           name="password"
           type={showPassword ? "text" : "password"}
-        >
-          <span
-            className="cursor-pointer absolute top-[calc(50%-13px)] right-[18px] text-base-content"
-            onClick={() => setShowPassword(!showPassword)}
-          >
-            {showPassword ? <FiEyeOff /> : <FiEye />}
-          </span>
-        </Input>
+          inputChildren={
+            <span
+              className="cursor-pointer absolute top-[calc(50%-8px)] right-[18px] text-base-content"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? <FiEyeOff /> : <FiEye />}
+            </span>
+          }
+        />
       </Form>
     </div>
   );
