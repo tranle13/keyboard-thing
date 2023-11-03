@@ -5,7 +5,9 @@ const bcrypt = require("bcrypt");
 // const fs = require("fs");
 // const { v4: uuid } = require("uuid");
 const { User, validate } = require("../models/user.model");
+const { Topic } = require("../models/topic.model");
 const auth = require("../middleware/auth");
+const { default: mongoose } = require("mongoose");
 const router = express.Router();
 
 // GET current user
@@ -25,22 +27,24 @@ router.get("/:usn", auth, async (req, res) => {
 
 // GET a user's posts
 router.get("/:usn/topics", auth, async (req, res) => {
-  const { page, pageSize } = req.query;
-  const query = { username: req.params.usn };
-  const userWithTopics = await User.findOne({
-    username: req.params.usn,
-  }).populate({
-    path: "topics",
-    // options: {
-    //   sort: "-date_posted",
-    //   skip: (page - 1) * pageSize,
-    //   limit: pageSize
-    // },
-  });
+  const { page, limit } = req.query;
 
-  if (!userWithTopics)
-    return res.status(404).send({ message: "This user does not exist" });
-  res.status(200).send(userWithTopics.topics);
+  const user = await User.findOne({ username: req.params.usn });
+
+  if (!user) return res.status(404).send("This user does not exist");
+
+  const aggregate = Topic.aggregate([
+    { $match: { author: user._id } },
+    { $sort: { date_posted: -1 } },
+  ]);
+  const result = await Topic.aggregatePaginate(aggregate, { page, limit });
+
+  res.status(200).send({
+    topics: result.docs,
+    page: result.page,
+    limit: result.limit,
+    total: result.totalPages,
+  });
 });
 
 // POST a new user

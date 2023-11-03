@@ -9,12 +9,17 @@ import { useQuery } from "@tanstack/react-query";
 //   status?: "IC" | "GB" | "Closed" | "";
 // }
 
-const useUserTopics = (user: User | null) =>
+const useUserTopics = (user: User | null, page: number, limit: number) =>
   useQuery({
     queryKey: ["topics"],
     queryFn: () =>
       httpService
-        .get<Topic[]>(`/api/users/${user?.username}/topics/`)
+        .get<Topic[]>(`/api/users/${user?.username}/topics/`, {
+          params: {
+            page,
+            limit,
+          },
+        })
         .then((res) => res.data),
     staleTime: 60 * 60 * 1_000, //1h
   });

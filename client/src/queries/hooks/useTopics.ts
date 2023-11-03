@@ -4,16 +4,16 @@ import { useQuery } from "@tanstack/react-query";
 
 interface Props {
   page: number;
-  pageSize?: number;
+  limit?: number;
   status?: "IC" | "GB" | "Closed" | "";
 }
 
-const useTopics = ({ page, pageSize = 5, status = "" }: Props) =>
+const useTopics = ({ page, limit = 5, status = "" }: Props) =>
   useQuery({
     queryKey: ["topics", page, status],
     queryFn: () =>
       httpService
-        .get<Topics>("/api/topics/", { params: { page, pageSize, status } })
+        .get<Topics>("/api/topics/", { params: { page, limit, status } })
         .then((res) => res.data),
     staleTime: 60 * 60 * 1_000, //1h
   });

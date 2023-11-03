@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const aggregatePaginate = require("mongoose-aggregate-paginate-v2");
 const jwt = require("jsonwebtoken");
 const config = require("config");
 const Joi = require("joi");
@@ -54,6 +55,8 @@ function validateUser(user) {
   });
   return schema.validate(user);
 }
+
+userSchema.plugin(aggregatePaginate);
 
 const User = mongoose.model("User", userSchema);
 

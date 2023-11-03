@@ -6,16 +6,12 @@ import Intro from "../components/Intro";
 
 const HomePage = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const {
-    data: topics,
-    error,
-    isLoading,
-  } = useTopics({
+  const { data, error, isLoading } = useTopics({
     page: currentPage,
-    pageSize: 20,
+    limit: 20,
   });
 
-  if (error || !topics) return null;
+  if (error || !data) return null;
 
   return (
     <div className="px-10 pb-5 flex-1">
@@ -35,9 +31,12 @@ const HomePage = () => {
         </div>
       ) : (
         <>
-          <Topics topics={topics.data} />
+          <Topics
+            topics={data.topics}
+            extraClass="grid-cols-[repeat(auto-fit,minmax(320px,1fr))]"
+          />
           <Pagination
-            totalPages={topics.total}
+            totalPages={data.total}
             currentPage={currentPage}
             onPageChange={(newPage: number) => setCurrentPage(newPage)}
           />

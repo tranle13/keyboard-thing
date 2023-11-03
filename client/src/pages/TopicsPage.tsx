@@ -7,13 +7,9 @@ interface Props {
 }
 
 const TopicsPage = ({ status }: Props) => {
-  const {
-    data: topics,
-    error,
-    isLoading,
-  } = useTopics({
+  const { data, error, isLoading } = useTopics({
     page: 1,
-    pageSize: 20,
+    limit: 20,
     status,
   });
 
@@ -26,7 +22,10 @@ const TopicsPage = ({ status }: Props) => {
           ? "Group Buy"
           : "Closed"}
       </h3>
-      <Topics topics={topics?.data} />
+      <Topics
+        topics={data?.topics}
+        extraClass="grid-cols-[repeat(auto-fit,minmax(320px,1fr))]"
+      />
     </div>
   );
 };

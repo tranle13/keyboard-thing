@@ -3,13 +3,14 @@ import { Topic } from "@/entities/Topic";
 
 interface Props {
   topics?: Topic[];
+  extraClass: string;
 }
 
-const Topics = ({ topics }: Props) => {
+const Topics = ({ topics, extraClass }: Props) => {
   if (!topics) return null;
 
   return (
-    <div className="grid grid-cols-[repeat(auto-fit,minmax(320px,1fr))] gap-5">
+    <div className={`grid ${extraClass} gap-5`}>
       {topics.map((topic, i) => (
         <div
           className="card w-full shadow-xl cursor-pointer"

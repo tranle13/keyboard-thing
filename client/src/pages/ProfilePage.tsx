@@ -1,5 +1,6 @@
 import { bg } from "@/assets";
 import InfoEdit from "@/components/InfoEdit";
+import Topics from "@/components/Topics";
 import useUserTopics from "@/queries/hooks/useUserTopics";
 import authService from "@/queries/services/authService";
 import { useState } from "react";
@@ -15,7 +16,7 @@ const ProfilePage = () => {
     createdTopic: true,
     followedTopic: false,
   });
-  const { data: topics } = useUserTopics(user);
+  const { data, isLoading, error } = useUserTopics(user, 1, 2);
 
   if (!user) {
     window.location.href = "/";
@@ -58,32 +59,11 @@ const ProfilePage = () => {
             Followed Topics
           </a>
         </div>
-        <div className="grid grid-cols-3 gap-7 flex-1 overflow-y-auto">
-          {topics &&
-            topics?.map((topic, index) => (
-              <div
-                className="card card-compact bg-base-300 cursor-pointer group h-max"
-                key={index}
-              >
-                <figure>
-                  <img
-                    src={topic.cover_image}
-                    alt="cover-image"
-                    className="h-[150px] object-cover w-full group-hover:scale-100"
-                  />
-                </figure>
-                <div className="card-body">
-                  <h2 className="card-title line-clamp-1">{topic.title}</h2>
-                  <div>
-                    {topic.categories.map((cat) => (
-                      <span className="badge" key={cat}>
-                        {cat}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            ))}
+        <div className="flex-1 overflow-y-auto">
+          <Topics
+            topics={data?.topics}
+            extraClass="grid-cols-[repeat(auto-fit,minmax(30%,47%))]"
+          />
         </div>
       </div>
     </div>
