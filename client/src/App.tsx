@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { useSnapshot } from "valtio";
 import NavBar from "./components/NavBar";
 import PrivateRoutes from "./components/PrivateRoutes";
 import AuthProvider from "./context/AuthProvider";
@@ -11,12 +12,15 @@ import TopicDetailPage from "./pages/TopicDetailPage";
 import TopicEditPage from "./pages/TopicEditPage";
 import TopicsPage from "./pages/TopicsPage";
 import Logout from "./routing/Logout";
+import state from "./store";
 
 function App() {
+  const snap = useSnapshot(state);
+
   return (
     <AuthProvider>
       <BrowserRouter>
-        <div className="flex flex-col min-h-screen" data-theme="dark">
+        <div className="flex flex-col min-h-screen" data-theme={snap.theme}>
           <NavBar />
           <>
             <Routes>

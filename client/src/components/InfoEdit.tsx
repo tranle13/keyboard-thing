@@ -5,6 +5,7 @@ import { updateProfile } from "@/queries/services/userService";
 import { AxiosError } from "axios";
 import { useState } from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai";
+import state from "../store";
 
 interface Props {
   user: User;
@@ -56,6 +57,11 @@ const InfoEdit = ({ user }: Props) => {
       });
       authServices.loginWithJwt(res.headers["x-auth-token"]);
       setIsEdit(false);
+      if (info.theme.toLowerCase() !== user.theme) {
+        const currentUser = authServices.getCurrentUser();
+        state.user = currentUser;
+        state.theme = user.theme || "light";
+      }
     } catch (e) {
       const error = e as AxiosError;
       setError(error.response?.data as string);
@@ -68,7 +74,7 @@ const InfoEdit = ({ user }: Props) => {
   if (meError) return null;
 
   return (
-    <div className="flex flex-col gap-3 bg-neutral p-10 rounded-2xl items-center z-10 mt-[150px] h-max w-1/4">
+    <div className="flex flex-col gap-3 bg-base-300 p-10 rounded-2xl items-center z-10 mt-[150px] h-max w-1/4">
       {error && (
         <div className="alert alert-error">
           <AiOutlineCloseCircle />
@@ -81,7 +87,7 @@ const InfoEdit = ({ user }: Props) => {
         <>
           {me && (
             <img
-              className="rounded-full bg-neutral shadow-[10px_10px_20px_base-100,-10px_-10px_20px_#ffffff] w-20 h-20"
+              className="rounded-full bg-base-300 shadow-[10px_10px_20px_base-100,-10px_-10px_20px_#ffffff] w-20 h-20"
               src={me.image}
               alt="profile-picture"
             />
@@ -117,6 +123,8 @@ const InfoEdit = ({ user }: Props) => {
                     {["Light", "Dark", "Dracula", "Bumblebee", "Halloween"].map(
                       (theme) => (
                         <li
+                          data-set-theme={theme.toLowerCase()}
+                          data-act-class="ACTIVECLASS"
                           key={theme}
                           onClick={() => setInfo({ ...info, theme })}
                         >

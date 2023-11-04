@@ -39,7 +39,7 @@ const ProfilePage = () => {
 
       <InfoEdit user={user} />
 
-      <div className="flex flex-col bg-neutral p-10 rounded-2xl w-1/2 z-10 mt-[150px] gap-5 h-[calc(100vh-266px)] flex-none min-h-[500px]">
+      <div className="flex flex-col bg-base-300 p-10 rounded-2xl w-1/2 z-10 mt-[150px] gap-5 h-[calc(100vh-266px)] flex-none min-h-[500px]">
         <div className="tabs tabs-boxed p-0 flex-none">
           <a
             className={`tab w-1/2 ${checked.createdTopic ? "tab-active" : ""}`}
