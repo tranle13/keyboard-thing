@@ -1,3 +1,4 @@
+import { badges } from "@/constants";
 import { Topic as TopicInterface } from "@/entities/Topic";
 import { formatDate } from "@/utils";
 import { GrFormViewHide } from "react-icons/gr";
@@ -12,21 +13,21 @@ const TopicHeader = ({ topic }: Props) => {
   return (
     <div className="title-and-tags flex my-5 gap-3">
       <div className="stats shadow w-full flex">
-        <div className="stat w-max flex-none">
+        <div className="stat w-max flex-none gap-2">
           <div
             className={`badge mt-[6px] flex-0 justify-self-center ${
-              topic.status === "IC" ? "badge-secondary" : "badge-accent"
+              badges[topic.status]
             }`}
           >
             {topic.status}
           </div>
           <div className="flex items-center justify-center gap-2">
-            45809
+            {topic.views}
             <GrFormViewHide />
           </div>
         </div>
 
-        <div className="stat grow-1">
+        <div className="stat grow-1 gap-2">
           <h2 className="text-2xl font-bold">{topic.title}</h2>
 
           <div className="flex gap-2 items-center">

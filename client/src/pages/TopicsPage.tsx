@@ -2,7 +2,7 @@ import Topics from "@/components/Topics";
 import { useTopics } from "@/queries/hooks/useTopics";
 import { useState } from "react";
 
-type Status = "IC" | "GB" | "Closed";
+type Status = "IC" | "GB" | "CLOSED";
 interface Props {
   status: Status;
 }

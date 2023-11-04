@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 interface Props {
   page: number;
   limit?: number;
-  status?: "IC" | "GB" | "Closed" | "";
+  status?: "IC" | "GB" | "CLOSED" | "";
   username?: string;
 }
 

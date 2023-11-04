@@ -10,7 +10,7 @@ const imageSchema = new mongoose.Schema({
 const topicSchema = new mongoose.Schema({
   title: { type: String, required: true },
   cover_image: String,
-  status: { type: String, enum: ["IC", "GB", "Closed"] },
+  status: { type: String, enum: ["IC", "GB", "CLOSED"] },
   ic_link: String,
   categories: [
     {

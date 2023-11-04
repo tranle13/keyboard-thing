@@ -1,4 +1,5 @@
 import { unknown } from "@/assets";
+import { badges } from "@/constants";
 import { Topics as TopicsType } from "@/entities/Topics";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import Pagination from "./Pagination";
@@ -63,11 +64,7 @@ const Topics = ({
             <div className="card-body">
               <h2 className="card-title items-start">
                 <span className="line-clamp-2 h-[56px]">{topic.title}</span>
-                <div
-                  className={`badge mt-1 ${
-                    topic.status === "IC" ? "badge-secondary" : "badge-accent"
-                  }`}
-                >
+                <div className={`badge mt-1 ${badges[topic.status]}`}>
                   {topic.status}
                 </div>
               </h2>

@@ -4,7 +4,7 @@ import { User } from "./User";
 interface BaseTopic {
   title: string;
   cover_image: string;
-  status: "IC" | "GB" | "Closed";
+  status: "IC" | "GB" | "CLOSED";
   ic_link: string;
   categories: string[];
   images: TopicImage[];

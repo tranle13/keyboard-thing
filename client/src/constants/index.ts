@@ -1,27 +1,3 @@
-import {
-  agres_keyboard,
-  commentor_1,
-  commentor_2,
-  img_1,
-  img_10,
-  img_11,
-  img_12,
-  img_2,
-  img_3,
-  img_4,
-  img_5,
-  img_6,
-  img_7,
-  img_8,
-  img_9,
-  mehka,
-  naturalpack,
-  skok,
-  thenajin,
-  unknown,
-  zerog,
-} from "../assets";
-
 const themes = [
   "light",
   "dark",
@@ -40,102 +16,10 @@ const themes = [
   "night",
 ];
 
-const trendIcs = [
-  {
-    title: 'Zero-G Studio X DMK PBT Theme Keycap "Arrogant cat"',
-    views: 12340,
-    date_created: "Oct 03, 2023",
-    author_pfp: zerog,
-    author: "Zero-G Studio",
-    tags: [{ name: "Keycap", color: "tag-keycap" }],
-    status: "IC",
-  },
-  {
-    title: "GMK Vaporware R2",
-    views: 4589,
-    date_created: "Oct 10, 2023",
-    author_pfp: naturalpack,
-    author: "NaturalPack",
-    tags: [{ name: "Keycap", color: "tag-keycap" }],
-    status: "IC",
-  },
-  {
-    title: "Titus65 - Gummy O-Ring Mounted Concrete Keyboard",
-    views: 2893,
-    date_created: "Oct 03, 2023",
-    author_pfp: mehka,
-    author: "MehkaStudio",
-    tags: [{ name: "Keyboard", color: "tag-keyboard" }],
-    status: "IC",
-  },
-  {
-    title: "Smooth & Thocky | AM Icy Silver Pro Switches",
-    views: 706,
-    date_created: "Sep 27, 2023",
-    author_pfp: thenajin,
-    author: "The Najin",
-    tags: [{ name: "Switch", color: "tag-switch" }],
-    status: "GB",
-  },
-  {
-    title: "Keygeek Muguet Rose Switches",
-    views: "260",
-    date_created: "Aug 21, 2023",
-    author_pfp: agres_keyboard,
-    author: "Agres Keyboard",
-    tags: [{ name: "Switch", color: "tag-switch" }],
-    status: "IC",
-  },
-];
-
-const post = {
-  title: "tastierarossa // A keyboard styled after the 80s classic",
-  status: "IC",
-  tags: [{ name: "keyboard", color: "tag-keyboard" }],
-  ic_link: "https://forms.gle/aFiZrsEqfHnYhcbr7",
-  author: "skok",
-  author_pfp: skok,
-  date: "Sep 17, 2023",
-  description:
-    'tastierarossa. A keyboard styled after the 80s classic. Name In Italian testarossa means "red head" In Italian tastierarossa means "red keyboard" Options Red/Black/Sandblasted SS E-White/E-Black/Sandblasted SS Black/Grey/Mirror PVD Black Brass Plate Options Alu Full/Half PC Full/Half Pricing (based on 125 units + some extras) Board/PCB/Plate/Dboard: ~$550 Extra Plates: ~$35 Extra PCBs: ~$50 Specs Top Mount or O-ring 7 degree typing angle 19.8mm Adjusted Front Height ~3.8LBs unbuilt 6063 Skuf Feet',
-  images: [
-    {
-      url: img_1,
-      caption: "Keyboard",
-    },
-    { url: img_2 },
-    { url: img_3, caption: "Inspiration: Ferrari Testarossa" },
-    { url: img_4, caption: "Engraving" },
-    { url: img_5, caption: "Engraving" },
-    { url: img_6 },
-    { url: img_7 },
-    { url: img_8 },
-    { url: img_9 },
-    { url: img_10, caption: "Render" },
-    { url: img_11, caption: "Render" },
-    { url: img_12, caption: "Render" },
-  ],
-  comments: [
-    {
-      author: "C_L | Soup",
-      author_pfp: unknown,
-      content: "Holy moly this looks real good.",
-      date: "Sep 11, 2023",
-    },
-    {
-      author: "Bolsa Huncho",
-      author_pfp: commentor_1,
-      content:
-        "So stoked to have been a part of this project and watching how far its coming along. Now where my racecar boys at",
-      date: "Sep 17, 2023",
-    },
-    {
-      author: "whirlwind",
-      author_pfp: commentor_2,
-      content: "Very nice, looking forward to this 👍🏻",
-      date: "Sep  17, 2023",
-    },
-  ],
+const badges = {
+  IC: "badge-info",
+  GB: "badge-success",
+  CLOSED: "badge-neutral",
 };
 
-export { post, themes, trendIcs };
+export { badges, themes };

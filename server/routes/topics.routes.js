@@ -9,7 +9,19 @@ const router = express.Router();
 // GET all topics (paginated)
 router.get("/", async (req, res) => {
   const { page, limit, status } = req.query;
-  const query = [{ $sort: { views: -1 } }];
+  const query = [
+    { $sort: { views: -1 } },
+    {
+      $lookup: {
+        from: "users",
+        localField: "author",
+        foreignField: "_id",
+        as: "author",
+        pipeline: [{ $project: { image: 1, username: 1, _id: 1 } }],
+      },
+    },
+    { $unwind: "$author" },
+  ];
   if (status) query.push({ $match: { status } });
   const aggregate = Topic.aggregate(query);
   const result = await Topic.aggregatePaginate(aggregate, { page, limit });
