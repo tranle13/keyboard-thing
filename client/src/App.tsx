@@ -26,6 +26,7 @@ function App() {
             <Routes>
               <Route element={<PrivateRoutes />}>
                 <Route path="/topic/new" element={<TopicEditPage />} />
+                <Route path="/topic/:id/edit" element={<TopicEditPage />} />
                 <Route path="/logout" element={<Logout />} />
                 <Route path="/me" element={<ProfilePage />} />
               </Route>
@@ -37,7 +38,7 @@ function App() {
                 element={<TopicsPage status="IC" />}
               />
               <Route path="/group-buy" element={<TopicsPage status="GB" />} />
-              <Route path="/closed" element={<TopicsPage status="Closed" />} />
+              <Route path="/closed" element={<TopicsPage status="CLOSED" />} />
               <Route path="/topic/:id" element={<TopicDetailPage />} />
               <Route path="*" element={<ErrorPage />} />
             </Routes>

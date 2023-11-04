@@ -68,7 +68,7 @@ const Topics = ({
                   {topic.status}
                 </div>
               </h2>
-              <div className="flex gap-2 items-center text-sm text-neutral">
+              <div className="flex gap-2 items-center text-sm text-base-content/50">
                 <div className="avatar">
                   <div className="w-6 mask mask-hexagon">
                     <img src={topic.author.image || unknown} />
