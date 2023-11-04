@@ -1,10 +1,12 @@
+import { themes } from "@/constants";
 import { User } from "@/entities/User";
 import useMe from "@/queries/hooks/useMe";
 import * as authServices from "@/queries/services/authService";
 import { updateProfile } from "@/queries/services/userService";
 import { AxiosError } from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai";
+import { themeChange } from "theme-change";
 import state from "../store";
 
 interface Props {
@@ -12,6 +14,9 @@ interface Props {
 }
 
 const InfoEdit = ({ user }: Props) => {
+  useEffect(() => {
+    themeChange(false);
+  }, []);
   // SECTION = Constants
   const token = authServices.getJwt();
 
@@ -53,14 +58,15 @@ const InfoEdit = ({ user }: Props) => {
       const res = await updateProfile({
         _id: user._id || "",
         bio: info.bio,
-        theme: info.theme.toLowerCase(),
+        theme: info.theme,
       });
       authServices.loginWithJwt(res.headers["x-auth-token"]);
       setIsEdit(false);
-      if (info.theme.toLowerCase() !== user.theme) {
+      if (info.theme !== user.theme) {
         const currentUser = authServices.getCurrentUser();
         state.user = currentUser;
         state.theme = user.theme || "light";
+        window.location.reload();
       }
     } catch (e) {
       const error = e as AxiosError;
@@ -118,20 +124,16 @@ const InfoEdit = ({ user }: Props) => {
                   </label>
                   <ul
                     tabIndex={0}
-                    className="dropdown-content z-[1] menu p-2 bg-secondary rounded-box w-full"
+                    className="dropdown-content z-[1] menu p-2 bg-secondary rounded-box w-full max-h-[250px] flex-nowrap overflow-auto"
                   >
-                    {["Light", "Dark", "Dracula", "Bumblebee", "Halloween"].map(
-                      (theme) => (
-                        <li
-                          data-set-theme={theme.toLowerCase()}
-                          data-act-class="ACTIVECLASS"
-                          key={theme}
-                          onClick={() => setInfo({ ...info, theme })}
-                        >
-                          <a>{theme}</a>
-                        </li>
-                      )
-                    )}
+                    {themes.map((theme) => (
+                      <li
+                        key={theme}
+                        onClick={() => setInfo({ ...info, theme })}
+                      >
+                        <a>{theme.toUpperCase()}</a>
+                      </li>
+                    ))}
                   </ul>
                 </div>
               </div>

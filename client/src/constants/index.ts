@@ -22,6 +22,24 @@ import {
   zerog,
 } from "../assets";
 
+const themes = [
+  "light",
+  "dark",
+  "cupcake",
+  "bumblebee",
+  "retro",
+  "halloween",
+  "garden",
+  "forest",
+  "pastel",
+  "fantasy",
+  "luxury",
+  "acid",
+  "coffee",
+  "dracula",
+  "night",
+];
+
 const trendIcs = [
   {
     title: 'Zero-G Studio X DMK PBT Theme Keycap "Arrogant cat"',
@@ -120,4 +138,4 @@ const post = {
   ],
 };
 
-export { post, trendIcs };
+export { post, themes, trendIcs };
