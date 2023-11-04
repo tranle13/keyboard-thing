@@ -7,7 +7,7 @@ const HomePage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const { data, error, isLoading } = useTopics({
     page: currentPage,
-    limit: 2,
+    limit: 20,
   });
 
   return (
