@@ -18,6 +18,7 @@ interface InputProps<T extends FieldValues> {
   type?: string;
   placeholder?: string;
   children?: ReactNode;
+  inputChildren?: ReactNode;
 }
 
 export const Input = <T extends Record<string, unknown>>({
@@ -26,19 +27,25 @@ export const Input = <T extends Record<string, unknown>>({
   register,
   type = "text",
   children,
+  inputChildren,
   ...rest
 }: InputProps<T>) => {
   const error = errors ? errors[name]?.message : "";
 
   return (
     <div className="relative">
-      <input
-        type={type}
-        placeholder="Username"
-        className={`input w-full ${error ? "input-error" : "input-secondary"}`}
-        {...register(name)}
-        {...rest}
-      />
+      <div className="relative">
+        <input
+          type={type}
+          placeholder="Username"
+          className={`input w-full ${
+            error ? "input-error" : "input-secondary"
+          }`}
+          {...register(name)}
+          {...rest}
+        />
+        {inputChildren}
+      </div>
       {children}
       <Alert
         className={`alert alert-warning p-2 text-xs mt-3 gap-2 ${

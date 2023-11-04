@@ -8,6 +8,7 @@ interface JWT {
   iat: number;
   image: string;
   username: string;
+  theme: string;
   _id: string;
 }
 
@@ -43,6 +44,7 @@ export function getCurrentUser() {
     const user: User = {
       username: decoded.username,
       image: decoded.image,
+      theme: decoded.theme,
       _id: decoded._id,
     };
     return user;

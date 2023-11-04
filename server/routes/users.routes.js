@@ -5,34 +5,46 @@ const bcrypt = require("bcrypt");
 // const fs = require("fs");
 // const { v4: uuid } = require("uuid");
 const { User, validate } = require("../models/user.model");
+const { Topic } = require("../models/topic.model");
 const auth = require("../middleware/auth");
+const { default: mongoose } = require("mongoose");
 const router = express.Router();
 
 // GET current user
 router.get("/me", auth, async (req, res) => {
-  const user = await User.findById(req.body._id).select("-password");
+  const user = await User.findById(req.query.id).select("-password -topics");
   res.send(user);
 });
 
 // GET a user
 router.get("/:usn", auth, async (req, res) => {
+  const user = await User.findById(req.params.id).select("-password -topics");
+
+  if (!user) return res.status(404).send("This user does not exist");
+
+  res.send(user);
+});
+
+// GET a user's posts
+router.get("/:usn/topics", auth, async (req, res) => {
+  const { page, limit } = req.query;
+
   const user = await User.findOne({ username: req.params.usn });
 
   if (!user) return res.status(404).send("This user does not exist");
 
-  res.send(_.pick(user, ["username", "image"]));
-});
+  const aggregate = Topic.aggregate([
+    { $match: { author: user._id } },
+    { $sort: { date_posted: -1 } },
+  ]);
+  const result = await Topic.aggregatePaginate(aggregate, { page, limit });
 
-// GET a user's posts
-router.get("/:usn/posts", auth, async (req, res) => {
-  const topics = await User.findOne({ username: req.params.usn }).populate(
-    "topics"
-  );
-
-  if (!topics)
-    return res.status(404).send({ message: "This user does not exist" });
-
-  res.send(_.pick(topics, ["topics"]));
+  res.status(200).send({
+    topics: result.docs,
+    page: result.page,
+    limit: result.limit,
+    total: result.totalPages,
+  });
 });
 
 // POST a new user
@@ -64,22 +76,26 @@ router.post("/", async (req, res) => {
     .send(_.pick(user, ["_id", "username", "email"]));
 });
 
-// TODO: go back to this once the profile is up and running normally
 // PATCH update a user
-// router.patch("/me", async (req, res) => {
-//   const { username, password, image, _id } = req.body;
-//   const user = await User.findOneAndUpdate(
-//     _id,
-//     _.pickBy({ username, password, image }, !_.isNull),
-//     { new: true }
-//   );
+router.patch("/me", async (req, res) => {
+  const { _id, bio, theme } = req.body;
+  const user = await User.findOneAndUpdate(
+    { _id },
+    { bio, theme },
+    { new: true, upsert: true }
+  );
 
-//   if (!user)
-//     return res.status(404).send({ message: "This user does not exist" });
+  if (!user)
+    return res.status(404).send({ message: "This user does not exist" });
 
-//   res.send(user);
-// });
+  const token = user.generateAuthToken();
+  res
+    .header("x-auth-token", token)
+    .header("access-control-expose-headers", "x-auth-token")
+    .send(_.pick(user, ["_id", "username", "image", "bio", "theme"]));
+});
 
+// TODO: go back to this once the profile is up and running normally
 // POST upload a profile pic
 // router.post("/upload", async (req, res) => {
 //   if (!req.files || !!req.files.images === false) {

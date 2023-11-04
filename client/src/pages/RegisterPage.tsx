@@ -67,7 +67,7 @@ const RegisterPage = () => {
 
   // SECTION = Return
   return (
-    <div className="flex">
+    <div className="flex flex-1">
       <div
         className="w-1/2"
         style={{
@@ -143,14 +143,15 @@ const RegisterPage = () => {
               placeholder="Password"
               name="password"
               type={showPassword ? "text" : "password"}
-            >
-              <span
-                className="cursor-pointer absolute right-[18px] top-[calc(50%-13px)]"
-                onClick={() => setShowPassword(!showPassword)}
-              >
-                {showPassword ? <FiEyeOff /> : <FiEye />}
-              </span>
-            </Input>
+              inputChildren={
+                <span
+                  className="cursor-pointer absolute right-[18px] top-[calc(50%-8px)]"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? <FiEyeOff /> : <FiEye />}
+                </span>
+              }
+            />
           </div>
           <div className="dropdown dropdown-hover dropdown-end flex-0">
             <label

@@ -1,29 +1,38 @@
 import Topics from "@/components/Topics";
 import { useTopics } from "@/queries/hooks/useTopics";
 import { useState } from "react";
-import Intro from "../components/Intro";
 
-const HomePage = () => {
+type Status = "IC" | "GB" | "Closed";
+interface Props {
+  status: Status;
+}
+
+const TopicsPage = ({ status }: Props) => {
   const [currentPage, setCurrentPage] = useState(1);
   const { data, error, isLoading } = useTopics({
     page: currentPage,
     limit: 20,
+    status,
   });
 
   return (
-    <div className="px-10 pb-5 flex-1">
-      <Intro />
-
-      <h3 className="text-4xl font-bold mb-5">Trending Projects</h3>
+    <div className="px-10 pb-5 pt-10 flex-1">
+      <h3 className="text-4xl font-bold mb-8">
+        {status === "IC"
+          ? "Interest Check"
+          : status === "GB"
+          ? "Group Buy"
+          : "Closed"}
+      </h3>
       <Topics
         data={data}
+        setCurrentPage={(nextPage) => setCurrentPage(nextPage)}
         extraClass="grid-cols-[repeat(auto-fit,minmax(320px,1fr))]"
         isLoading={isLoading}
         error={error}
-        setCurrentPage={(nextPage) => setCurrentPage(nextPage)}
       />
     </div>
   );
 };
 
-export default HomePage;
+export default TopicsPage;

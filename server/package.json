@@ -25,6 +25,8 @@
     "lodash": "^4.17.21",
     "mongodb": "^6.1.0",
     "mongoose": "^7.6.2",
+    "mongoose-aggregate-paginate-v2": "^1.0.6",
+    "mongoose-paginate-v2": "^1.7.4",
     "uuid": "^9.0.1"
   },
   "devDependencies": {

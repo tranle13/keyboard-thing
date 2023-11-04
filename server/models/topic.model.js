@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const aggregatePaginate = require("mongoose-aggregate-paginate-v2");
 const Joi = require("joi");
 
 const imageSchema = new mongoose.Schema({
@@ -34,6 +35,8 @@ function validateReq(req) {
   });
   return schema.validate(req);
 }
+
+topicSchema.plugin(aggregatePaginate);
 
 exports.Topic = mongoose.model("Topic", topicSchema);
 exports.validate = validateReq;

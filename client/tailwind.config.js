@@ -2,7 +2,7 @@
 import * as daisyui from "daisyui";
 
 export default {
-  content: ["./src/**/*.{ts,tsx}"],
+  content: ["./index.html", "./src/**/*.{ts,tsx}"],
   theme: {
     extend: {
       colors: {
@@ -17,11 +17,19 @@ export default {
   },
   daisyui: {
     themes: [
+      "light",
       "dark",
       "cupcake",
       "bumblebee",
       "retro",
       "halloween",
+      "garden",
+      "forest",
+      "pastel",
+      "fantasy",
+      "luxury",
+      "acid",
+      "coffee",
       "dracula",
       "night",
     ],
