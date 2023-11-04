@@ -4,9 +4,8 @@ import useMe from "@/queries/hooks/useMe";
 import * as authServices from "@/queries/services/authService";
 import { updateProfile } from "@/queries/services/userService";
 import { AxiosError } from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai";
-import { themeChange } from "theme-change";
 import state from "../store";
 
 interface Props {
@@ -14,9 +13,6 @@ interface Props {
 }
 
 const InfoEdit = ({ user }: Props) => {
-  useEffect(() => {
-    themeChange(false);
-  }, []);
   // SECTION = Constants
   const token = authServices.getJwt();
 
