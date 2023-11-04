@@ -1,5 +1,6 @@
 import Topics from "@/components/Topics";
-import useTopics from "@/queries/hooks/useTopics";
+import { useTopics } from "@/queries/hooks/useTopics";
+import { useState } from "react";
 
 type Status = "IC" | "GB" | "Closed";
 interface Props {
@@ -7,8 +8,9 @@ interface Props {
 }
 
 const TopicsPage = ({ status }: Props) => {
+  const [currentPage, setCurrentPage] = useState(1);
   const { data, error, isLoading } = useTopics({
-    page: 1,
+    page: currentPage,
     limit: 20,
     status,
   });
@@ -23,8 +25,11 @@ const TopicsPage = ({ status }: Props) => {
           : "Closed"}
       </h3>
       <Topics
-        topics={data?.topics}
+        data={data}
+        setCurrentPage={(nextPage) => setCurrentPage(nextPage)}
         extraClass="grid-cols-[repeat(auto-fit,minmax(320px,1fr))]"
+        isLoading={isLoading}
+        error={error}
       />
     </div>
   );

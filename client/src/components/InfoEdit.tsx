@@ -68,7 +68,7 @@ const InfoEdit = ({ user }: Props) => {
   if (meError) return null;
 
   return (
-    <div className="flex flex-col gap-3 bg-base-200 p-10 rounded-2xl items-center z-10 mt-[150px] h-max w-1/4">
+    <div className="flex flex-col gap-3 bg-neutral p-10 rounded-2xl items-center z-10 mt-[150px] h-max w-1/4">
       {error && (
         <div className="alert alert-error">
           <AiOutlineCloseCircle />

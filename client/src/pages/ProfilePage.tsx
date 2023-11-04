@@ -1,7 +1,7 @@
 import { bg } from "@/assets";
 import InfoEdit from "@/components/InfoEdit";
 import Topics from "@/components/Topics";
-import useUserTopics from "@/queries/hooks/useUserTopics";
+import { useUserTopics } from "@/queries/hooks/useTopics";
 import authService from "@/queries/services/authService";
 import { useState } from "react";
 
@@ -16,7 +16,12 @@ const ProfilePage = () => {
     createdTopic: true,
     followedTopic: false,
   });
-  const { data, isLoading, error } = useUserTopics(user, 1, 2);
+  const [currentPage, setCurrentPage] = useState(1);
+  const { data, isLoading, error } = useUserTopics({
+    username: user?.username,
+    page: currentPage,
+    limit: 20,
+  });
 
   if (!user) {
     window.location.href = "/";
@@ -34,7 +39,7 @@ const ProfilePage = () => {
 
       <InfoEdit user={user} />
 
-      <div className="flex flex-col bg-base-200 p-10 rounded-2xl w-1/2 z-10 mt-[150px] gap-5 h-[calc(100vh-266px)] flex-none min-h-[500px]">
+      <div className="flex flex-col bg-neutral p-10 rounded-2xl w-1/2 z-10 mt-[150px] gap-5 h-[calc(100vh-266px)] flex-none min-h-[500px]">
         <div className="tabs tabs-boxed p-0 flex-none">
           <a
             className={`tab w-1/2 ${checked.createdTopic ? "tab-active" : ""}`}
@@ -61,8 +66,11 @@ const ProfilePage = () => {
         </div>
         <div className="flex-1 overflow-y-auto">
           <Topics
-            topics={data?.topics}
+            data={data}
+            setCurrentPage={(nextPage) => setCurrentPage(nextPage)}
             extraClass="grid-cols-[repeat(auto-fit,minmax(30%,47%))]"
+            isLoading={isLoading}
+            error={error}
           />
         </div>
       </div>
