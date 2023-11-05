@@ -1,9 +1,11 @@
 import { unknown } from "@/assets";
 import { Topic as TopicInterface } from "@/entities/Topic";
+import state from "@/store";
 import { formatDate } from "@/utils";
 import { decode } from "html-entities";
 import parse from "html-react-parser";
 import { FaEllipsis } from "react-icons/fa6";
+import { useSnapshot } from "valtio";
 import Carousel from "./Carousel";
 
 interface Props {
@@ -11,6 +13,7 @@ interface Props {
 }
 
 const Topic = ({ topic }: Props) => {
+  const snap = useSnapshot(state);
   return (
     <div>
       {topic && (
@@ -32,14 +35,16 @@ const Topic = ({ topic }: Props) => {
                   posted on {formatDate(topic.date_posted)}
                 </span>
               </div>
-              <button
-                className="btn bg-base-300 text-lg"
-                onClick={() =>
-                  (window.location.href = `/topic/${topic._id}/edit`)
-                }
-              >
-                <FaEllipsis />
-              </button>
+              {snap.user?.username === topic.author.username && (
+                <button
+                  className="btn bg-base-300 text-lg"
+                  onClick={() =>
+                    (window.location.href = `/topic/${topic._id}/edit`)
+                  }
+                >
+                  <FaEllipsis />
+                </button>
+              )}
             </div>
             <div className="flex flex-col items-center">
               {!!topic.images.length && (

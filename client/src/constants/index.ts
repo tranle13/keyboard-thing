@@ -22,4 +22,6 @@ const badges = {
   CLOSED: "badge-neutral",
 };
 
-export { badges, themes };
+const categories = ["Keyboard", "Keycap", "Switch", "PCB", "Badge", "Other"];
+
+export { badges, categories, themes };

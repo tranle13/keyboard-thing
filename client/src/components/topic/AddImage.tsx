@@ -1,20 +1,55 @@
 import { noImage } from "@/assets";
+import { Topic } from "@/entities/Topic";
 import { TopicImage } from "@/entities/TopicImage";
-import { ChangeEvent, MouseEvent } from "react";
+import {
+  ChangeEvent,
+  MouseEvent,
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useState,
+} from "react";
 import { HiOutlineTrash } from "react-icons/hi";
 
 interface Props {
-  images: TopicImage[];
-  addImage: (e: MouseEvent<HTMLButtonElement>) => void;
-  removeImage: (e: MouseEvent<HTMLSpanElement>, index: number) => void;
-  setImage: (
+  topic?: Topic;
+}
+
+const AddImage = forwardRef<TopicImage[], Props>((props, ref) => {
+  const [images, setImages] = useState<TopicImage[]>([]);
+
+  useImperativeHandle(ref, () => {
+    return images;
+  });
+
+  useEffect(() => {
+    props.topic && setImages(props.topic.images);
+  }, [props.topic]);
+
+  const addImage = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    setImages([...images, { url: "", caption: "" }]);
+  };
+  const removeImage = (e: MouseEvent<HTMLSpanElement>, index: number) => {
+    e.preventDefault();
+    const temp = images
+      .slice(0, index)
+      .concat(images.slice(index + 1, images.length));
+    setImages(temp);
+  };
+  const setImage = (
     e: ChangeEvent<HTMLInputElement>,
     index: number,
     key: keyof TopicImage
-  ) => void;
-}
+  ) => {
+    setImages(
+      images.map((img, i) => {
+        if (i === index) img[key] = e.target.value;
+        return img;
+      })
+    );
+  };
 
-const AddImage = ({ images, addImage, removeImage, setImage }: Props) => {
   return (
     <div className="form-control gap-3">
       <button className="btn btn-sm btn-block text-primary" onClick={addImage}>
@@ -53,6 +88,6 @@ const AddImage = ({ images, addImage, removeImage, setImage }: Props) => {
       </div>
     </div>
   );
-};
+});
 
 export default AddImage;

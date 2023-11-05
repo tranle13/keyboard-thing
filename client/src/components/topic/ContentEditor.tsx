@@ -1,9 +1,11 @@
 import { Editor } from "@tinymce/tinymce-react";
+import { decode } from "html-entities";
 import { forwardRef, useImperativeHandle, useRef } from "react";
 import { Editor as TinyMCEEditor } from "tinymce";
 
 interface Props {
   height?: number;
+  initialContent?: string;
 }
 
 const ContentEditor = forwardRef<TinyMCEEditor, Props>((props, ref) => {
@@ -19,7 +21,7 @@ const ContentEditor = forwardRef<TinyMCEEditor, Props>((props, ref) => {
       onInit={(_, editor) => {
         editorRef.current = editor;
       }}
-      initialValue=""
+      initialValue={props.initialContent ? decode(props.initialContent) : ""}
       init={{
         min_height: props.height || 400,
         max_height: 600,
