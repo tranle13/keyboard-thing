@@ -1,4 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useSnapshot } from "valtio";
 import NavBar from "./components/NavBar";
 import PrivateRoutes from "./components/PrivateRoutes";
@@ -43,6 +45,18 @@ function App() {
               <Route path="*" element={<ErrorPage />} />
             </Routes>
           </>
+          <ToastContainer
+            position="bottom-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+          />
         </div>
       </BrowserRouter>
     </AuthProvider>
