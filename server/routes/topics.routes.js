@@ -88,16 +88,18 @@ router.post("/", auth, async (req, res) => {
 
 // PUT edit a topic
 router.put("/:id", [auth, validateObjectId], async (req, res) => {
-  const { title, images, ic_link, categories, content, status } = req.body;
+  const { title, cover_image, status, ic_link, categories, images, content } =
+    req.body;
   const topic = await Topic.findByIdAndUpdate(
     req.params.id,
     {
       title,
-      images,
+      cover_image,
+      status,
       ic_link,
       categories,
+      images,
       content,
-      status,
     },
     { new: true }
   );

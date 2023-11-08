@@ -6,3 +6,9 @@ export function addTopic(params: RequestTopic) {
     .post<Topic>("/api/topics/", { ...params })
     .then((res) => res.data);
 }
+
+export function updateTopic(params: RequestTopic, id: string) {
+  return httpService
+    .put<Topic>(`/api/topics/${id}`, { ...params })
+    .then((res) => res.data);
+}

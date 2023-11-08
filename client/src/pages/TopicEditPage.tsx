@@ -1,125 +1,136 @@
+import AddCategories from "@/components/topic/AddCategories";
+import AddImage from "@/components/topic/AddImage";
+import ContentEditor from "@/components/topic/ContentEditor";
+import FormSection from "@/components/topic/FormSection";
 import AuthContext from "@/context/authContext";
+import { Category } from "@/entities/Category";
+import { Status } from "@/entities/Status";
 import { RequestTopic } from "@/entities/Topic";
 import { TopicImage } from "@/entities/TopicImage";
-import { addTopic } from "@/queries/services/topicService";
+import useTopic from "@/queries/hooks/useTopic";
+import { addTopic, updateTopic } from "@/queries/services/topicService";
 import { encode } from "html-entities";
-import {
-  ChangeEvent,
-  FormEvent,
-  MouseEvent,
-  createRef,
-  useContext,
-  useState,
-} from "react";
+import { FormEvent, createRef, useContext, useState } from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai";
+import { useParams } from "react-router-dom";
 import { Editor as TinyMCEEditor } from "tinymce";
-import AddCategories from "../components/topic/AddCategories";
-import AddImage from "../components/topic/AddImage";
-import AddStatus, { Status } from "../components/topic/AddStatus";
-import ContentEditor from "../components/topic/ContentEditor";
-import FormSection from "../components/topic/FormSection";
+import AddStatus from "../components/topic/AddStatus";
+
+interface State {
+  title: string;
+  coverImage: string;
+  error: string;
+}
 
 const TopicEditPage = () => {
+  const { id: topicId } = useParams();
+  const isEdit = !!topicId;
   // SECTION = Context
   const { user } = useContext(AuthContext);
 
   // SECTION = Refs
-  const ref = createRef<TinyMCEEditor>();
+  const editorRef = createRef<TinyMCEEditor>();
+  const categoryRef = createRef<Category[]>();
+  const statusRef = createRef<Status>();
+  const imagesRef = createRef<TopicImage[]>();
 
   // SECTION = States
-  const [title, setTitle] = useState("");
-  const [coverImage, setCoverImage] = useState("");
-  const [status, setStatus] = useState<Status>("IC");
-  const [icLink, setIcLink] = useState("");
-  const [images, setImages] = useState<TopicImage[]>([]);
-  const [categories, setCategories] = useState([
-    { name: "Keyboard", checked: false },
-    { name: "Keycap", checked: false },
-    { name: "Switch", checked: false },
-    { name: "PCB", checked: false },
-    { name: "Badge", checked: false },
-    { name: "Other", checked: false },
-  ]);
-  const [error, setError] = useState("");
+  const [topic, setTopic] = useState<State>({
+    title: "",
+    coverImage: "",
+    error: "",
+  });
   const [isPosting, setIsPosting] = useState(false);
 
+  const {
+    data,
+    error: topicError,
+    isLoading,
+  } = useTopic(topicId || "", (data) =>
+    setTopic({ ...topic, title: data.title, coverImage: data.cover_image })
+  );
+
   // SECTION = Functions
-  const addImage = (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    setImages([...images, { url: "", caption: "" }]);
-  };
-  const removeImage = (e: MouseEvent<HTMLSpanElement>, index: number) => {
-    e.preventDefault();
-    const temp = images
-      .slice(0, index)
-      .concat(images.slice(index + 1, images.length));
-    setImages(temp);
-  };
-  const setImage = (
-    e: ChangeEvent<HTMLInputElement>,
-    index: number,
-    key: keyof TopicImage
-  ) => {
-    setImages(
-      images.map((image, i) => {
-        if (i === index) image[key] = e.target.value;
-        return image;
-      })
-    );
-  };
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setIsPosting(true);
 
-    if (!title || !ref.current?.getContent()) {
-      setError("Title and content are required");
+    if (!topic.title || !editorRef.current?.getContent()) {
+      setTopic({ ...topic, error: "Title and content are required" });
       window.scrollTo(0, 0);
       setIsPosting(false);
       return;
     }
+
     try {
-      setError("");
-      if (ref.current?.getContent()) {
+      setTopic({ ...topic, error: "" });
+      if (
+        editorRef.current?.getContent() &&
+        categoryRef.current &&
+        statusRef.current &&
+        imagesRef.current
+      ) {
         const params: RequestTopic = {
-          title,
-          cover_image: coverImage,
-          status: "IC",
-          ic_link: icLink,
-          categories: categories.filter((c) => c.checked).map((c) => c.name),
-          images: images.filter((i) => i.url || i.caption),
-          content: encode(ref.current.getContent()),
+          title: topic.title,
+          cover_image: topic.coverImage,
+          status: statusRef.current.status || "IC",
+          ic_link: statusRef.current.icLink || "",
+          categories: categoryRef.current
+            .filter((c) => c.checked)
+            .map((c) => c.name),
+          images: imagesRef.current.filter((i) => i.url),
+          content: encode(editorRef.current.getContent()),
           author: user?.username || "",
         };
-        const topic = await addTopic(params);
-        window.location.href = `/topic/${topic._id}`;
+        let newTopic;
+        if (isEdit) newTopic = await updateTopic(params, topicId || "");
+        else newTopic = await addTopic(params);
+        console.log(topicId);
+        window.location.href = `/topic/${newTopic._id}`;
       }
     } catch (error) {
       const temp = error as Error;
-      setError(temp.message);
+      setTopic({ ...topic, error: temp.message });
       window.scrollTo(0, 0);
     } finally {
       setIsPosting(false);
     }
   };
 
+  if (isLoading)
+    return (
+      <div className="flex justify-center py-10">
+        <span className="loading loading-infinity text-primary" />
+        <span className="loading loading-infinity text-secondary" />
+        <span className="loading loading-infinity text-accent" />
+        <span className="loading loading-infinity text-neutral" />
+        <span className="loading loading-infinity text-info" />
+        <span className="loading loading-infinity text-success" />
+        <span className="loading loading-infinity text-warning" />
+        <span className="loading loading-infinity text-error" />
+      </div>
+    );
+
   // SECTION = Return
   return (
     <form className="flex flex-col gap-5 p-10" onSubmit={onSubmit}>
-      {error && (
+      {(topic.error || topicError) && (
         <div className="alert alert-error">
           <AiOutlineCloseCircle />
-          <span>{error}</span>
+          <span>{topic.error || topicError?.message}</span>
         </div>
       )}
 
-      <h2 className="text-2xl font-bold">New Topic</h2>
+      <h2 className="text-2xl font-bold">
+        {isEdit ? "Edit Topic" : "New Topic"}
+      </h2>
       <FormSection label="Title*">
         <input
           type="text"
           placeholder="i.e. your new keyboard/keycap/switch name"
           className="input input-primary input-sm"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          value={topic?.title}
+          onChange={(e) => setTopic({ ...topic, title: e.target.value })}
         />
       </FormSection>
       <FormSection label="Cover Image">
@@ -127,41 +138,21 @@ const TopicEditPage = () => {
           type="text"
           placeholder="Cover image url"
           className="input input-primary input-sm"
-          value={coverImage}
-          onChange={(e) => setCoverImage(e.target.value)}
+          value={topic?.coverImage}
+          onChange={(e) => setTopic({ ...topic, coverImage: e.target.value })}
         />
       </FormSection>
       <FormSection label="Status">
-        <AddStatus
-          status={status}
-          setStatus={(s) => setStatus(s)}
-          icLink={icLink}
-          setIcLink={(l) => setIcLink(l)}
-        />
+        <AddStatus isEdit={isEdit} ref={statusRef} topic={data} />
       </FormSection>
       <FormSection label="Categories">
-        <AddCategories
-          categories={categories}
-          setCategories={(c) =>
-            setCategories(
-              categories.map((cat) => {
-                if (cat === c) cat.checked = !cat.checked;
-                return cat;
-              })
-            )
-          }
-        />
+        <AddCategories ref={categoryRef} topic={data} />
       </FormSection>
       <FormSection label="Images">
-        <AddImage
-          images={images}
-          addImage={addImage}
-          removeImage={removeImage}
-          setImage={setImage}
-        />
+        <AddImage ref={imagesRef} topic={data} />
       </FormSection>
       <FormSection label="Content*">
-        <ContentEditor ref={ref} />
+        <ContentEditor ref={editorRef} initialContent={data?.content} />
       </FormSection>
       <div className="flex justify-end">
         <button
@@ -175,10 +166,10 @@ const TopicEditPage = () => {
           {isPosting ? (
             <>
               <span className="loading loading-xs loading-spinner" />
-              Posting
+              <>{isEdit ? "Updating" : "Posting"}</>
             </>
           ) : (
-            "Post"
+            <>{isEdit ? "Update" : "Post"}</>
           )}
         </button>
       </div>

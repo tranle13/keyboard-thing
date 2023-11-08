@@ -1,10 +1,11 @@
+import { StatusType } from "./Status";
 import { TopicImage } from "./TopicImage";
 import { User } from "./User";
 
 interface BaseTopic {
   title: string;
   cover_image: string;
-  status: "IC" | "GB" | "CLOSED";
+  status: StatusType;
   ic_link: string;
   categories: string[];
   images: TopicImage[];

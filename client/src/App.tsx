@@ -1,4 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useSnapshot } from "valtio";
 import NavBar from "./components/NavBar";
 import PrivateRoutes from "./components/PrivateRoutes";
@@ -26,6 +28,7 @@ function App() {
             <Routes>
               <Route element={<PrivateRoutes />}>
                 <Route path="/topic/new" element={<TopicEditPage />} />
+                <Route path="/topic/:id/edit" element={<TopicEditPage />} />
                 <Route path="/logout" element={<Logout />} />
                 <Route path="/me" element={<ProfilePage />} />
               </Route>
@@ -37,11 +40,23 @@ function App() {
                 element={<TopicsPage status="IC" />}
               />
               <Route path="/group-buy" element={<TopicsPage status="GB" />} />
-              <Route path="/closed" element={<TopicsPage status="Closed" />} />
+              <Route path="/closed" element={<TopicsPage status="CLOSED" />} />
               <Route path="/topic/:id" element={<TopicDetailPage />} />
               <Route path="*" element={<ErrorPage />} />
             </Routes>
           </>
+          <ToastContainer
+            position="bottom-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+          />
         </div>
       </BrowserRouter>
     </AuthProvider>

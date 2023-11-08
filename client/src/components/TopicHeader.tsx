@@ -1,7 +1,7 @@
 import { badges } from "@/constants";
 import { Topic as TopicInterface } from "@/entities/Topic";
 import { formatDate } from "@/utils";
-import { GrFormViewHide } from "react-icons/gr";
+import { PiEyeClosedBold } from "react-icons/pi";
 
 interface Props {
   topic: TopicInterface;
@@ -21,10 +21,10 @@ const TopicHeader = ({ topic }: Props) => {
           >
             {topic.status}
           </div>
-          <div className="flex items-center justify-center gap-2">
+          <p className="flex items-center justify-center gap-2">
             {topic.views}
-            <GrFormViewHide />
-          </div>
+            <PiEyeClosedBold />
+          </p>
         </div>
 
         <div className="stat grow-1 gap-2">

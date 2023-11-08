@@ -1,15 +1,19 @@
 import { unknown } from "@/assets";
 import { Topic as TopicInterface } from "@/entities/Topic";
+import state from "@/store";
 import { formatDate } from "@/utils";
 import { decode } from "html-entities";
 import parse from "html-react-parser";
+import { useSnapshot } from "valtio";
 import Carousel from "./Carousel";
+import TopicActions from "./topic/TopicActions";
 
 interface Props {
   topic: TopicInterface;
 }
 
 const Topic = ({ topic }: Props) => {
+  const snap = useSnapshot(state);
   return (
     <div>
       {topic && (
@@ -25,12 +29,15 @@ const Topic = ({ topic }: Props) => {
                   />
                 </div>
               </div>
-              <div className="flex flex-col">
+              <div className="flex flex-col flex-1">
                 <span className="font-bold">{topic.author.username}</span>
                 <span className="text-xs">
                   posted on {formatDate(topic.date_posted)}
                 </span>
               </div>
+              {snap.user?.username === topic.author.username && (
+                <TopicActions topic={topic} />
+              )}
             </div>
             <div className="flex flex-col items-center">
               {!!topic.images.length && (
