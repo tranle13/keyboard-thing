@@ -11,13 +11,13 @@ import { useSnapshot } from "valtio";
 
 interface Props {
   topicId: string;
-  totalPages: number;
+  lastPage: number;
 }
 
-const CommentForm = ({ topicId, totalPages }: Props) => {
+const CommentForm = ({ topicId, lastPage }: Props) => {
   // SECTION = Constants
   const editorRef = useRef<TinyMCEEditor>();
-  const { mutate, isPending, error } = useAddComment(totalPages);
+  const { mutate, isPending, error } = useAddComment(lastPage);
   const snap = useSnapshot(state);
 
   // SECTION = Conditional rendering

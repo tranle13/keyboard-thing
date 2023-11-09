@@ -23,18 +23,20 @@ const useAddComment = (totalPage: number) => {
       const previousComments = queryClient.getQueryData<Comments>(queryKey);
       hasCacheLastPage = !!previousComments;
       if (previousComments) {
-        queryClient.setQueryData(queryKey, (comments: Comments) => ({
-          ...comments,
-          data: [...comments.data, newComment],
+        queryClient.setQueryData(queryKey, (data: Comments) => ({
+          ...data,
+          comments: [...data.comments, newComment],
         }));
         return { previousComments };
       }
     },
     onSuccess: (savedComment, newComment) => {
       if (hasCacheLastPage) {
-        queryClient.setQueryData(queryKey, (comments: Comments) => ({
-          ...comments,
-          data: comments.data.map((d) => (d === newComment ? savedComment : d)),
+        queryClient.setQueryData(queryKey, (data: Comments) => ({
+          ...data,
+          comments: data.comments.map((d) =>
+            d === newComment ? savedComment : d
+          ),
         }));
       }
     },

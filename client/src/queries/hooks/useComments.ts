@@ -5,10 +5,10 @@ import httpService from "../services/httpService";
 interface Props {
   topicId: string;
   page: number;
-  pageSize?: number;
+  limit?: number;
 }
 
-const useComments = ({ topicId, page = 1, pageSize = 20 }: Props) => {
+const useComments = ({ topicId, page = 1, limit = 20 }: Props) => {
   return useQuery({
     queryKey: ["comments", page],
     queryFn: () =>
@@ -17,7 +17,7 @@ const useComments = ({ topicId, page = 1, pageSize = 20 }: Props) => {
           params: {
             topicId,
             page,
-            pageSize,
+            limit,
           },
         })
         .then((res) => res.data),

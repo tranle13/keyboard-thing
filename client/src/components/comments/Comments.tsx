@@ -13,32 +13,31 @@ interface Props {
 const Comments = ({ topicId = "" }: Props) => {
   const snap = useSnapshot(state);
   const [currentPage, setCurrentPage] = useState(1);
-  const {
-    data: comments,
-    error,
-    isLoading,
-  } = useComments({ topicId, page: currentPage, pageSize: 10 });
+  const { data, error, isLoading } = useComments({
+    topicId,
+    page: currentPage,
+    limit: 10,
+  });
 
-  if (error || !comments || !comments.data.length) return;
+  if (error) return;
 
   return (
     <div className="relative flex flex-col gap-7">
-      {error && isLoading ? (
+      {isLoading ? (
         <span className="loading loading-infinity loading-lg text-secondary" />
       ) : (
         <>
-          {comments.data.map((comment, index) => (
-            <Comment comment={comment} key={index} />
-          ))}
+          {data?.comments &&
+            data.comments.map((comment, index) => (
+              <Comment comment={comment} key={index} />
+            ))}
           <Pagination
-            totalPages={comments.total}
+            totalPages={data?.total || 0}
             currentPage={currentPage}
             onPageChange={(newPage: number) => setCurrentPage(newPage)}
           />
           {snap.user && (
-            <div>
-              <CommentForm topicId={topicId} totalPages={comments.total} />
-            </div>
+            <CommentForm topicId={topicId} lastPage={data?.total || 0} />
           )}
         </>
       )}

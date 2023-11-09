@@ -46,7 +46,7 @@ const Topic = ({ topic }: Props) => {
                   <div className="divider" />
                 </>
               )}
-              <span>{parse(decode(topic.content))}</span>
+              <div className="w-full">{parse(decode(topic.content))}</div>
             </div>
           </div>
         </>
