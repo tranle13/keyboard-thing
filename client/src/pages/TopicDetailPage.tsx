@@ -1,6 +1,6 @@
 import { loading } from "@/assets";
-import CommentForm from "@/components/CommentForm";
-import Comments from "@/components/Comments";
+import CommentForm from "@/components/comments/CommentForm";
+import Comments from "@/components/comments/Comments";
 import Topic from "@/components/Topic";
 import TopicHeader from "@/components/TopicHeader";
 import AuthContext from "@/context/authContext";

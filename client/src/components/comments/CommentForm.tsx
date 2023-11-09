@@ -6,7 +6,7 @@ import { encode } from "html-entities";
 import { FormEvent, createRef, useContext } from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { Editor as TinyMCEEditor } from "tinymce";
-import ContentEditor from "./topic/ContentEditor";
+import ContentEditor from "../topic/ContentEditor";
 
 interface Props {
   topic: Topic;

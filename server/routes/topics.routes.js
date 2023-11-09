@@ -113,8 +113,7 @@ router.put("/:id", [auth, validateObjectId], async (req, res) => {
 router.delete("/:id", [auth, validateObjectId], async (req, res) => {
   const topic = await Topic.findById(req.params.id).populate("author");
 
-  if (!topic)
-    return res.status(404).send({ message: "Could not find the topic" });
+  if (!topic) return res.status(404).send("Could not find the topic");
 
   const session = await mongoose.startSession();
   session.startTransaction();

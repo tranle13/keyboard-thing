@@ -38,4 +38,11 @@ router.post("/new", auth, async (req, res) => {
   res.send(comment);
 });
 
+router.delete("/:id", auth, async (req, res) => {
+  const idComment = await Comment.findById(req.params.id);
+  if (!idComment) return res.status(404).send("Could not find the comment");
+  await idComment.deleteOne();
+  res.end();
+});
+
 module.exports = router;
