@@ -1,19 +1,23 @@
 import useComments from "@/queries/hooks/useComments";
+import state from "@/store";
 import { useState } from "react";
+import { useSnapshot } from "valtio";
 import Pagination from "../Pagination";
 import Comment from "./Comment";
+import CommentForm from "./CommentForm";
 
 interface Props {
   topicId?: string;
 }
 
 const Comments = ({ topicId = "" }: Props) => {
+  const snap = useSnapshot(state);
   const [currentPage, setCurrentPage] = useState(1);
   const {
     data: comments,
     error,
     isLoading,
-  } = useComments({ topicId, page: currentPage });
+  } = useComments({ topicId, page: currentPage, pageSize: 10 });
 
   if (error || !comments || !comments.data.length) return;
 
@@ -31,6 +35,11 @@ const Comments = ({ topicId = "" }: Props) => {
             currentPage={currentPage}
             onPageChange={(newPage: number) => setCurrentPage(newPage)}
           />
+          {snap.user && (
+            <div>
+              <CommentForm topicId={topicId} totalPages={comments.total} />
+            </div>
+          )}
         </>
       )}
     </div>

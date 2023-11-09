@@ -8,8 +8,8 @@ interface Props {
   pageSize?: number;
 }
 
-const useComments = ({ topicId, page = 1, pageSize = 5 }: Props) =>
-  useQuery({
+const useComments = ({ topicId, page = 1, pageSize = 20 }: Props) => {
+  return useQuery({
     queryKey: ["comments", page],
     queryFn: () =>
       httpService
@@ -21,7 +21,9 @@ const useComments = ({ topicId, page = 1, pageSize = 5 }: Props) =>
           },
         })
         .then((res) => res.data),
+    keepPreviousData: true,
     staleTime: 60 * 60 * 1_000, //1h
   });
+};
 
 export default useComments;

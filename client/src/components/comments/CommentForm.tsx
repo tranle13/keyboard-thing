@@ -1,25 +1,27 @@
-import { unknown } from "@/assets";
-import AuthContext from "@/context/authContext";
-import { Topic } from "@/entities/Topic";
+import { User } from "@/entities/User";
 import useAddComment from "@/queries/hooks/useAddComment";
+import state from "@/store";
+import { tinymceInit } from "@/utils";
+import { Editor } from "@tinymce/tinymce-react";
 import { encode } from "html-entities";
-import { FormEvent, createRef, useContext } from "react";
+import { FormEvent, useRef } from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { Editor as TinyMCEEditor } from "tinymce";
-import ContentEditor from "../topic/ContentEditor";
+import { useSnapshot } from "valtio";
 
 interface Props {
-  topic: Topic;
+  topicId: string;
+  totalPages: number;
 }
 
-const CommentForm = ({ topic }: Props) => {
+const CommentForm = ({ topicId, totalPages }: Props) => {
   // SECTION = Constants
-  const ref = createRef<TinyMCEEditor>();
-  const { mutate, isPending, error } = useAddComment();
-  const { user } = useContext(AuthContext);
+  const editorRef = useRef<TinyMCEEditor>();
+  const { mutate, isPending, error } = useAddComment(totalPages);
+  const snap = useSnapshot(state);
 
   // SECTION = Conditional rendering
-  if (!user) {
+  if (!snap.user) {
     return null;
   }
   if (error) {
@@ -32,42 +34,36 @@ const CommentForm = ({ topic }: Props) => {
   // SECTION = Functions
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
-    if (ref.current?.getContent()) {
+
+    if (editorRef.current?.getContent()) {
       mutate({
-        author: { ...user },
-        topic: topic._id,
-        content: encode(ref.current.getContent()),
+        author: { ...(snap.user as User) },
+        topic: topicId,
+        content: encode(editorRef.current.getContent()),
       });
-      ref.current.resetContent();
+      editorRef.current.resetContent("");
     }
   };
   const onReset = (e: FormEvent) => {
     e.preventDefault();
-    ref.current?.resetContent();
+    editorRef.current?.resetContent();
   };
 
   // SECTION = Return
   return (
     <form
-      className="card w-full bg-base-100 gap-5 p-6"
+      className="card w-full bg-base-100 gap-5"
       onSubmit={onSubmit}
       onReset={onReset}
     >
-      <div className="flex gap-3 items-center">
-        <div className="avatar">
-          <div className="w-8 h-8 mask mask-hexagon">
-            <img
-              className=""
-              src={user?.image || unknown}
-              alt="author-profile-picture"
-            />
-          </div>
-        </div>
-        <span className="text-base-content font-bold">
-          {topic.author.username}
-        </span>
-      </div>
-      <ContentEditor height={150} ref={ref} />
+      <Editor
+        apiKey="6u83swqogsxupwyr54zmcbd6cc7gx4jw6uj1g56ui6tte16k"
+        onInit={(_, editor) => {
+          editorRef.current = editor;
+        }}
+        initialValue=""
+        init={tinymceInit(150)}
+      />
       <div className="flex justify-end">
         <button
           className="btn btn-sm btn-outline btn-accent mr-5"
