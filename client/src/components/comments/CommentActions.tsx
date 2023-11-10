@@ -1,24 +1,35 @@
-import { Topic } from "@/entities/Topic";
+import { Comments } from "@/entities/Comments";
 import httpService from "@/queries/services/httpService";
+import { useQueryClient } from "@tanstack/react-query";
 import { FaEllipsis } from "react-icons/fa6";
-import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 interface Props {
-  topic: Topic;
+  commentId: string;
+  currentPage: number;
 }
 
-const TopicActions = ({ topic }: Props) => {
-  const navigate = useNavigate();
-  const deleteTopic = async () => {
+const CommentActions = ({ commentId, currentPage }: Props) => {
+  const queryClient = useQueryClient();
+  const queryKey = ["comments", currentPage];
+
+  const deleteComment = async () => {
+    const cachedComments = queryClient.getQueryData<Comments>(queryKey);
+    if (cachedComments) {
+      queryClient.setQueryData(queryKey, (data: Comments) => ({
+        ...data,
+        comments: data.comments.filter((c) => c._id !== commentId),
+      }));
+    }
+
     try {
-      const promise = httpService.delete(`/api/topics/${topic._id}`);
+      const promise = httpService.delete(`/api/comments/${commentId}`);
 
       await toast.promise(
         promise,
         {
-          pending: "Deleting topic...",
-          success: "Topic deleted successfully!",
+          pending: "Deleting comment...",
+          success: "Comment deleted successfully!",
           error: "Uh oh, something went wrong. Please try again.",
         },
         {
@@ -26,8 +37,8 @@ const TopicActions = ({ topic }: Props) => {
           progress: undefined,
         }
       );
-      navigate("/", { replace: true });
     } catch (e) {
+      if (cachedComments) queryClient.setQueryData(queryKey, cachedComments);
       console.log(e);
     }
   };
@@ -35,7 +46,7 @@ const TopicActions = ({ topic }: Props) => {
   return (
     <>
       <div className="dropdown dropdown-hover dropdown-end">
-        <label tabIndex={0} className="btn m-1 bg-base-300 text-lg border-none">
+        <label tabIndex={0} className="btn m-1 bg-base-200 text-lg border-none">
           <FaEllipsis />
         </label>
         <ul
@@ -43,16 +54,11 @@ const TopicActions = ({ topic }: Props) => {
           className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-24"
         >
           <li>
-            <a href={`/topic/${topic._id}/edit`}>Edit</a>
-          </li>
-          <li>
             <a
               onClick={() => {
                 if (document) {
                   (
-                    document.getElementById(
-                      "topic_deletion_modal"
-                    ) as HTMLFormElement
+                    document.getElementById(commentId) as HTMLFormElement
                   ).showModal();
                 }
               }}
@@ -62,11 +68,11 @@ const TopicActions = ({ topic }: Props) => {
           </li>
         </ul>
       </div>
-      <dialog id="topic_deletion_modal" className="modal">
+      <dialog id={commentId} className="modal">
         <div className="modal-box">
           <h3 className="font-bold text-lg">Are you sure?</h3>
           <p className="py-4">
-            You would no longer be able to view or edit this topic.
+            You would no longer be able to view or edit this comment.
           </p>
           <div className="modal-action gap-5">
             <form method="dialog">
@@ -74,7 +80,7 @@ const TopicActions = ({ topic }: Props) => {
               <button
                 className="btn btn-error ml-5"
                 onClick={() => {
-                  deleteTopic();
+                  deleteComment();
                 }}
               >
                 Delete
@@ -87,4 +93,4 @@ const TopicActions = ({ topic }: Props) => {
   );
 };
 
-export default TopicActions;
+export default CommentActions;

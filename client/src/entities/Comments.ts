@@ -2,7 +2,7 @@ import { Comment } from "./Comment";
 
 export interface Comments {
   page: number;
-  pageSize: number;
+  limit: number;
   total: number;
-  data: Comment[];
+  comments: Comment[];
 }

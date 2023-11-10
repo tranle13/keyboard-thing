@@ -1,39 +1,46 @@
 import { Comment } from "@/entities/Comment";
 import { Comments } from "@/entities/Comments";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
+import httpService from "../services/httpService";
 
 interface AddCommentContext {
   previousComments: Comments | undefined;
 }
 
-const useAddComment = () => {
+const useAddComment = (lastPage: number) => {
   const queryClient = useQueryClient();
+  const queryKey = ["comments", lastPage];
 
   return useMutation<Comment, Error, Comment, AddCommentContext>({
     mutationFn: (comment) =>
-      axios
+      httpService
         .post<Comment>("/api/comments/new", {
           ...comment,
         })
         .then((res) => res.data),
     onMutate: (newComment) => {
-      const previousComments = queryClient.getQueryData<Comments>(["comments"]);
-      queryClient.setQueryData(["comments"], (comments: Comments) => ({
-        ...comments,
-        data: [...comments.data, newComment],
-      }));
-      return { previousComments };
+      const previousComments = queryClient.getQueryData<Comments>(queryKey);
+      if (previousComments) {
+        queryClient.setQueryData(queryKey, (data: Comments) => ({
+          ...data,
+          comments: [...data.comments, newComment],
+        }));
+        return { previousComments };
+      }
     },
-    onSuccess: (savedComment, newComment) => {
-      queryClient.setQueryData(["comments"], (comments: Comments) => ({
-        ...comments,
-        data: comments.data.map((d) => (d === newComment ? savedComment : d)),
-      }));
+    onSuccess: (savedComment, newComment, context) => {
+      if (context?.previousComments) {
+        queryClient.setQueryData(queryKey, (data: Comments) => ({
+          ...data,
+          comments: data.comments.map((d) =>
+            d === newComment ? savedComment : d
+          ),
+        }));
+      }
     },
     onError: (error, newComment, context) => {
       if (!context) return;
-      queryClient.setQueryData(["comments"], context.previousComments);
+      queryClient.setQueryData(queryKey, context.previousComments);
     },
   });
 };

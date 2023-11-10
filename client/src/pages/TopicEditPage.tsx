@@ -1,6 +1,5 @@
 import AddCategories from "@/components/topic/AddCategories";
 import AddImage from "@/components/topic/AddImage";
-import ContentEditor from "@/components/topic/ContentEditor";
 import FormSection from "@/components/topic/FormSection";
 import AuthContext from "@/context/authContext";
 import { Category } from "@/entities/Category";
@@ -9,8 +8,10 @@ import { RequestTopic } from "@/entities/Topic";
 import { TopicImage } from "@/entities/TopicImage";
 import useTopic from "@/queries/hooks/useTopic";
 import { addTopic, updateTopic } from "@/queries/services/topicService";
-import { encode } from "html-entities";
-import { FormEvent, createRef, useContext, useState } from "react";
+import { tinymceInit } from "@/utils";
+import { Editor } from "@tinymce/tinymce-react";
+import { decode, encode } from "html-entities";
+import { FormEvent, createRef, useContext, useRef, useState } from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { useParams } from "react-router-dom";
 import { Editor as TinyMCEEditor } from "tinymce";
@@ -29,7 +30,7 @@ const TopicEditPage = () => {
   const { user } = useContext(AuthContext);
 
   // SECTION = Refs
-  const editorRef = createRef<TinyMCEEditor>();
+  const editorRef = useRef<TinyMCEEditor>();
   const categoryRef = createRef<Category[]>();
   const statusRef = createRef<Status>();
   const imagesRef = createRef<TopicImage[]>();
@@ -152,7 +153,14 @@ const TopicEditPage = () => {
         <AddImage ref={imagesRef} topic={data} />
       </FormSection>
       <FormSection label="Content*">
-        <ContentEditor ref={editorRef} initialContent={data?.content} />
+        <Editor
+          apiKey="6u83swqogsxupwyr54zmcbd6cc7gx4jw6uj1g56ui6tte16k"
+          onInit={(_, editor) => {
+            editorRef.current = editor;
+          }}
+          initialValue={data?.content ? decode(data.content) : ""}
+          init={tinymceInit()}
+        />
       </FormSection>
       <div className="flex justify-end">
         <button

@@ -29,7 +29,7 @@ const Pagination = ({ totalPages, currentPage, onPageChange }: Props) => {
         «
       </button>
       <div className="join-item btn p-0">
-        <div className="dropdown dropdown-top">
+        <div className="dropdown dropdown-top h-full w-full">
           <label tabIndex={0} className="btn h-full min-h-full">
             Page {currentPage}
           </label>
