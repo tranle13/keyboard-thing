@@ -9,9 +9,10 @@ import CommentActions from "./CommentActions";
 
 interface Props {
   comment: CommentInterface;
+  currentPage: number;
 }
 
-const Comment = ({ comment }: Props) => {
+const Comment = ({ comment, currentPage }: Props) => {
   const snap = useSnapshot(state);
 
   return (
@@ -35,7 +36,7 @@ const Comment = ({ comment }: Props) => {
           </span>
         </div>
         {snap.user?.username === comment.author.username && (
-          <CommentActions comment={comment} />
+          <CommentActions commentId={comment._id!} currentPage={currentPage} />
         )}
       </div>
       <span className="text-base-content">

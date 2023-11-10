@@ -7,10 +7,9 @@ interface AddCommentContext {
   previousComments: Comments | undefined;
 }
 
-const useAddComment = (totalPage: number) => {
+const useAddComment = (lastPage: number) => {
   const queryClient = useQueryClient();
-  const queryKey = ["comments", totalPage];
-  let hasCacheLastPage = false;
+  const queryKey = ["comments", lastPage];
 
   return useMutation<Comment, Error, Comment, AddCommentContext>({
     mutationFn: (comment) =>
@@ -21,7 +20,6 @@ const useAddComment = (totalPage: number) => {
         .then((res) => res.data),
     onMutate: (newComment) => {
       const previousComments = queryClient.getQueryData<Comments>(queryKey);
-      hasCacheLastPage = !!previousComments;
       if (previousComments) {
         queryClient.setQueryData(queryKey, (data: Comments) => ({
           ...data,
@@ -30,8 +28,8 @@ const useAddComment = (totalPage: number) => {
         return { previousComments };
       }
     },
-    onSuccess: (savedComment, newComment) => {
-      if (hasCacheLastPage) {
+    onSuccess: (savedComment, newComment, context) => {
+      if (context?.previousComments) {
         queryClient.setQueryData(queryKey, (data: Comments) => ({
           ...data,
           comments: data.comments.map((d) =>
@@ -42,8 +40,7 @@ const useAddComment = (totalPage: number) => {
     },
     onError: (error, newComment, context) => {
       if (!context) return;
-      if (hasCacheLastPage)
-        queryClient.setQueryData(queryKey, context.previousComments);
+      queryClient.setQueryData(queryKey, context.previousComments);
     },
   });
 };

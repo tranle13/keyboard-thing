@@ -29,7 +29,11 @@ const Comments = ({ topicId = "" }: Props) => {
         <>
           {data?.comments &&
             data.comments.map((comment, index) => (
-              <Comment comment={comment} key={index} />
+              <Comment
+                comment={comment}
+                key={index}
+                currentPage={currentPage}
+              />
             ))}
           <Pagination
             totalPages={data?.total || 0}

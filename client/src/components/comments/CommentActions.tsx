@@ -1,16 +1,29 @@
-import { Comment } from "@/entities/Comment";
+import { Comments } from "@/entities/Comments";
 import httpService from "@/queries/services/httpService";
+import { useQueryClient } from "@tanstack/react-query";
 import { FaEllipsis } from "react-icons/fa6";
 import { toast } from "react-toastify";
 
 interface Props {
-  comment: Comment;
+  commentId: string;
+  currentPage: number;
 }
 
-const CommentActions = ({ comment }: Props) => {
-  const deleteTopic = async () => {
+const CommentActions = ({ commentId, currentPage }: Props) => {
+  const queryClient = useQueryClient();
+  const queryKey = ["comments", currentPage];
+
+  const deleteComment = async () => {
+    const cachedComments = queryClient.getQueryData<Comments>(queryKey);
+    if (cachedComments) {
+      queryClient.setQueryData(queryKey, (data: Comments) => ({
+        ...data,
+        comments: data.comments.filter((c) => c._id !== commentId),
+      }));
+    }
+
     try {
-      const promise = httpService.delete(`/api/comments/${comment._id}`);
+      const promise = httpService.delete(`/api/comments/${commentId}`);
 
       await toast.promise(
         promise,
@@ -24,8 +37,8 @@ const CommentActions = ({ comment }: Props) => {
           progress: undefined,
         }
       );
-      window.location.reload();
     } catch (e) {
+      if (cachedComments) queryClient.setQueryData(queryKey, cachedComments);
       console.log(e);
     }
   };
@@ -45,7 +58,7 @@ const CommentActions = ({ comment }: Props) => {
               onClick={() => {
                 if (document) {
                   (
-                    document.getElementById("deletion_modal") as HTMLFormElement
+                    document.getElementById(commentId) as HTMLFormElement
                   ).showModal();
                 }
               }}
@@ -55,7 +68,7 @@ const CommentActions = ({ comment }: Props) => {
           </li>
         </ul>
       </div>
-      <dialog id="deletion_modal" className="modal">
+      <dialog id={commentId} className="modal">
         <div className="modal-box">
           <h3 className="font-bold text-lg">Are you sure?</h3>
           <p className="py-4">
@@ -67,7 +80,7 @@ const CommentActions = ({ comment }: Props) => {
               <button
                 className="btn btn-error ml-5"
                 onClick={() => {
-                  deleteTopic();
+                  deleteComment();
                 }}
               >
                 Delete

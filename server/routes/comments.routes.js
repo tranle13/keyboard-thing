@@ -10,7 +10,7 @@ router.get("/", async (req, res) => {
   const { page, limit, topicId } = req.query;
   const query = [
     { $match: { topic: new mongoose.Types.ObjectId(topicId) } },
-    { $sort: { views: -1 } },
+    { $sort: { date: 1 } },
   ];
   const aggregate = Comment.aggregate(query);
   const result = await Comment.aggregatePaginate(aggregate, {

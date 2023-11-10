@@ -48,7 +48,7 @@ const TopicActions = ({ topic }: Props) => {
           <li>
             <a
               onClick={() =>
-                document.getElementById("deletion_modal")?.showModal()
+                document.getElementById("topic_deletion_modal")?.showModal()
               }
             >
               Delete
@@ -56,7 +56,7 @@ const TopicActions = ({ topic }: Props) => {
           </li>
         </ul>
       </div>
-      <dialog id="deletion_modal" className="modal">
+      <dialog id="topic_deletion_modal" className="modal">
         <div className="modal-box">
           <h3 className="font-bold text-lg">Are you sure?</h3>
           <p className="py-4">
