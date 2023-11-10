@@ -8,6 +8,7 @@
 - [ ] Extract and encapsulate UI & functionalities out of pages
 - [ ] Edit comments
 - [ ] Be able to view image by clicking on carousel
+- [ ] Responsive
 
 ## Used dependencies & their purposes
 

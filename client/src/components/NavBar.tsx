@@ -44,35 +44,24 @@ const NavBar = () => {
           </ul>
         </div>
         {user ? (
-          <Link to="/me">
-            <div className="w-8 mask mask-hexagon">
-              <img src={user.image || unknown} alt="profile" />
-            </div>
-          </Link>
+          <>
+            <Link
+              className="btn btn-sm bg-base-300 border-base-300"
+              to="/topic/new"
+            >
+              New
+            </Link>
+            <Link to="/me">
+              <div className="w-8 mask mask-hexagon">
+                <img src={user.image || unknown} alt="profile" />
+              </div>
+            </Link>
+          </>
         ) : (
           <Link className="btn btn-sm bg-base-300 border-base-300" to="/login">
             Log In
           </Link>
         )}
-        {/* <ul className="menu menu-horizontal px-1 items-center">
-          <li>
-            <Link to="/group-buy">Group Buy</Link>
-          </li>
-          <li>
-            <Link to="/interest-check">Interest Check</Link>
-          </li>
-          <li>
-            {user ? (
-              <Link to="/me">
-                <div className="w-8 mask mask-hexagon">
-                  <img src={user.image || unknown} alt="profile" />
-                </div>
-              </Link>
-            ) : (
-              <Link to="/login">Log In</Link>
-            )}
-          </li>
-        </ul> */}
       </div>
     </div>
   );

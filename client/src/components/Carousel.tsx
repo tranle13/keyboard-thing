@@ -50,6 +50,7 @@ const Carousel = ({ images }: Props) => {
       <div className="bg-primary-content w-[80%] aspect-video relative flex justify-center items-center rounded-xl overflow-hidden">
         <AnimatePresence initial={false} custom={direction}>
           <motion.img
+            // className="w-full h-full object-cover"
             key={page}
             src={images[imageIndex].url}
             custom={direction}

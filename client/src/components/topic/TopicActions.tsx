@@ -47,9 +47,15 @@ const TopicActions = ({ topic }: Props) => {
           </li>
           <li>
             <a
-              onClick={() =>
-                document.getElementById("topic_deletion_modal")?.showModal()
-              }
+              onClick={() => {
+                if (document) {
+                  (
+                    document.getElementById(
+                      "topic_deletion_modal"
+                    ) as HTMLFormElement
+                  ).showModal();
+                }
+              }}
             >
               Delete
             </a>
