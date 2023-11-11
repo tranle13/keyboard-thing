@@ -8,7 +8,7 @@ const BurgerMenu = () => {
 
   return (
     <div className="sm:hidden dropdown dropdown-end">
-      <label tabIndex={0} className="btn text-3xl p-0">
+      <label tabIndex={0} className="btn text-3xl p-0 bg-transparent border-0">
         <HiMenuAlt3 />
       </label>
       <ul

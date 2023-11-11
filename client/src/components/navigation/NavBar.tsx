@@ -54,11 +54,27 @@ const NavBar = () => {
               >
                 New
               </Link>
-              <Link to="/me">
-                <div className="w-8 mask mask-hexagon">
-                  <img src={user.image || unknown} alt="profile" />
-                </div>
-              </Link>
+              <div className="dropdown dropdown-hover dropdown-end">
+                <label
+                  tabIndex={0}
+                  className="btn btn-sm bg-base-300 border-base-300"
+                >
+                  <div className="w-8 mask mask-hexagon">
+                    <img src={user.image || unknown} alt="profile" />
+                  </div>
+                </label>
+                <ul
+                  tabIndex={0}
+                  className="dropdown-content z-[1] menu p-2 shadow-2xl bg-secondary text-secondary-content rounded-box w-52"
+                >
+                  <li>
+                    <Link to="/me">Profile</Link>
+                  </li>
+                  <li>
+                    <Link to="/logout">Log Out</Link>
+                  </li>
+                </ul>
+              </div>
             </>
           ) : (
             <Link

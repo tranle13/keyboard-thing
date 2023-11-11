@@ -1,5 +1,12 @@
+import authService from "@/queries/services/authService";
+import { useEffect } from "react";
+
 const Logout = () => {
-  return <div>Logout</div>;
+  useEffect(() => {
+    authService.logout();
+    window.location.href = "/";
+  }, []);
+  return null;
 };
 
 export default Logout;
