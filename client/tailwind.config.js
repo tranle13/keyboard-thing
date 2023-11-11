@@ -4,6 +4,9 @@ import * as daisyui from "daisyui";
 export default {
   content: ["./index.html", "./src/**/*.{ts,tsx}"],
   theme: {
+    screen: {
+      xsm: "425px",
+    },
     extend: {
       colors: {
         cream: "#fcffea",
