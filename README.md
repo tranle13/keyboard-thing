@@ -9,6 +9,8 @@
 - [ ] Edit comments
 - [ ] Be able to view image by clicking on carousel
 - [ ] Responsive
+- [ ] Log out
+- [ ] View others' profiles
 
 ## Used dependencies & their purposes
 
