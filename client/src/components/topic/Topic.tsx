@@ -5,8 +5,8 @@ import { formatDate } from "@/utils";
 import { decode } from "html-entities";
 import parse from "html-react-parser";
 import { useSnapshot } from "valtio";
-import Carousel from "./Carousel";
-import TopicActions from "./topic/TopicActions";
+import Carousel from "../Carousel";
+import TopicActions from "./TopicActions";
 
 interface Props {
   topic: TopicInterface;

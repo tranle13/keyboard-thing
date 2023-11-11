@@ -2,7 +2,7 @@ import useComments from "@/queries/hooks/useComments";
 import state from "@/store";
 import { useState } from "react";
 import { useSnapshot } from "valtio";
-import Pagination from "../Pagination";
+import Pagination from "../navigation/Pagination";
 import Comment from "./Comment";
 import CommentForm from "./CommentForm";
 

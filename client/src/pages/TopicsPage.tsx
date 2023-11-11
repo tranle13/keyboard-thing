@@ -1,4 +1,4 @@
-import Topics from "@/components/Topics";
+import Topics from "@/components/topic/Topics";
 import { useTopics } from "@/queries/hooks/useTopics";
 import { useState } from "react";
 
