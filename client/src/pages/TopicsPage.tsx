@@ -27,7 +27,7 @@ const TopicsPage = ({ status }: Props) => {
       <Topics
         data={data}
         setCurrentPage={(nextPage) => setCurrentPage(nextPage)}
-        extraClass="grid-cols-[repeat(auto-fit,minmax(320px,1fr))]"
+        extraClass="max-sm:grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5"
         isLoading={isLoading}
         error={error}
       />

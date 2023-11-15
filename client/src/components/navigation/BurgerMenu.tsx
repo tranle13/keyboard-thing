@@ -15,9 +15,11 @@ const BurgerMenu = () => {
         tabIndex={0}
         className="dropdown-content z-[1] menu p-4 shadow bg-base-200 rounded-box w-52 text-lg"
       >
-        <li>
-          <a href="/topic/new">New</a>
-        </li>
+        {snap.user && (
+          <li>
+            <a href="/topic/new">New</a>
+          </li>
+        )}
         <li>
           <details open>
             <summary>Topic</summary>

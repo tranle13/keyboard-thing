@@ -17,7 +17,7 @@ const HomePage = () => {
       <h3 className="text-4xl font-bold mb-5">Trending Projects</h3>
       <Topics
         data={data}
-        extraClass="grid-cols-[repeat(auto-fit,minmax(300px,1fr))]"
+        extraClass="max-sm:grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5"
         isLoading={isLoading}
         error={error}
         setCurrentPage={(nextPage) => setCurrentPage(nextPage)}

@@ -14,14 +14,15 @@ const Intro = () => {
           to bring your dream keyboard to life.
         </p>
       </div>
-      <div className="rounded-2xl w-[450px] h-[450px] m-auto relative">
-        <div className="w-[350px] h-[300px] spline-wrapper bg-primary rounded-full overflow-hidden absolute top-[15%] right-[8%]">
-          {/* figure out how to make this responsive later with GLTF */}
-          <Spline
-            style={{ width: "100px", height: "100px" }}
-            scene="https://prod.spline.design/gSd9abPuMNh0AKU6/scene.splinecode"
-          />
+      <div className="rounded-2xl w-[450px] max-[425px]:h-max max-[425px]:py-10 h-[450px] m-auto relative">
+        <div className="max-[425px]:hidden w-[350px] h-[300px] spline-wrapper bg-primary rounded-full overflow-hidden absolute top-[15%] right-[8%]">
+          <Spline scene="https://prod.spline.design/gSd9abPuMNh0AKU6/scene.splinecode" />
         </div>
+        <img
+          className="min-[425px]:hidden"
+          src="https://media.giphy.com/media/hiJ9ypGI5tIKdwKoK2/giphy.gif"
+          alt="keyboard-gif"
+        />
       </div>
     </div>
   );
