@@ -1,4 +1,4 @@
-import Topics from "@/components/Topics";
+import Topics from "@/components/topic/Topics";
 import { useTopics } from "@/queries/hooks/useTopics";
 import { useState } from "react";
 import Intro from "../components/Intro";
@@ -17,7 +17,7 @@ const HomePage = () => {
       <h3 className="text-4xl font-bold mb-5">Trending Projects</h3>
       <Topics
         data={data}
-        extraClass="grid-cols-[repeat(auto-fit,minmax(320px,1fr))]"
+        extraClass="max-sm:grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5"
         isLoading={isLoading}
         error={error}
         setCurrentPage={(nextPage) => setCurrentPage(nextPage)}

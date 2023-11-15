@@ -67,9 +67,9 @@ const RegisterPage = () => {
 
   // SECTION = Return
   return (
-    <div className="flex flex-1">
+    <div className="flex flex-1 relative max-md:justify-center max-md:items-center">
       <div
-        className="w-1/2"
+        className="md:w-1/2 max-md:absolute max-md:w-full max-md:h-full max-md:blur-[2px]"
         style={{
           background: `url(${signupImg})`,
           minHeight: "calc(100vh - 76px)",

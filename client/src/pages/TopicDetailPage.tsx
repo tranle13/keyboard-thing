@@ -1,7 +1,7 @@
 import { loading } from "@/assets";
 import Comments from "@/components/comments/Comments";
-import Topic from "@/components/Topic";
-import TopicHeader from "@/components/TopicHeader";
+import Topic from "@/components/topic/Topic";
+import TopicHeader from "@/components/topic/TopicHeader";
 import useTopic from "@/queries/hooks/useTopic";
 import { useParams } from "react-router-dom";
 

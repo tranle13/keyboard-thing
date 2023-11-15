@@ -2,7 +2,7 @@ import { unknown } from "@/assets";
 import { badges } from "@/constants";
 import { Topics as TopicsType } from "@/entities/Topics";
 import { AiOutlineCloseCircle } from "react-icons/ai";
-import Pagination from "./Pagination";
+import Pagination from "../navigation/Pagination";
 
 interface Props {
   data?: TopicsType;

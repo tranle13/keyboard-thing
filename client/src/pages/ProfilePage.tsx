@@ -1,6 +1,6 @@
 import { bg } from "@/assets";
 import InfoEdit from "@/components/InfoEdit";
-import Topics from "@/components/Topics";
+import Topics from "@/components/topic/Topics";
 import { useUserTopics } from "@/queries/hooks/useTopics";
 import authService from "@/queries/services/authService";
 import { useState } from "react";

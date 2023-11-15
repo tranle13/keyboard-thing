@@ -26,9 +26,9 @@ export const Form: FC<FormProps> = ({
   const navigate = useNavigate();
 
   return (
-    <div className="w-1/2 flex justify-center items-center">
+    <div className="md:w-1/2 flex justify-center items-center sm:w-2/3 w-[90%] max-md:bg-white z-10 max-md:h-max max-md:py-10 max-md:rounded-2xl">
       <form
-        className="flex flex-col gap-7 w-2/3 max-w-[500px] relative"
+        className="flex flex-col gap-7 w-[90%] min-[425px]:w-2/3 max-w-[500px] relative max-[425px]:gap-3"
         onSubmit={handler}
       >
         {header}
@@ -49,7 +49,7 @@ export const Form: FC<FormProps> = ({
 
         <div className="divider after:h-[1px] before:h-[1px]" />
 
-        <div className="flex gap-3 text-sm justify-center">
+        <div className="flex gap-3 text-sm justify-center max-[320px]:flex-col max-[320px]:gap-1 max-[320px]:items-center max-md:text-lg">
           <span className="text-neutral-content">{secondaryText}</span>
           <button
             className="hover:underline"
