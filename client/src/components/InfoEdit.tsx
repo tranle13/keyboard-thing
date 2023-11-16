@@ -10,9 +10,10 @@ import state from "../store";
 
 interface Props {
   user: User;
+  allowEdit: boolean;
 }
 
-const InfoEdit = ({ user }: Props) => {
+const InfoEdit = ({ user, allowEdit }: Props) => {
   // SECTION = Constants
   const token = authServices.getJwt();
 
@@ -39,12 +40,14 @@ const InfoEdit = ({ user }: Props) => {
       <div className="flex flex-col gap-3 w-full mt-5">
         <p className="text-sm text-base-content/50 w-full">{me.username}</p>
         <p>{me.bio}</p>
-        <button
-          className="btn-block btn btn-primary btn-sm"
-          onClick={() => setIsEdit(true)}
-        >
-          Edit profile
-        </button>
+        {allowEdit && (
+          <button
+            className="btn-block btn btn-primary btn-sm"
+            onClick={() => setIsEdit(true)}
+          >
+            Edit profile
+          </button>
+        )}
       </div>
     );
   };

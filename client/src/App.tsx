@@ -8,6 +8,7 @@ import AuthProvider from "./context/AuthProvider";
 import ErrorPage from "./pages/ErrorPage";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
+import MePage from "./pages/MePage";
 import ProfilePage from "./pages/ProfilePage";
 import RegisterPage from "./pages/RegisterPage";
 import TopicDetailPage from "./pages/TopicDetailPage";
@@ -30,7 +31,7 @@ function App() {
                 <Route path="/topic/new" element={<TopicEditPage />} />
                 <Route path="/topic/:id/edit" element={<TopicEditPage />} />
                 <Route path="/logout" element={<Logout />} />
-                <Route path="/me" element={<ProfilePage />} />
+                <Route path="/me" element={<MePage />} />
               </Route>
               <Route path="/" index element={<HomePage />} />
               <Route path="/login" element={<LoginPage />} />
@@ -42,6 +43,7 @@ function App() {
               <Route path="/group-buy" element={<TopicsPage status="GB" />} />
               <Route path="/closed" element={<TopicsPage status="CLOSED" />} />
               <Route path="/topic/:id" element={<TopicDetailPage />} />
+              <Route path="/profile/:usn" element={<ProfilePage />} />
               <Route path="*" element={<ErrorPage />} />
             </Routes>
           </>

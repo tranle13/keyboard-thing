@@ -6,6 +6,7 @@ import { decode } from "html-entities";
 import parse from "html-react-parser";
 import { useSnapshot } from "valtio";
 import Carousel from "../Carousel";
+import LinkToProfile from "../LinkToProfile";
 import TopicActions from "./TopicActions";
 
 interface Props {
@@ -22,15 +23,18 @@ const Topic = ({ topic }: Props) => {
             <div className="flex gap-3 items-center">
               <div className="avatar">
                 <div className="w-8 h-8 mask mask-hexagon">
-                  <img
-                    className=""
-                    src={topic.author.image || unknown}
-                    alt="author-profile-picture"
-                  />
+                  <LinkToProfile username={topic.author.username}>
+                    <img
+                      src={topic.author.image || unknown}
+                      alt="author-profile-picture"
+                    />
+                  </LinkToProfile>
                 </div>
               </div>
               <div className="flex flex-col flex-1">
-                <span className="font-bold">{topic.author.username}</span>
+                <LinkToProfile username={topic.author.username}>
+                  <span className="font-bold">{topic.author.username}</span>
+                </LinkToProfile>
                 <span className="text-xs">
                   posted on {formatDate(topic.date_posted)}
                 </span>

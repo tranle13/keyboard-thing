@@ -5,6 +5,7 @@ import { formatDate } from "@/utils";
 import { decode } from "html-entities";
 import parse from "html-react-parser";
 import { useSnapshot } from "valtio";
+import LinkToProfile from "../LinkToProfile";
 import CommentActions from "./CommentActions";
 
 interface Props {
@@ -20,17 +21,21 @@ const Comment = ({ comment, currentPage }: Props) => {
       <div className="flex gap-3 items-center">
         <div className="avatar">
           <div className="w-8 h-8 mask mask-hexagon">
-            <img
-              className=""
-              src={comment.author.image || unknown}
-              alt="author-profile-picture"
-            />
+            <LinkToProfile username={comment.author.username}>
+              <img
+                className=""
+                src={comment.author.image || unknown}
+                alt="author-profile-picture"
+              />
+            </LinkToProfile>
           </div>
         </div>
         <div className="flex flex-col flex-1">
-          <span className="text-base-content font-bold">
-            {comment.author.username}
-          </span>
+          <LinkToProfile username={comment.author.username}>
+            <span className="text-base-content font-bold">
+              {comment.author.username}
+            </span>
+          </LinkToProfile>
           <span className="text-neutral-content text-xs">
             posted on {formatDate(comment.date)}
           </span>

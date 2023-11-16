@@ -18,7 +18,9 @@ router.get("/me", auth, async (req, res) => {
 
 // GET a user
 router.get("/:usn", auth, async (req, res) => {
-  const user = await User.findById(req.params.id).select("-password -topics");
+  const user = await User.findOne({ username: req.params.usn }).select(
+    "-password -topics"
+  );
 
   if (!user) return res.status(404).send("This user does not exist");
 
