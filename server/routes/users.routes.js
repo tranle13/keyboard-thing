@@ -7,7 +7,7 @@ const bcrypt = require("bcrypt");
 const { User, validate } = require("../models/user.model");
 const { Topic } = require("../models/topic.model");
 const auth = require("../middleware/auth");
-const { default: mongoose } = require("mongoose");
+const mongoose = require("mongoose");
 const router = express.Router();
 
 // GET current user
@@ -36,6 +36,16 @@ router.get("/:usn/topics", auth, async (req, res) => {
   const aggregate = Topic.aggregate([
     { $match: { author: user._id } },
     { $sort: { date_posted: -1 } },
+    {
+      $lookup: {
+        from: "users",
+        localField: "author",
+        foreignField: "_id",
+        as: "author",
+        pipeline: [{ $project: { image: 1, username: 1, _id: 1 } }],
+      },
+    },
+    { $unwind: "$author" },
   ]);
   const result = await Topic.aggregatePaginate(aggregate, { page, limit });
 

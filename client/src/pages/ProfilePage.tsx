@@ -1,4 +1,3 @@
-import { bg } from "@/assets";
 import InfoEdit from "@/components/InfoEdit";
 import Topics from "@/components/topic/Topics";
 import { useUserTopics } from "@/queries/hooks/useTopics";
@@ -29,20 +28,15 @@ const ProfilePage = () => {
   }
 
   return (
-    <div className="flex gap-5 justify-center w-full relative flex-1 pb-10">
-      <img
-        src={bg}
-        alt="background-image"
-        className="absolute h-[200px] w-full object-cover bg-base-200 blur-[2px]"
-        loading="lazy"
-      />
-
+    <div className="flex gap-5 justify-center w-full relative flex-1 my-5 max-md:flex-col max-md:items-center">
       <InfoEdit user={user} />
 
-      <div className="flex flex-col bg-base-300 p-10 rounded-2xl w-1/2 z-10 mt-[150px] gap-5 h-[calc(100vh-266px)] flex-none min-h-[500px]">
+      <div className="flex flex-col bg-base-300 p-10 rounded-2xl w-[92%] md:w-1/2 z-10 gap-5 h-[calc(100vh-104px)] flex-none min-h-[500px] max-md:z-0">
         <div className="tabs tabs-boxed p-0 flex-none">
           <a
-            className={`tab w-1/2 ${checked.createdTopic ? "tab-active" : ""}`}
+            className={`tab w-1/2 h-fit ${
+              checked.createdTopic ? "tab-active" : ""
+            }`}
             onClick={() =>
               setChecked({
                 createdTopic: true,
@@ -53,7 +47,9 @@ const ProfilePage = () => {
             Created topics
           </a>
           <a
-            className={`tab w-1/2 ${checked.followedTopic ? "tab-active" : ""}`}
+            className={`tab w-1/2 h-fit ${
+              checked.followedTopic ? "tab-active" : ""
+            }`}
             onClick={() =>
               setChecked({
                 createdTopic: false,
@@ -68,7 +64,7 @@ const ProfilePage = () => {
           <Topics
             data={data}
             setCurrentPage={(nextPage) => setCurrentPage(nextPage)}
-            extraClass="grid-cols-[repeat(auto-fit,minmax(30%,47%))]"
+            extraClass="max-md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3"
             isLoading={isLoading}
             error={error}
           />

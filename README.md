@@ -1,14 +1,16 @@
 # TODO
 
-- [ ] Error page with 3D (?)
-- [ ] Explore Threejs with exported 3D models & textures from Spline
+- [ ] Error page for 404 page
+- [ ] Search engine
+- [ ] Empty state page for empty posts/search results
+- [ ] Add error logs before deployment
 - [ ] Chats between users (?)
 - [ ] Store uploaded images for profile and background
 - [x] Allow user to change theme
 - [ ] Extract and encapsulate UI & functionalities out of pages
 - [ ] Edit comments
 - [ ] Be able to view image by clicking on carousel
-- [ ] Responsive
+- [x] Responsive
 - [x] Log out
 - [ ] View others' profiles
 - [ ] Allow user to follow projects
